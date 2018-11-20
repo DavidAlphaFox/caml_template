@@ -1,0 +1,7 @@
+TOOLS_DIR := $(TOP_DIR)/tools
+
+COLLECT_FILES := $(TOOLS_DIR)/collect_files
+OCAMLFIND := ocamlfind
+CAMLTEMPLATE_DIR := $(TOP_DIR)/src
+
+CAMLTEMPLATE_LIB := $(TOP_DIR)/src/camltemplate

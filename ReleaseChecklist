@@ -1,0 +1,13 @@
+Set version number in src/META.
+
+Set version number in camltemplate.godiva.
+
+Set version number and date in doc/manual/manual.tex.
+
+Update NEWS.
+
+Update ChangeLog: C-x v a
+
+Tag the repository: cvs tag rel-x-y-z .
+
+make dist

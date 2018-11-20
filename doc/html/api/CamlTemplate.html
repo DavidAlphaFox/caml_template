@@ -1,0 +1,114 @@
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="Start" href="index.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of class methods" rel=Appendix href="index_methods.html">
+<link title="Index of class types" rel=Appendix href="index_class_types.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="CamlTemplate" rel="Chapter" href="CamlTemplate.html"><link title="Overview" rel="Section" href="#1_Overview">
+<link title="Template Data Models" rel="Section" href="#1_TemplateDataModels">
+<link title="Templates" rel="Section" href="#1_Templates">
+<link title="Exceptions" rel="Section" href="#1_Exceptions">
+<link title="Template Loading and Caching" rel="Section" href="#1_TemplateLoadingandCaching">
+<link title="Miscellaneous" rel="Section" href="#1_Miscellaneous">
+<title>CamlTemplate API Documentation : CamlTemplate</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a href="index.html">Up</a>
+&nbsp;</div>
+<center><h1>Module <a href="type_CamlTemplate.html">CamlTemplate</a></h1></center>
+<br>
+<pre><span class="keyword">module</span> CamlTemplate: <code class="code">sig</code> <a href="CamlTemplate.html">..</a> <code class="code">end</code></pre>A template processor.
+<p>
+
+  Copyright © 2003, 2004, 2005 Benjamin Geer.  Please see the file COPYING
+  for licence information.
+<p>
+
+  The latest version of this software can be found at
+  <a href="http://saucecode.org/camltemplate">http://saucecode.org/camltemplate</a>.<br>
+<hr width="100%">
+<br>
+<a name="1_Overview"></a>
+<h1>Overview</h1>
+<p>
+
+  To use templates, first write template source code (see the manual
+  for instructions).  Then create a template cache using the
+  <a href="CamlTemplate.Cache.html"><code class="code">CamlTemplate.Cache</code></a> module, and call
+  <a href="CamlTemplate.Cache.html#VALget_template"><code class="code">CamlTemplate.Cache.get_template</code></a> to create a
+  <a href="CamlTemplate.html#TYPEtemplate"><code class="code">CamlTemplate.template</code></a> from your template source code.
+<p>
+
+  To marge a template with data, put the data in a
+  <a href="CamlTemplate.Model.html#TYPEthash"><code class="code">CamlTemplate.Model.thash</code></a>.  Then call <a href="CamlTemplate.html#VALmerge"><code class="code">CamlTemplate.merge</code></a>.<br>
+<br>
+<a name="1_TemplateDataModels"></a>
+<h1>Template Data Models</h1><br>
+<pre><span class="keyword">module</span> <a href="CamlTemplate.Model.html">Model</a>: <code class="code">sig</code> <a href="CamlTemplate.Model.html">..</a> <code class="code">end</code></pre><div class="info">
+Provides the types used in the data models that are merged with
+  templates.
+</div>
+<br>
+<a name="1_Templates"></a>
+<h1>Templates</h1><br>
+<pre><span class="keyword">type</span> <a name="TYPEtemplate"></a><code class="type"></code>template </pre>
+<div class="info">
+Represents a parsed template.<br>
+</div>
+
+<pre><span class="keyword">val</span> <a name="VALmerge"></a>merge : <code class="type">tmpl:<a href="CamlTemplate.html#TYPEtemplate">template</a> -><br>       model:<a href="CamlTemplate.Model.html#TYPEthash">Model.thash</a> -> buf:Buffer.t -> unit</code></pre><div class="info">
+Merges the data in a <a href="CamlTemplate.Model.html#TYPEthash"><code class="code">CamlTemplate.Model.thash</code></a> with
+  the template, and returns the resulting text in the buffer
+  provided.<br>
+<b>Raises</b> <code>Template_error</code> if an error occurs in the
+  template.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALget_name"></a>get_name : <code class="type"><a href="CamlTemplate.html#TYPEtemplate">template</a> -> string</code></pre><div class="info">
+Returns the name of a template.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALdump"></a>dump : <code class="type"><a href="CamlTemplate.html#TYPEtemplate">template</a> -> string</code></pre><div class="info">
+Returns a simple string representation of the parse tree,
+  for debugging purposes.<br>
+</div>
+<br>
+<a name="1_Exceptions"></a>
+<h1>Exceptions</h1><br>
+<pre><span class="keyword">exception</span> <a name="EXCEPTIONSyntax_error"></a>Syntax_error <span class="keyword">of</span> <code class="type">string</code></pre>
+<div class="info">
+Raised if an error is found when parsing template source code.<br>
+</div>
+<pre><span class="keyword">exception</span> <a name="EXCEPTIONTemplate_error"></a>Template_error <span class="keyword">of</span> <code class="type">string</code></pre>
+<div class="info">
+Raised if an error occurs when merging data with a template.<br>
+</div>
+<br>
+<a name="1_TemplateLoadingandCaching"></a>
+<h1>Template Loading and Caching</h1><br>
+<pre><span class="keyword">module</span> <a href="CamlTemplate.Cache.html">Cache</a>: <code class="code">sig</code> <a href="CamlTemplate.Cache.html">..</a> <code class="code">end</code></pre><div class="info">
+Caches templates.
+</div>
+<br>
+<a name="1_Miscellaneous"></a>
+<h1>Miscellaneous</h1><br>
+<pre><span class="keyword">val</span> <a name="VALadd_web_functions"></a>add_web_functions : <code class="type"><a href="CamlTemplate.Model.html#TYPEthash">Model.thash</a> -> unit</code></pre><div class="info">
+Adds the following template functions to a template data model:
+<p>
+<ul>
+<li><code class="code">urlEncode</code> URL-encodes a string.</li>
+<li><code class="code">escHtml</code> Escapes special characters in text to be included in an HTML document.</li>
+<li><code class="code">escHtmlAttr</code> Escapes special characters in text to be included in an HTML attribute.</li>
+<li><code class="code">escHtmlTextarea</code> Escapes special characters in text to be included in an HTML <code class="code">textarea</code>.</li>
+<li><code class="code">asList</code> Converts any value to a list, if it isn't already a list.  If the argument is
+  a list, returns the argument.  If the argument is null, returns an empty list.  Otherwise,
+  returns a single-element list containing the argument.  This may be useful for dealing with
+  form input fields that can have multiple values.</li>
+</ul>
+
+  Each of these functions expects one argument.<br>
+</div>
+</body></html>

@@ -1,0 +1,14 @@
+CamlTemplate is a template processor for Objective Caml.
+
+See INSTALL for installation instructions.
+
+See COPYING for the licence.
+
+The 'doc' subdirectory of the distribution contains API documentation
+and a manual in HTML format (in 'doc/html/api' and 'doc/html/manual';
+the manual is also provided in PDF format (in 'doc/pdf').
+
+For the latest version, and to report bugs, visit the project's
+web site:
+
+  http://forge.ocamlcore.org/projects/camltemplate/

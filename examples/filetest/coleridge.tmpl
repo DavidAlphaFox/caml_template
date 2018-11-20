@@ -1,0 +1,271 @@
+#*
+
+A template for testing CamlTemplate.
+
+$Id: coleridge.tmpl,v 1.20 2004-09-02 21:14:18 ben Exp $
+
+*#
+
+#open ("macro.tmpl")
+
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>${title}</title>
+</head>
+
+<body>
+<h1>${title}</h1>
+
+#set (birthdate = poet.birthdate)
+
+<p>Here are some excerpts from poems by ${poet.name}, who was born on
+#formatDate (birthdate.year, birthdate.month, birthdate.day).
+
+<p>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Year</th>
+      <th>Poet's age at time of writing</th>
+      <th>Excerpt</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    #set (bgcolor = "white")
+
+    #foreach (poem in poems)
+      <tr bgcolor="${bgcolor}">
+        <td>${poem.title}</td>
+        <td>${poem.year}</td>
+        <td>${poem.year - birthdate.year}</td>
+        <td>${poem.excerpt}</td>
+      </tr>
+
+      #if (bgcolor == "white")
+        #set (bgcolor = "yellow")
+      #else
+        #set (bgcolor = "white")
+      #end
+    #end
+  </tbody>
+</table>
+
+<p>Some expressions:
+
+<p>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>Expression</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>48 * -3 + 12 - 1 / 6</td>
+      <td>${48 * -3 + 12 - 1 / 6}</td>
+    </tr>
+
+    <tr>
+      <td>(48 * (-3 + (12 - 1))) / 6</td>
+      <td>${(48 * (-3 + (12 - 1))) / 6}</td>
+    </tr>
+
+    <tr>
+      <td>(48 * (-3.45 + (12 - 1))) / 6.7</td>
+      <td>${(48 * (-3.45 + (12 - 1))) / 6.7}</td>
+    </tr>
+
+    <tr>
+      <td>"Poems by " + poet.name</td>
+      <td>${"Poems by " + poet.name}</td>
+    </tr>
+
+    <tr>
+      <td>"Poems by \"" + poet.name + "\""</td>
+      <td>${"Poems by \"" + poet.name + "\""}</td>
+    </tr>
+
+    <tr>
+      <td>substring("Hello, world", 7, 5)</td>
+      <td>${substring("Hello, world", 7, 5)}</td>
+    </tr>
+  </tbody>            
+</table>
+
+<p>Scalar values are true if they exist and are non-zero or non-empty;
+list and hash values are true if they exist:</p>
+
+#set (empty = "")
+
+<blockquote>
+#if (foo)
+  You won't see this line.
+#elseif (empty || 0)
+  Or this one.
+#elseif (poems && title && poet)
+  This line will be included.
+#else#
+  And this one won't.
+#end#
+</blockquote>
+
+<p>There are boolean true and false literals:</p>
+
+<blockquote>
+#if (false)
+  This line won't be shown.
+#elseif (false || (true && poet))
+  This line will be shown.
+#end
+</blockquote>
+
+<p>Scopes:
+
+<p>
+<table border="1">
+  <thead>
+    <tr>
+      <th>Expected</th>
+      <th>Actual</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>"foo"</td>
+      <td>#foo()</td>
+    </tr>
+
+    <tr>
+      <td>"bar"</td>
+      <td>#bar()</td>
+    </tr>
+
+    <tr>
+      <td>""</td>
+      <td>#baz()</td>
+    </tr>
+
+    <tr>
+      <td>"foo"</td>
+      <td>#quux()</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>An inline macro:
+
+#macro print_poet_name (poet_name)
+The poet's name is ${poet_name}.
+#end
+
+<blockquote>
+  #print_poet_name (poet.name)
+</blockquote>
+
+<p>The bracket operator:
+
+<blockquote>
+${poet["name"]} was born in ${poet["birthdate"]["year"]}.
+</blockquote>
+
+<p>Some text to be HTML-escaped:
+
+<blockquote>
+${escHtml(someText)}
+</blockquote>
+
+<p>Dollar signs can be used unescaped, as long as they're
+not followed by '{':</p>
+
+<blockquote>
+The apples cost $3.00.
+</blockquote>
+
+<p>It's possible to escape print expressions:</p>
+
+<blockquote>
+\${poet.name}
+</blockquote>
+
+<p>With two backslashes, you get:</p>
+
+<blockquote>
+\\${poet.name}
+</blockquote>
+
+<p>A dollar sign followed by an expansion:</p>
+
+<blockquote>
+$${poet.name}
+</blockquote>
+
+<p>A dollar sign followed by an escape:</p>
+
+<blockquote>
+$\${poet.name}
+</blockquote>
+
+<p>You can also escape directives:</p>
+
+<blockquote>
+  \#if (poet)<br>
+    Do something.<br>
+  \#end<br>
+</blockquote>
+
+<p>Escapes in string literals:</p>
+
+#set (b = "\\")
+#set (n = "\n")
+#set (t = "\t")
+#set (q = "\"")
+
+<pre>
+${t}A quotation mark: ${q}${n}${t}And a backslash: ${b}
+</pre>
+
+<p>Nested comments:</p>
+
+#* Here's another comment.
+
+   #* With a nested comment.
+
+      Containing a string: "Hello, world!"
+
+      And a string with comment characters: "*#"
+   *#
+*#
+
+<p>A string containing comment characters:</p>
+
+<blockquote>
+  ${"#* This isn't a comment."}
+</blockquote>
+
+<p>You can write \#else\# and \#end\# to avoid newlines:</p>
+
+<blockquote>
+The poet's name is #if (poet)${poet.name}#else# This won't be shown#end#.
+</blockquote>
+
+<p>Some UTF-8 text:
+
+<blockquote>
+En général, les techniciens sont prêts à répondre uniquement aux questions concernant
+les logiciels qu'ils maintiennent.
+</blockquote>
+
+A footer, included from another file:
+
+#include ("footer.tmpl")
+
+</body>
+</html>

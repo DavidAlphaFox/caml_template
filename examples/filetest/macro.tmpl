@@ -1,0 +1,38 @@
+#*
+
+Macros used in coleridge.tmpl.
+
+$Id: macro.tmpl,v 1.6 2004-05-03 19:34:53 ben Exp $
+
+*#
+
+#macro formatDate(year, month, day)
+  #var (monthPrefix)
+  #var (dayPrefix)
+  #if (month < 10)
+    #set (monthPrefix = "0")
+  #end
+  #if (day < 10)
+    #set (dayPrefix = "0")
+  #end
+${year}-${monthPrefix}${month}-${dayPrefix}${day}\
+#end
+
+#macro foo()
+  #set (x = "foo") #* Sets x in template scope *#
+"${x}" #* Uses x from template scope *#
+#end
+
+#macro bar()
+  #var (x = "bar") #* Sets local x *#
+"${x}" #* Uses local x *#
+#end
+
+#macro baz()
+  #var (x) #* Sets local x to null *#
+"${x}" #* Uses local x *#
+#end
+
+#macro quux()
+"${x}" #* Uses x in template scope *#
+#end

@@ -1,0 +1,1083 @@
+% CamlTemplate: A template processor for Objective Caml programs.
+% Copyright © 2003, 2004, 2005 Benjamin Geer
+%  
+% This program is free software; you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation; either version 2 of the License, or
+% (at your option) any later version.
+%  
+% This program is distributed in the hope that it will be useful, but
+% WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% General Public License for more details.
+%  
+% You should have received a copy of the GNU General Public License
+% along with this program; if not, write to the Free Software
+% Foundation, Inc., 51 Franklin St., 5th Floor, Boston MA 02110-1301
+% USA
+%  
+% In addition, as a special exception, Benjamin Geer gives permission
+% to link the code of this program with the Apache HTTP Server (or
+% with modified versions of Apache that use the same license as
+% Apache), and distribute linked combinations including the two. You
+% must obey the GNU General Public License in all respects for all of
+% the code used other than Apache. If you modify this file, you may
+% extend this exception to your version of the file, but you are not
+% obligated to do so. If you do not wish to do so, delete this
+% exception statement from your version.
+
+% $Id: manual.tex,v 1.86 2008-06-25 07:59:10 gds Exp $
+
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{times}
+\usepackage{t1enc}
+\usepackage[british]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{hevea}
+\usepackage{url}
+\usepackage{graphics}
+\usepackage{epsf}
+
+\title{The CamlTemplate Manual \\ Version 1.0.1}
+\author{Benjamin Geer}
+\date{7 July 2005}
+
+\urldef{\camltemplatepage}{\url}{http://saucecode.org/camltemplate}
+\urldef{\camltemplatelistpage}{\url}{http://lists.saucecode.org/wws/info/camltemplate}
+\urldef{\camltemplatefaqpage}{\url}{http://saucecode.org/camltemplate/faq.html}
+\urldef{\ocamlpage}{\url}{http://caml.inria.fr}
+\urldef{\modcamlpage}{\url}{http://merjis.com/developers/mod_caml/}
+\urldef{\fastcgipage}{\url}{http://www.fastcgi.com/}
+\urldef{\ocamlcgipage}{\url}{http://sourceforge.net/projects/ocaml-cgi/}
+\urldef{\freeswpage}{\url}{http://www.gnu.org/philosophy/free-sw.html}
+\urldef{\gplpage}{\url}{http://www.gnu.org/copyleft/gpl.html}
+\urldef{\freemarkerpage}{\url}{http://www.freemarker.org}
+\urldef{\velocitypage}{\url}{http://jakarta.apache.org/velocity/}
+\urldef{\findlibpage}{\url}{http://www.ocaml-programming.de/packages/}
+\urldef{\apachebugpage}{\url}{http://issues.apache.org/bugzilla/show_bug.cgi?id=27550}
+\urldef{\godipage}{\url}{http://www.ocaml-programming.de/godi/}
+
+\hyphenation{Caml-Template}
+
+\begin{document}
+\selectlanguage{british}
+
+\maketitle
+
+\section{Introduction}
+
+This manual describes how to use CamlTemplate, a template processor for
+\footahref{\ocamlpage}{Objective Caml} programs.  It can be used to generate web pages,
+scripts, SQL queries, XML documents and other sorts of text.
+
+\subsection{About This Manual}
+
+This manual is provided in HTML and PDF formats in the CamlTemplate
+distribution.
+
+\subsection{Licence}
+
+CamlTemplate is \footahref{\freeswpage}{free software}, released under the
+\footahref{\gplpage}{GNU General Public License}.  This manual is released under the same
+licence.
+
+In addition, as a special exception, Benjamin Geer gives permission to link the code of
+this program with the Apache HTTP Server (or with modified versions of Apache that use the
+same license as Apache), and distribute linked combinations including the two. You must
+obey the GNU General Public License in all respects for all of the code used other than
+Apache. If you modify this file, you may extend this exception to your version of the
+file, but you are not obligated to do so. If you do not wish to do so, delete this
+exception statement from your version.
+
+\subsection{Features}
+
+\begin{itemize}
+\item A versatile, easy-to-learn template syntax that supports common scripting-language
+  constructs, while encouraging a separation between presentation logic and application
+  logic.
+\item The supported Caml data structures accomodate lists, tables and trees of items in a
+  straightforward manner.
+\item Works well with \footahref{\modcamlpage}{mod\_caml} and
+\footahref{\fastcgipage}{mod\_fastcgi}.
+\item Supports any ASCII-compatible encoding, including UTF-8.
+\item Optional support for multithreading.
+\end{itemize}
+
+CamlTemplate works by merging data with handwritten templates.  This process is
+illustrated in Figure~\ref{fig-merge}.
+
+The template contains only the handwritten material; some other program provides the data.
+The template's author doesn't need to be involved in writing that program; he or she only
+needs to know what data the program provides, and can therefore change the template
+without involving the program's developers.  Likewise, the program can be modified so that
+it obtains data in a different way, without affecting the template.  Different templates
+can be used to display the same data in different ways (e.g. to generate normal and
+`printer-friendly' versions of a web page).
+
+\begin{figure}
+\centering
+\scalebox{.5}{\epsfbox{merge.eps}}
+\vspace{1em}
+\caption{Generating a document\label{fig-merge}}
+\end{figure}
+
+\subsection{Getting CamlTemplate}
+
+The CamlTemplate source code and documentation can be downloaded from the
+  \footahref{\camltemplatepage}{CamlTemplate web site}.
+
+\subsection{Installing CamlTemplate}
+
+\subsubsection{Installing with GODI}
+
+If you use \footahref{\godipage}{GODI}, you can install CamlTemplate from {\tt
+godi\_console}.  Otherwise, you can install manually as described below.
+
+\subsubsection{Installing Manually}
+\label{sec-manual-installation}
+
+Requirements:
+
+\begin{itemize}
+\item Objective Caml 3.08.3 or above.
+\item \footahref{\findlibpage}{findlib}.
+\item GNU make.
+\end{itemize}
+
+Unpack the archive:
+
+\begin{verbatim}
+tar zxf camltemplate-x.y.z.tar.gz
+cd camltemplate-x.y.z
+\end{verbatim}
+
+To see the configuration options, type:
+
+\begin{verbatim}
+./configure --help
+\end{verbatim}
+
+Type the following, adding any options you need:
+
+\begin{verbatim}
+./configure
+\end{verbatim}
+
+Then type:
+
+\begin{verbatim}
+make
+make opt
+make test
+\end{verbatim}
+
+If there are no errors, type {\tt make install} as root.  This installs bytecode and
+native-code versions of the library using {\tt ocamlfind}.  Documentation in HTML and PDF
+formats is installed in {\tt \$PREFIX/doc/camltemplate}.  Several sample programs can be
+found in {\tt \$PREFIX/share/camltemplate}.
+
+To uninstall the library, type {\tt make uninstall} as root.
+
+\subsubsection{Integration with mod\_caml}
+
+Mod\_caml is an Apache module that dynamically loads OCaml bytecode to handle HTTP
+requests.
+
+CamlTemplate has been tested with mod\_caml 1.3.6 and Apache 1.3.  (We haven't tested it
+with Apache 2.0, because a \footahref{\apachebugpage}{bug} in Apache 2.0 has prevented
+mod\_caml from working at all; this looks as if it will be fixed in Apache 2.2.  If you
+need to use Apache 2.0, try the instructions on the mod\_caml web site, and let us know if
+it works.)
+
+1. Install mod\_caml, and make sure it works on its own before proceeding (try the {\tt
+  hello.ml} example that comes with it).
+
+2. In your {\tt httpd.conf}, after the configuration you added for mod\_caml, add the
+following line:
+
+\begin{verbatim}
+CamlLoad /path/to/camltemplate/camltemplate.cma
+\end{verbatim}
+
+(If you don't know where it is, type {\tt ocamlfind query camltemplate} at a shell
+prompt.)
+
+3. Restart Apache.
+
+4. Try compiling and installing the example in {\tt examples/mod\_caml} (see the {\tt
+  README} there).
+
+\subsubsection{Integration with mod\_fastcgi}
+
+Mod\_fastcgi is an Apache module that allows the web server to hand off HTTP requests to
+a pool of long-running programs; these can be OCaml programs compiled to bytecode or
+native code.
+
+This has been tested using Christophe Troestler's \footahref{\ocamlcgipage}{OCaml-CGI}
+package and mod\_fastcgi 2.4.2, and works with Apache versions 1.3 and 2.0.  For an
+example, see {\tt examples/fastcgi}.  You'll need to use CamlTemplate's optional thread
+support (see Section~\ref{sec-manual-threads} for instructions).
+
+\subsection{Mailing List and Support}
+
+The \footahref{\camltemplatelistpage}{camltemplate} mailing list is used for questions,
+suggestions, bug reports and discussion about CamlTemplate.
+
+There is also a \footahref{\camltemplatefaqpage}{Frequently Asked Questions} page.
+
+\subsection{Author}
+
+CamlTemplate is developed and maintained by Benjamin Geer ({\tt benjamin DOT geer AT gmail
+  DOT com}).
+
+\subsection{History}
+
+In 1999, Benjamin Geer wrote a template processor in Java, called
+\footahref{\freemarkerpage}{FreeMarker}, based on the experience of using a similar tool
+with graphic designers in a web development shop.  CamlTemplate borrows some aspects of
+FreeMarker (small library not tied to web development, JavaScript-like expressions,
+Perl-like data structures), as well as some ideas from the Apache Jakarta project's
+\footahref{\velocitypage}{Velocity} template processor (generated parser, more concise
+syntax), released in 2001.  The first version of CamlTemplate was released in October
+2003.
+
+\section{Writing Templates}
+
+\subsection{Inserting Values}
+
+Here is a simple example of a template for generating an HTML page:
+
+\begin{verbatim}
+<html>
+<head>
+  <title>${title}</title>
+</head>
+
+<body>
+<h1>${title}</h1>
+
+Today's date: ${date}
+</body>
+</html>
+\end{verbatim}
+
+This template expects two pieces of data: a title and a date.  A dollar sign followed by
+an expression in braces is called an {\em expansion}; it means, `insert the value of this
+expression here'.  If the value of {\tt title} was {\tt Important Page}, and the value of
+{\tt date} was {\tt 29 September 2003}, the resulting document would look like this:
+
+\begin{verbatim}
+<html>
+<head>
+  <title>Important Page</title>
+</head>
+
+<body>
+<h1>Important Page</h1>
+
+Today's date: 29 September 2003
+</body>
+</html>
+\end{verbatim}
+
+A variable such as {\tt title} or {\tt date} is called a {\em scalar variable}, meaning
+that it contains only one value.
+
+If an expansion contains a value that has not been set, it produces no output.  This makes
+it convenient to write HTML form elements that display the value previously entered, if
+any:
+
+\begin{verbatim}
+<input type="text" name="address" value="${address}"/>
+\end{verbatim}
+
+\subsection{Hashes}
+\label{sec-hashes}
+
+It is often convenient to group several related values together, and give a name to the
+group.  A {\em hash} is a collection of values, each of which has a name (called a `key').
+Continuing with the example from the previous section, we might want to break down the
+date into day, month and year components:
+
+\begin{verbatim}
+Today's date: ${date.day}-${date.month}-${date.year}
+\end{verbatim}
+
+Here, {\tt date} is a hash, which contains three scalars: {\tt day}, {\tt month} and {\tt
+  year}.  (An expression like {\tt date.day} is called a {\em hash lookup}.)  The result
+  might be:
+
+\begin{verbatim}
+Today's date: 29-09-2003
+\end{verbatim}
+
+Hashes can contain hashes, e.g.:
+
+\begin{verbatim}
+Date of birth:
+  ${user.dob.day}-${user.dob.month}-${user.dob.year}
+\end{verbatim}
+
+The string value of any variable (or other expression) can be used as a hash key by
+enclosing the expression in square brackets:
+
+\begin{verbatim}
+Error in field "${fieldName}": ${errors[fieldName]}
+\end{verbatim}
+
+If the value of {\tt fieldName} was always {\tt "title"}, the above would be the same as
+writing:
+
+\begin{verbatim}
+Error in field "title": ${errors.title}
+\end{verbatim}
+
+\subsection{Lists}
+
+Generated documents often contain lists of data.  In a template, the {\tt \#foreach}
+statement processes all the elements in a list.  Here's a simple example:
+
+\begin{verbatim}
+<p>Signatories:</p>
+
+<ul>
+  #foreach (signatory in signatories)
+  <li>${signatory}</li>
+  #end
+</ul>
+\end{verbatim}
+
+The output might look like this:
+
+\begin{verbatim}
+<p>Signatories:</p>
+
+<ul>
+  <li>Arthur Artichoke</li>
+  <li>Bernard Banana</li>
+  <li>Carol Carrot</li>
+  <li>Dorothy Date</li>
+</ul>
+\end{verbatim}
+
+For each element in the list, the {\tt \#foreach} statement stores the element's value
+temporarily in the name given before the {\tt in}, then processes the template text
+between the {\tt \#foreach} and the {\tt \#end}.
+
+\label{example-table}Here's an example that generates an HTML table:
+
+\begin{verbatim}
+<table>
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>Date of Birth</th>
+    <th>Favourite Colour</th>
+  </tr>
+</thead>
+<tbody>
+  #foreach (person in garden.people)
+  <tr>
+    <td>${person.name}</td>
+    <td>${person.bdate}</td>
+    <td>${person.colour}</td>
+  </tr>
+  #end
+</tbody>
+</table>
+\end{verbatim}
+
+Here {\tt garden} is a hash that contains a list called {\tt people}.  Each element of
+{\tt people} is a hash containing three scalars ({\tt name}, {\tt bdate} and {\tt
+colour}).
+
+\subsection{Conditionals}
+
+A template can contain optional text, which is used only if some condition is met.  The
+{\tt \#if} statement tests a condition.  For example:
+
+\begin{verbatim}
+#if (approved)
+  This document has been approved for publication.
+#else
+  This document is awaiting approval.
+#end
+\end{verbatim}
+
+We have seen scalars that contain strings (i.e. text); {\tt true} and {\tt false} are also
+possible values of a scalar (e.g. {\tt approved} above).  Any scalar is equal to {\tt true}
+if it has a value other than 0 or the empty string.  A list is equal to {\tt true} if it
+exists and isn't empty.  A hash is equal to {\tt true} if it exists.  This makes it
+convenient to check, for example, whether a list contains any values before processing its
+contents:
+
+\begin{verbatim}
+#if (searchResults)
+  #foreach (result in searchResults)
+    ...
+  #end
+#end
+\end{verbatim}
+
+If a scalar contains a string or a number, an expression can test the scalar's value,
+using comparison operators such as {\tt ==} (equals), {\tt !=} (is unequal to), {\tt <}
+(is less than) and {\tt >} (is greater than).  You can also use {\tt \#elseif} blocks to
+test several conditions.  For example:
+
+\begin{verbatim}
+#if (hour > 17)
+  Good evening!
+#elseif (hour > 12)
+  Good afternoon!
+#else
+  Good morning!
+#end
+
+#if (status == "approved")
+  This document has been approved for publication.
+#else
+  This document is awaiting approval.
+#end
+\end{verbatim}
+
+See Section~\ref{sec-expressions} for the full details of expressions.
+
+\subsection{Setting values}
+
+The {\tt \#set} statement assigns a value to a name.  The value is not set in the data
+model that the program has provided; a template cannot use {\tt \#set} to change its data
+model.  The value remains internal to the template, and only while the template is being
+merged; it is then forgotten.  Returning to the earlier example of an HTML table, suppose
+we wanted the background colour of the rows to alternate between yellow and white.  We
+could write:
+
+\begin{verbatim}
+<tbody>
+  #set (background = "white")
+
+  #foreach (person in garden.people)
+    <tr bgcolor="${background}">
+      <td>${person.name}</td>
+      <td>${person.bdate}</td>
+      <td>${person.colour}</td>
+    </tr>
+
+    #if (background == "white")
+      #set (background = "yellow")
+    #else
+      #set (background = "white")
+    #end
+  #end
+</tbody>
+\end{verbatim}
+
+\subsection{Including Templates in Templates}
+
+Rather than copy and paste the same text into several templates, you can put the common
+text in a separate template, and include that template in other templates using the {\tt
+  \#include} statement.  For example, you might include a standard header and footer on
+each page:
+
+\begin{verbatim}
+#include ("header.tmpl")
+
+...
+
+#include ("footer.tmpl")
+\end{verbatim}
+
+Included templates will not see any values that have been set in the including template,
+nor can the including template see any values that the included template sets.  If you
+want to pass values into a reusable section of template code, use a macro, as described in
+the next section.
+
+\subsection{Macros}
+
+To create a reusable bit of template code that uses values you provide, you can write a {\em
+  macro}.  The {\tt \#macro} statement defines a macro, which can then be used as a
+  statement in its own right.  For example, here is a macro that formats a date in a
+  particular way, given the year, month and day as numbers:
+
+\begin{verbatim}
+#macro formatDate(year, month, day)
+  #var (monthPrefix)
+  #var (dayPrefix)
+
+  #if (month < 10)
+    #set (monthPrefix = "0")
+  #end
+
+  #if (day < 10)
+    #set (dayPrefix = "0")
+  #end
+
+  ${year}-${monthPrefix}${month}-${dayPrefix}${day}
+#end
+\end{verbatim}
+
+(The {\tt \#var} statement will be explained in a moment.)
+
+Here is some template code that expects a hash called {\tt date} like the one we saw in
+Section~\ref{sec-hashes}, and uses it to call the {\tt formatDate} macro above:
+
+\begin{verbatim}
+Today's date:
+  #formatDate(date.year, date.month, date.day)
+\end{verbatim}
+
+A macro may be called with fewer arguments than it was defined with; the remaining
+arguments are set to null.  It is an error to call a macro with too many arguments.
+
+\subsubsection{Defining Variables in Macros}
+
+The {\tt \#var} statement in the macro above initialises a variable for use within the
+macro, setting it to a null value.  We could have written:
+
+\begin{verbatim}
+#set (monthPrefix = "")
+\end{verbatim}
+
+But if there was already a variable called {\tt monthPrefix} outside the macro, {\tt
+\#set} would change the value of the existing variable.  (Sometimes this might be what you
+want.)  By contrast, a variable initialised inside a macro with {\tt \#var} only exists
+within that macro, and doesn't affect any other variable that might have the same name
+outside the macro; its value is forgotten once the macro has completed.  Once you have
+used {\tt \#var} to initialise a variable in a macro, you can use {\tt \#set} to change
+its value, as in the example above.  To initialise a variable with a value other than
+null, you can write:
+
+\begin{verbatim}
+#var (colour = "blue")
+\end{verbatim}
+
+When used outside of a macro, {\tt \#var} has the same effect as {\tt \#set}.
+
+\subsubsection{Storing Macros in Separate Templates}
+
+If there are some macros that you want to use in more than one template, you can define
+them in a separate template, which we'll call a {\em macro template}.  In each template
+where you want to use those macros, you then need to tell CamlTemplate where to look for
+them, using the {\tt \#open} statement.  For example, if you've written a macro template
+called {\tt macros.tmpl}, and you want to use them in a template called {\tt test.tmpl},
+you would put the following line in {\tt test.tmpl}, before using any of the macros:
+
+\begin{verbatim}
+#open ("macros.tmpl")
+\end{verbatim}
+
+You can put several {\tt \#open} statements in a template.  When you call a macro,
+CamlTemplate looks for it first in the template that's being merged, and then in any macro
+templates that have been opened in that template.
+
+\subsection{Functions}
+
+A function can be supplied to a template as part of its data.  Since functions are written
+in Objective Caml, they can do things that would be cumbersome or impossible to do in
+macros.  A function takes one or more expressions as arguments, and returns a value, which
+can be used in an expansion or in a statement.
+
+For example, CamlTemplate provides a function called {\tt escHtml}, for escaping special
+characters in HTML documents.  It can be used like this:
+
+\begin{verbatim}
+Company name: ${escHtml(companyName)}
+\end{verbatim}
+
+If the value of {\tt companyName} was {\tt Artichoke \& Banana}, the output would be:
+
+\begin{verbatim}
+Company name: Artichoke &amp; Banana
+\end{verbatim}
+
+In addition to {\tt escHtml}, CamlTemplate provides the following functions, which
+application developers can choose to make available to templates:
+
+\begin{description}
+\item[urlEncode] URL-encodes a string.
+\item[escHtmlAttr] Escapes special characters in text to be included in an HTML attribute.
+\item[escHtmlTextarea] Escapes special characters in text to be included in an HTML {\tt
+  textarea}.
+\item[asList] Converts any value to a list, if it isn't already a list.  If the argument is
+a list, returns the argument.  If the argument is null, returns an empty list.  Otherwise,
+returns a single-element list containing the argument.  This is useful for dealing with
+form input fields that can have multiple values.
+\end{description}
+
+Each of these functions expects one argument.
+
+\subsection{Comments}
+
+You can write a comment in a template by surrounding it with {\tt \#*} and {\tt *\#}:
+
+\begin{verbatim}
+#* This is a comment. *#
+\end{verbatim}
+
+Comments do not appear in the output when a template is merged.  Comments can contain
+comments.
+
+\section{Template Syntax Reference}
+
+\subsection{Whitespace}
+
+It often makes templates more readable to include extra whitespace around statements.  In
+particular, the CamlTemplate syntax encourages a style in which each statement is on a
+line by itself, possibly indented.  This means that there is extra whitespace around the
+statement: the indentation preceding it, and the newline after it.  However, it is often
+not desirable to include that extra whitespace in the output.  To support this,
+CamlTemplate ignores whitespace in certain contexts.  The basic rules are as follows:
+
+\begin{itemize}
+\item When a line begins with whitepace followed by {\tt \#}, that whitespace is ignored.
+
+\item When a newline follows the closing parenthesis of a statement, or a keyword such as
+{\tt \#else}, the newline is ignored.
+\end{itemize}
+
+Thus a statement or keyword on a line by itself 'disappears' from the output (except for
+any output produced by the statement itself).  Consider the following template:
+
+\begin{verbatim}
+#macro sayHello()
+Hello.
+#end
+#if (true)
+  #sayHello()
+#end
+\end{verbatim}
+
+This will print a single line of text, consisting of {\tt Hello.} followed by a newline.
+
+Another example:
+
+\begin{verbatim}
+#macro sayHello()
+Hello.
+#end
+#if (true)
+The greeting is: #sayHello()
+#end
+\end{verbatim}
+
+This will print:
+
+\begin{verbatim}
+The greeting is: Hello.
+\end{verbatim}
+
+Note that since the call to {\tt \#sayHello()} does not fall at the beginning of a line,
+the space after the colon is preserved.
+
+It is often convenient to put a comment at the end of a line, like this:
+
+\begin{verbatim}
+#if (showGreeting)
+${greeting} #* Display the greeting *#
+#end
+\end{verbatim}
+
+The rule for comments is therefore slightly different in one respect: whitespace preceding
+a comment is always ignored (even if it doesn't start at the beginning of a line), and a
+newline following a comment is ignored.  The above example will print the value of {\tt
+greeting}, with no additional whitespace or newlines.
+
+In other contexts where a newline makes the template more readable, but you don't want to
+include it in the output, you can precede it with a backslash; both the backslash and the
+newline will be ignored, e.g.:
+
+\begin{verbatim}
+#if (true)
+yes\
+#end
+\end{verbatim}
+
+This will print {\tt yes} with no newline.
+
+\subsection{Comments}
+
+\begin{quote}
+{\tt \#*} {\em comment} {\tt *\#}
+\end{quote}
+
+Comments can be nested.
+
+\subsection{Escaping Characters}
+
+When used literally (rather than to indicate an expansion or a statement), {\tt \$\{} and
+{\tt \#} must be escaped with a backslash:
+
+\begin{verbatim}
+\${
+\#
+\end{verbatim}
+
+Additional backslashes preceding an escape sequence are simply included in the output, as
+are backslashes not followed by {\tt \$\{} or {\tt \#}.
+
+\subsection{Expansions}
+
+\begin{quote}
+{\tt \$\{}{\em expression}{\tt \}}
+\end{quote}
+
+Adds the value of {\em expression} (which must evaluate to a scalar) to the output.
+
+\subsection{Statements}
+
+A statement begins with a {\tt \#} character followed by a keyword.  When a statement has
+a body, it is terminated by {\tt \#end}.  If you need {\tt \#end} to be followed by a
+letter, you can write {\tt \#end\#}; similarly, you can write {\tt \#else\#} instead of
+{\tt \#else}.  This makes it possible to write a template without newlines, e.g.:
+
+\begin{verbatim}
+There #if (n == 1)is 1 file#else#are ${n} files#end#.
+\end{verbatim}
+
+\subsubsection{foreach}
+
+\begin{quote}
+{\tt \#foreach} ({\em name} in {\em expression})
+\begin{quote}{\em template text}\end{quote}
+{\tt \#end}
+\end{quote}
+
+Evaluates {\em expression} as a list; iterates over the list, assigning each element in
+turn to {\em name}.  Any previous value of {\em name} is temporarily hidden.
+
+\subsubsection{if}
+
+\begin{quote}
+{\tt \#if} ({\em expression})
+\begin{quote}{\em template text}\end{quote}
+{\tt \#elseif} ({\em expression})
+\begin{quote}{\em template text}\end{quote}
+{\tt \#else}
+\begin{quote}{\em template text}\end{quote}
+{\tt \#end}
+\end{quote}
+
+The {\tt \#elseif} and {\tt \#else} blocks are optional; any number of {\tt \#elseif}
+blocks may be used.  You can write {\tt \#else\#} instead of {\tt \#else}.
+
+\subsubsection{set}
+
+\begin{quote}
+{\tt \#set} ({\em name} {\tt =} {\em expression})
+\end{quote}
+
+Assigns the value of {\em expression} to the variable {\em name} in one of the following
+places, in order of preference:
+
+\begin{enumerate}
+\item In macro scope, if invoked in macro scope and the variable already has
+  a value there.
+\item In template scope.
+\end{enumerate}
+
+\subsubsection{var}
+
+\begin{quotation}
+{\tt \#var} ({\em name})
+
+{\tt \#var} ({\em name} {\tt =} {\em expression})
+\end{quotation}
+
+Assigns the value of {\em expression} (or a null value if {\em expression} is not
+supplied), to the variable {\em name} in one of the following places, in order of
+preference:
+
+\begin{enumerate}
+\item In macro scope, if invoked in macro scope.
+\item In template scope.
+\end{enumerate}
+
+\subsubsection{include}
+
+\begin{quote}
+{\tt \#include} ({\em expression})
+\end{quote}
+
+Interprets the string value of {\em expression} as the name of a template, and includes
+the contents of that template in the one currently being processed.
+
+\subsubsection{Macro Definition}
+
+\begin{quote}
+{\tt \#macro} {\em macroname} ({\em paramname1}, {\em paramname2}, ... {\em paramnamen})
+\begin{quote}{\em template text}\end{quote}
+{\tt \#end}
+\end{quote}
+
+Defines a macro called {\em macroname} that takes {\em n} parameters.
+
+\subsubsection{Macro Invocation}
+
+\begin{quote}
+{\tt \#}{\em macroname} ({\em param1}, {\em param2}, ... {\em paramn})
+\end{quote}
+
+Invokes the macro called {\em macroname}.  If a macro is called with fewer parameters than
+were defined in the macro, the remaining parameters are set to null.
+
+\subsubsection{open}
+
+\begin{quote}
+{\tt \#open} ({\em expression})
+\end{quote}
+
+Interprets the string value of {\em expression} as the name of a template, and adds it to
+the list of templates in which macros will be searched for when invoked in the currently
+running template.
+
+\subsection{Expressions}
+\label{sec-expressions}
+
+\subsubsection{Data Types}
+
+\begin{itemize}
+\item Scalar:
+\begin{description}
+\item[String] A string literal is enclosed in double quotes: {\tt "}{\em string}{\tt "}).
+  A double quote in a string literal must be escaped by preceding it with a backslash.
+  The escapes {\tt $\backslash$t} (tab), {\tt $\backslash$r} (carriage return) and {\tt
+  $\backslash$n} (newline) can also be used; {\tt $\backslash\backslash$} produces a
+  backslash.
+\item[Integer] An integer literal is a sequence of one or more digits, optionally preceded
+  by a minus sign.  For convenience and readability, underscore characters (\_) are
+  accepted (and ignored) within integer literals.
+\item[Float] A floating-point literal consists of an integer part, a decimal part and an
+  exponent part. The integer part is a sequence of one or more digits, optionally preceded
+  by a minus sign. The decimal part is a decimal point followed by zero, one or more
+  digits. The exponent part is the character e or E followed by an optional + or - sign,
+  followed by one or more digits. The decimal part or the exponent part can be omitted,
+  but not both (to avoid ambiguity with integer literals).  For convenience and readability,
+  underscore characters (\_) are accepted (and ignored) within floating-point literals.
+\item[Boolean] The boolean literals are {\tt true} and {\tt false}.
+\end{description}
+\item Hash.  Keys are identifiers, values are any template data type.
+\item List.  Values are any template data type.
+\item Null.  A nonexistent value of any type is represented as null.  The null literal is
+  {\tt null}.
+\end{itemize}
+
+\subsubsection{Conversions}
+
+Scalar types are converted to other scalar types automatically.  When an operator has one
+integer operand and one float operand, the integer is promoted to a float.  Otherwise, the
+interpreter attempts to convert the right-hand side of an expression to the type of the
+left-hand side, and raises {\tt Template\_error} if this not possible.
+
+Any value can be compared with a boolean or null value.  All scalar values are equal to
+{\tt true} except integer 0 and the empty string; a null value is equal to {\tt false}.
+All list and hash values are equal to {\tt true} except the empty list.  The string and
+integer values of {\tt true} are {\tt "true"} and 1, respectively; the string and integer
+values of {\tt false} are {\tt ""} (the empty string) and 0.
+
+\subsubsection{Identifiers}
+\label{sec-identifiers}
+
+The characters allowed in identifiers are upper-case and lower-case ASCII letters, digits,
+the underscore and the apostrophe.  The first character of an identifier must be an ASCII
+letter.
+
+\subsubsection{Operators}
+
+Table~\ref{table-operators} lists the operators supported in expressions.  Standard
+operator precedence applies, and can be overridden using parentheses.
+
+\begin{table}
+\centering
+\begin{tabular}{|l|l|p{10em}|}
+\hline
+{\em Operator} & {\em Meaning} & {\em Compatible Types} \\
+\hline
+! & unary not & boolean values \\
+- & subtraction, unary negation & integers, floats \\
++ & addition, string concatenation & integers, floats, strings \\
+$*$ & multiplication & integers, floats \\
+/ & division & integers, floats \\
+\% & modulo & integers, floats \\
+== & equality & scalars \\
+!= & inequality & scalars \\
+< & less than & integers, floats, strings \\
+> & greater than & integers, floats, strings \\
+<= & less than or equal to & integers, floats, strings \\
+>= & greater than or equal to & integers, floats, strings \\
+\&\& & and & boolean values \\
+|| & or & boolean values \\
+. & hash lookup with identifier as key & hash on left, identifier on right \\
+$[]$ & hash lookup with string as key & hash on left, string on right \\
+() & function call & function on left, comma-separated expressions in parentheses \\
+= & assignment & identifier on left, expression on right \\
+\hline
+\end{tabular}
+\caption{Operators\label{table-operators}}
+\end{table}
+
+\section{Programming with the CamlTemplate Library}
+\label{sec-library}
+
+When reading this section, you will probably find it helpful to refer to the CamlTemplate
+API documentation, which is generated by ocamldoc and provided in the {\tt doc/api}
+directory of the CamlTemplate distribution.
+
+\subsection{The General Procedure}
+
+The general procedure is as follows:
+
+\begin{enumerate}
+\item Create a template cache using {\tt Cache.create}.
+\item Create a data model consisting of values of type {\tt Model.tvalue}.
+\item Load a template using {\tt Cache.get\_template}.
+\item Pass the template to the {\tt merge} function to generate output.
+\end{enumerate}
+
+Here is `Hello, world!' with a template.  The template is as follows:
+
+\begin{verbatim}
+Here is the message: ${message}
+\end{verbatim}
+
+And here is a program that uses it:
+
+\begin{verbatim}
+open Printf ;;
+open CamlTemplate.Model ;;
+
+let _ =
+  (* Make a template cache. *)
+  let cache = CamlTemplate.Cache.create () in
+    (* Create a model. *)
+  let model = Hashtbl.create 4 in
+    Hashtbl.add model "message"
+      (Tstr "Hello, world!");    
+    try
+      (* Get the template. *)
+      let tmpl =
+        CamlTemplate.Cache.get_template
+          cache "hello.tmpl"
+          (* Make a buffer for the output. *)
+      and buf = Buffer.create 256 in
+        (* Generate output. *)
+        CamlTemplate.merge tmpl model buf;
+        print_string (Buffer.contents buf)
+    with
+        CamlTemplate.Syntax_error msg ->
+          eprintf "\n%s\n" msg
+      | CamlTemplate.Template_error msg ->
+          eprintf "\n%s\n" msg ;;
+\end{verbatim}
+
+There are other examples in the {\tt examples} directory of the distribution.
+
+\subsection{Template Data Models}
+
+A template data model is a tree of values; these values can be scalars (strings, integers,
+floats or booleans), lists, hashtables or functions.  The root of the tree must be a
+hashtable.  In a template, an identifier by itself is the name of an entry in that root
+hashtable.
+
+Tabular data can be represented as a list of hashes of scalars.  Each element in the list
+represents a row in the table, and consists of a hash in which the names are column names
+and the values are cell values.  Such a model can be handled as shown in
+Section~\ref{example-table}.
+
+\subsection{Loading and Caching Templates}
+
+Once loaded and parsed, templates are cached; the {\tt Cache} module provides functions
+for creating template caches, getting templates from them and configuring the behaviour of
+a cache (e.g. how often it is refreshed).  By default, templates are loaded from files,
+but you can provide a class of type {\tt source\_loader} to load them from another
+source.
+
+The {\tt \#include} and {\tt \#open} statements fetch the included or opened template from
+the cache when the enclosing template is merged.  Therefore, if an {\tt \#include} or {\tt
+\#open} refers to a template that doesn't exist, this won't be detected until the outer
+template is merged.
+
+Macros are stored in the templates in which they are defined.  When a template containing
+a macro definition changes, the macro definition is updated as well.
+
+\subsection{Threads}
+\label{sec-manual-threads}
+
+CamlTemplate provides optional support for multithreaded programs.  If you need thread
+  support, in addition to linking your program with the {\tt camlTemplate} library, you
+  must also link in {\tt camlTemplate\_mt.cmo} (for bytecode programs) or {\tt
+  camlTemplate\_mt.cmx} (for native-code programs).  This ensures that the following are
+  true:
+
+\begin{itemize}
+\item Multiple threads can safely use the same template cache concurrently.
+
+\item Multiple threads can safely pass the same template (or different templates) to the
+  {\tt merge} function.
+
+\item Multiple templates running in different threads can safely use the same model, as
+long as no template function changes the model.  (Note that none of the template
+statements, including {\tt \#set} and {\tt \#var}, can change the model.)  Values set
+using {\tt \#set} and {\tt \#var} are visible only to the thread that set them.
+\end{itemize}
+
+\subsection{Error Handling}
+
+The {\tt get\_template} function raises {\tt Syntax\_error} if it cannot parse a template.
+It may also raise other exceptions if it fails to read template source code because of an
+I/O error.
+
+If a template cannot be merged because of a run-time error (e.g. a wrong data type), the
+{\tt merge} function raises {\tt Template\_error}.
+
+If a Caml function called from a template is unable to complete successfully, it can raise
+{\tt Tfun\_error}; this causes {\tt merge} to raise {\tt Template\_error}.
+
+\section{Design}
+
+This section describes the implementation of CamlTemplate; you don't need to read it
+unless you are interested in developing CamlTemplate itself.
+
+CamlTemplate is a fairly straightforward implementation of the Interpreter\footnote{Erich
+Gamma et al., {\em Design Patterns: Elements of Resuable Object-Oriented Software}, Addison
+Wesley Longman, 1997.} pattern.  It uses {\tt ocamllex} and {\tt ocamlyacc} to parse
+template source code, generating an abstract syntax tree consisting of objects; these
+objects do the work of interpreting the template.
+
+\subsection{The Abstract Syntax Tree}
+
+There are two kinds of objects in the abstract syntax tree, represented by the class type
+{\tt statement} and the virtual class {\tt expression}.  Statements produce output;
+expressions have values.  A template consists essentially of a list of statements (each of
+which may contain one or more lists of statements, e.g. to represent the body of a loop,
+or the branches of a conditional); when merged, the template iterates over its statements,
+calling each statement's {\tt interpret} method in turn.
+
+\subsection{The Parser and Lexer}
+
+The parser is very straightforward, and probably needs no explanation if you are familiar
+with ocamlyacc.  The lexer, on the other hand, is rather complicated, mainly because of
+the absence of delimiters around literal text in a template language; this requires us to
+assume that we are reading literal text until we get to something that looks like template
+language syntax.
+
+The CamlTemplate lexer therefore maintains some state to indicate which sort of
+environment is being tokenised.  The variable {\tt cur\_mode} keeps track of whether the
+lexer is currently in literal text, an expansion or a statement.  For the most part,
+instead of using specialised rules, the lexer uses a single rule containing all the
+patterns that are meaningful in tokens; once it has matched a pattern, it decides what to
+do depending on its current mode.
+
+\subsection{Scopes}
+
+Scopes in CamlTemplate are roughly patterned after those in JavaScript.  There are two
+writable scopes, template scope and macro scope; the template model is an additional
+read-only scope.  Assignment and lookup of values in scopes are encapsulated in the {\tt
+scope} class in {\tt ctScope.ml}.
+
+\subsection{Thread Support}
+
+Since parser and lexer both maintain some global state, and since template caches are
+modifiable, they are all protected by a global mutex (in {\tt ctCache.ml}) when
+thread support is linked in.
+
+\end{document}

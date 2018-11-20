@@ -1,0 +1,249 @@
+
+
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>CamlTemplate Test Page</title>
+</head>
+
+<body>
+<h1>CamlTemplate Test Page</h1>
+
+
+<p>Here are some excerpts from poems by Samuel Taylor Coleridge, who was born on
+1772-10-21.
+
+<p>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Year</th>
+      <th>Poet's age at time of writing</th>
+      <th>Excerpt</th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+      <tr bgcolor="white">
+        <td>Kubla Khan</td>
+        <td>1797</td>
+        <td>25</td>
+        <td>In Xanadu did Kubla Khan / A stately pleasure-dome decree.</td>
+      </tr>
+
+      <tr bgcolor="yellow">
+        <td>Christabel</td>
+        <td>1800</td>
+        <td>28</td>
+        <td>'Tis the middle of the night by the castle clock, / And the owls have awakened the crowing cock;</td>
+      </tr>
+
+      <tr bgcolor="white">
+        <td>Dejection: An Ode</td>
+        <td>1802</td>
+        <td>30</td>
+        <td>Well! If the Bard was weather-wise, who made / The grand old ballad of Sir Patrick Spence</td>
+      </tr>
+
+      <tr bgcolor="yellow">
+        <td>The Rime of the Ancient Mariner</td>
+        <td>1817</td>
+        <td>45</td>
+        <td>It is an ancient Mariner / And he stoppeth one of three.</td>
+      </tr>
+
+  </tbody>
+</table>
+
+<p>Some expressions:
+
+<p>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>Expression</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>48 * -3 + 12 - 1 / 6</td>
+      <td>-132</td>
+    </tr>
+
+    <tr>
+      <td>(48 * (-3 + (12 - 1))) / 6</td>
+      <td>64</td>
+    </tr>
+
+    <tr>
+      <td>(48 * (-3.45 + (12 - 1))) / 6.7</td>
+      <td>54.0895522388</td>
+    </tr>
+
+    <tr>
+      <td>"Poems by " + poet.name</td>
+      <td>Poems by Samuel Taylor Coleridge</td>
+    </tr>
+
+    <tr>
+      <td>"Poems by \"" + poet.name + "\""</td>
+      <td>Poems by "Samuel Taylor Coleridge"</td>
+    </tr>
+
+    <tr>
+      <td>substring("Hello, world", 7, 5)</td>
+      <td>world</td>
+    </tr>
+  </tbody>            
+</table>
+
+<p>Scalar values are true if they exist and are non-zero or non-empty;
+list and hash values are true if they exist:</p>
+
+
+<blockquote>
+  This line will be included.
+</blockquote>
+
+<p>There are boolean true and false literals:</p>
+
+<blockquote>
+  This line will be shown.
+</blockquote>
+
+<p>Scopes:
+
+<p>
+<table border="1">
+  <thead>
+    <tr>
+      <th>Expected</th>
+      <th>Actual</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>"foo"</td>
+      <td>"foo"</td>
+    </tr>
+
+    <tr>
+      <td>"bar"</td>
+      <td>"bar"</td>
+    </tr>
+
+    <tr>
+      <td>""</td>
+      <td>""</td>
+    </tr>
+
+    <tr>
+      <td>"foo"</td>
+      <td>"foo"</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>An inline macro:
+
+
+<blockquote>
+The poet's name is Samuel Taylor Coleridge.
+</blockquote>
+
+<p>The bracket operator:
+
+<blockquote>
+Samuel Taylor Coleridge was born in 1772.
+</blockquote>
+
+<p>Some text to be HTML-escaped:
+
+<blockquote>
+&lt;Sam &amp; Sara&gt;
+</blockquote>
+
+<p>Dollar signs can be used unescaped, as long as they're
+not followed by '{':</p>
+
+<blockquote>
+The apples cost $3.00.
+</blockquote>
+
+<p>It's possible to escape print expressions:</p>
+
+<blockquote>
+${poet.name}
+</blockquote>
+
+<p>With two backslashes, you get:</p>
+
+<blockquote>
+\${poet.name}
+</blockquote>
+
+<p>A dollar sign followed by an expansion:</p>
+
+<blockquote>
+$Samuel Taylor Coleridge
+</blockquote>
+
+<p>A dollar sign followed by an escape:</p>
+
+<blockquote>
+$${poet.name}
+</blockquote>
+
+<p>You can also escape directives:</p>
+
+<blockquote>
+  #if (poet)<br>
+    Do something.<br>
+  #end<br>
+</blockquote>
+
+<p>Escapes in string literals:</p>
+
+
+<pre>
+	A quotation mark: "
+	And a backslash: \
+</pre>
+
+<p>Nested comments:</p>
+
+
+<p>A string containing comment characters:</p>
+
+<blockquote>
+  #* This isn't a comment.
+</blockquote>
+
+<p>You can write #else# and #end# to avoid newlines:</p>
+
+<blockquote>
+The poet's name is Samuel Taylor Coleridge.
+</blockquote>
+
+<p>Some UTF-8 text:
+
+<blockquote>
+En général, les techniciens sont prêts à répondre uniquement aux questions concernant
+les logiciels qu'ils maintiennent.
+</blockquote>
+
+A footer, included from another file:
+
+
+<p><hr>
+This is the footer.
+
+</body>
+</html>

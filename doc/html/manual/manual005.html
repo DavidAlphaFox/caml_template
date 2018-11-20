@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<HEAD>
+
+
+
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="GENERATOR" content="hevea 1.08">
+<LINK rel="stylesheet" type="text/css" href="manual.css">
+<TITLE>
+Design
+</TITLE>
+</HEAD>
+<BODY >
+<A HREF="manual004.html"><IMG SRC ="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC ="contents_motif.gif" ALT="Up"></A>
+<HR>
+
+<H2 CLASS="section"><A NAME="htoc51">5</A>&nbsp;&nbsp;Design</H2>
+This section describes the implementation of CamlTemplate; you don't need to read it
+unless you are interested in developing CamlTemplate itself.<BR>
+<BR>
+CamlTemplate is a fairly straightforward implementation of the Interpreter<SUP><A NAME="text1" HREF="manual006.html#note1">1</A></SUP> pattern. It uses <TT>ocamllex</TT> and <TT>ocamlyacc</TT> to parse
+template source code, generating an abstract syntax tree consisting of objects; these
+objects do the work of interpreting the template.<BR>
+<BR>
+<A NAME="toc29"></A>
+<H3 CLASS="subsection"><A NAME="htoc52">5.1</A>&nbsp;&nbsp;The Abstract Syntax Tree</H3>
+There are two kinds of objects in the abstract syntax tree, represented by the class type
+<TT>statement</TT> and the virtual class <TT>expression</TT>. Statements produce output;
+expressions have values. A template consists essentially of a list of statements (each of
+which may contain one or more lists of statements, e.g. to represent the body of a loop,
+or the branches of a conditional); when merged, the template iterates over its statements,
+calling each statement's <TT>interpret</TT> method in turn.<BR>
+<BR>
+<A NAME="toc30"></A>
+<H3 CLASS="subsection"><A NAME="htoc53">5.2</A>&nbsp;&nbsp;The Parser and Lexer</H3>
+The parser is very straightforward, and probably needs no explanation if you are familiar
+with ocamlyacc. The lexer, on the other hand, is rather complicated, mainly because of
+the absence of delimiters around literal text in a template language; this requires us to
+assume that we are reading literal text until we get to something that looks like template
+language syntax.<BR>
+<BR>
+The CamlTemplate lexer therefore maintains some state to indicate which sort of
+environment is being tokenised. The variable <TT>cur_mode</TT> keeps track of whether the
+lexer is currently in literal text, an expansion or a statement. For the most part,
+instead of using specialised rules, the lexer uses a single rule containing all the
+patterns that are meaningful in tokens; once it has matched a pattern, it decides what to
+do depending on its current mode.<BR>
+<BR>
+<A NAME="toc31"></A>
+<H3 CLASS="subsection"><A NAME="htoc54">5.3</A>&nbsp;&nbsp;Scopes</H3>
+Scopes in CamlTemplate are roughly patterned after those in JavaScript. There are two
+writable scopes, template scope and macro scope; the template model is an additional
+read-only scope. Assignment and lookup of values in scopes are encapsulated in the <TT>scope</TT> class in <TT>ctScope.ml</TT>.<BR>
+<BR>
+<A NAME="toc32"></A>
+<H3 CLASS="subsection"><A NAME="htoc55">5.4</A>&nbsp;&nbsp;Thread Support</H3>
+Since parser and lexer both maintain some global state, and since template caches are
+modifiable, they are all protected by a global mutex (in <TT>ctCache.ml</TT>) when
+thread support is linked in.<BR>
+<BR>
+<HR>
+<A HREF="manual004.html"><IMG SRC ="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC ="contents_motif.gif" ALT="Up"></A>
+</BODY>
+</HTML>

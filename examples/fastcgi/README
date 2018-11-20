@@ -1,0 +1,26 @@
+This example isn't built by default, because it requires Christophe
+Troestler's OCaml-CGI package.
+
+1. Install mod_fastcgi, and put something like this in Apache's
+httpd.conf:
+
+LoadModule fastcgi_module /usr/lib/apache2/modules/mod_fastcgi.so
+
+<IfModule mod_fastcgi.c>
+  Alias /fcgi-bin/ /var/www/fcgi-bin/
+
+  <Location /fcgi-bin>
+    Options ExecCGI
+    SetHandler fastcgi-script
+    Allow from all
+  </Location>
+</IfModule>
+
+2. Download and compile OCaml-CGI
+(http://sourceforge.net/projects/ocaml-cgi/).
+
+3. Change the paths in this example's Makefile, if necessary.
+
+4. make; make install
+
+5. Open http://localhost/fcgi-bin/fcgihello in a web browser.

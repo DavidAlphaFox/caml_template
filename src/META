@@ -1,0 +1,8 @@
+name="camltemplate"
+version="1.0.1"
+description="CamlTemplate template processor"
+requires="unix str"
+archive(byte)="camltemplate.cma"
+archive(native)="camltemplate.cmxa"
+archive(byte,mt)+="camlTemplate_mt.cmo"
+archive(native,mt)+="camlTemplate_mt.cmx"

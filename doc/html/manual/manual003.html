@@ -1,0 +1,344 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<HEAD>
+
+
+
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="GENERATOR" content="hevea 1.08">
+<LINK rel="stylesheet" type="text/css" href="manual.css">
+<TITLE>
+Template Syntax Reference
+</TITLE>
+</HEAD>
+<BODY >
+<A HREF="manual002.html"><IMG SRC ="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC ="contents_motif.gif" ALT="Up"></A>
+<A HREF="manual004.html"><IMG SRC ="next_motif.gif" ALT="Next"></A>
+<HR>
+
+<H2 CLASS="section"><A NAME="htoc26">3</A>&nbsp;&nbsp;Template Syntax Reference</H2>
+<A NAME="toc18"></A>
+<H3 CLASS="subsection"><A NAME="htoc27">3.1</A>&nbsp;&nbsp;Whitespace</H3>
+It often makes templates more readable to include extra whitespace around statements. In
+particular, the CamlTemplate syntax encourages a style in which each statement is on a
+line by itself, possibly indented. This means that there is extra whitespace around the
+statement: the indentation preceding it, and the newline after it. However, it is often
+not desirable to include that extra whitespace in the output. To support this,
+CamlTemplate ignores whitespace in certain contexts. The basic rules are as follows:
+<UL CLASS="itemize"><LI CLASS="li-itemize">
+When a line begins with whitepace followed by <TT>#</TT>, that whitespace is ignored.<BR>
+<BR>
+<LI CLASS="li-itemize">When a newline follows the closing parenthesis of a statement, or a keyword such as
+<TT>#else</TT>, the newline is ignored.
+</UL>
+Thus a statement or keyword on a line by itself 'disappears' from the output (except for
+any output produced by the statement itself). Consider the following template:
+<PRE CLASS="verbatim">
+#macro sayHello()
+Hello.
+#end
+#if (true)
+  #sayHello()
+#end
+</PRE>
+This will print a single line of text, consisting of <TT>Hello.</TT> followed by a newline.<BR>
+<BR>
+Another example:
+<PRE CLASS="verbatim">
+#macro sayHello()
+Hello.
+#end
+#if (true)
+The greeting is: #sayHello()
+#end
+</PRE>
+This will print:
+<PRE CLASS="verbatim">
+The greeting is: Hello.
+</PRE>
+Note that since the call to <TT>#sayHello()</TT> does not fall at the beginning of a line,
+the space after the colon is preserved.<BR>
+<BR>
+It is often convenient to put a comment at the end of a line, like this:
+<PRE CLASS="verbatim">
+#if (showGreeting)
+${greeting} #* Display the greeting *#
+#end
+</PRE>
+The rule for comments is therefore slightly different in one respect: whitespace preceding
+a comment is always ignored (even if it doesn't start at the beginning of a line), and a
+newline following a comment is ignored. The above example will print the value of <TT>greeting</TT>, with no additional whitespace or newlines.<BR>
+<BR>
+In other contexts where a newline makes the template more readable, but you don't want to
+include it in the output, you can precede it with a backslash; both the backslash and the
+newline will be ignored, e.g.:
+<PRE CLASS="verbatim">
+#if (true)
+yes\
+#end
+</PRE>
+This will print <TT>yes</TT> with no newline.<BR>
+<BR>
+<A NAME="toc19"></A>
+<H3 CLASS="subsection"><A NAME="htoc28">3.2</A>&nbsp;&nbsp;Comments</H3>
+<BLOCKQUOTE CLASS="quote">
+<TT>#*</TT> <EM>comment</EM> <TT>*#</TT>
+</BLOCKQUOTE>
+Comments can be nested.<BR>
+<BR>
+<A NAME="toc20"></A>
+<H3 CLASS="subsection"><A NAME="htoc29">3.3</A>&nbsp;&nbsp;Escaping Characters</H3>
+When used literally (rather than to indicate an expansion or a statement), <TT>${</TT> and
+<TT>#</TT> must be escaped with a backslash:
+<PRE CLASS="verbatim">
+\${
+\#
+</PRE>
+Additional backslashes preceding an escape sequence are simply included in the output, as
+are backslashes not followed by <TT>${</TT> or <TT>#</TT>.<BR>
+<BR>
+<A NAME="toc21"></A>
+<H3 CLASS="subsection"><A NAME="htoc30">3.4</A>&nbsp;&nbsp;Expansions</H3>
+<BLOCKQUOTE CLASS="quote">
+<TT>${</TT><EM>expression</EM><TT>}</TT>
+</BLOCKQUOTE>
+Adds the value of <EM>expression</EM> (which must evaluate to a scalar) to the output.<BR>
+<BR>
+<A NAME="toc22"></A>
+<H3 CLASS="subsection"><A NAME="htoc31">3.5</A>&nbsp;&nbsp;Statements</H3>
+A statement begins with a <TT>#</TT> character followed by a keyword. When a statement has
+a body, it is terminated by <TT>#end</TT>. If you need <TT>#end</TT> to be followed by a
+letter, you can write <TT>#end#</TT>; similarly, you can write <TT>#else#</TT> instead of
+<TT>#else</TT>. This makes it possible to write a template without newlines, e.g.:
+<PRE CLASS="verbatim">
+There #if (n == 1)is 1 file#else#are ${n} files#end#.
+</PRE>
+
+<H4 CLASS="subsubsection"><A NAME="htoc32">3.5.1</A>&nbsp;&nbsp;foreach</H4>
+<BLOCKQUOTE CLASS="quote">
+<TT>#foreach</TT> (<EM>name</EM> in <EM>expression</EM>)
+<BLOCKQUOTE CLASS="quote"><EM>template text</EM></BLOCKQUOTE>
+<TT>#end</TT>
+</BLOCKQUOTE>
+Evaluates <EM>expression</EM> as a list; iterates over the list, assigning each element in
+turn to <EM>name</EM>. Any previous value of <EM>name</EM> is temporarily hidden.<BR>
+<BR>
+
+<H4 CLASS="subsubsection"><A NAME="htoc33">3.5.2</A>&nbsp;&nbsp;if</H4>
+<BLOCKQUOTE CLASS="quote">
+<TT>#if</TT> (<EM>expression</EM>)
+<BLOCKQUOTE CLASS="quote"><EM>template text</EM></BLOCKQUOTE>
+<TT>#elseif</TT> (<EM>expression</EM>)
+<BLOCKQUOTE CLASS="quote"><EM>template text</EM></BLOCKQUOTE>
+<TT>#else</TT>
+<BLOCKQUOTE CLASS="quote"><EM>template text</EM></BLOCKQUOTE>
+<TT>#end</TT>
+</BLOCKQUOTE>
+The <TT>#elseif</TT> and <TT>#else</TT> blocks are optional; any number of <TT>#elseif</TT>
+blocks may be used. You can write <TT>#else#</TT> instead of <TT>#else</TT>.<BR>
+<BR>
+
+<H4 CLASS="subsubsection"><A NAME="htoc34">3.5.3</A>&nbsp;&nbsp;set</H4>
+<BLOCKQUOTE CLASS="quote">
+<TT>#set</TT> (<EM>name</EM> <TT>=</TT> <EM>expression</EM>)
+</BLOCKQUOTE>
+Assigns the value of <EM>expression</EM> to the variable <EM>name</EM> in one of the following
+places, in order of preference:
+<OL CLASS="enumerate" type=1><LI CLASS="li-enumerate">
+In macro scope, if invoked in macro scope and the variable already has
+ a value there.
+<LI CLASS="li-enumerate">In template scope.
+</OL>
+
+<H4 CLASS="subsubsection"><A NAME="htoc35">3.5.4</A>&nbsp;&nbsp;var</H4>
+<BLOCKQUOTE CLASS="quotation">
+<TT>#var</TT> (<EM>name</EM>)<BR>
+<BR>
+<TT>#var</TT> (<EM>name</EM> <TT>=</TT> <EM>expression</EM>)
+</BLOCKQUOTE>
+Assigns the value of <EM>expression</EM> (or a null value if <EM>expression</EM> is not
+supplied), to the variable <EM>name</EM> in one of the following places, in order of
+preference:
+<OL CLASS="enumerate" type=1><LI CLASS="li-enumerate">
+In macro scope, if invoked in macro scope.
+<LI CLASS="li-enumerate">In template scope.
+</OL>
+
+<H4 CLASS="subsubsection"><A NAME="htoc36">3.5.5</A>&nbsp;&nbsp;include</H4>
+<BLOCKQUOTE CLASS="quote">
+<TT>#include</TT> (<EM>expression</EM>)
+</BLOCKQUOTE>
+Interprets the string value of <EM>expression</EM> as the name of a template, and includes
+the contents of that template in the one currently being processed.<BR>
+<BR>
+
+<H4 CLASS="subsubsection"><A NAME="htoc37">3.5.6</A>&nbsp;&nbsp;Macro Definition</H4>
+<BLOCKQUOTE CLASS="quote">
+<TT>#macro</TT> <EM>macroname</EM> (<EM>paramname1</EM>, <EM>paramname2</EM>, ... <EM>paramnamen</EM>)
+<BLOCKQUOTE CLASS="quote"><EM>template text</EM></BLOCKQUOTE>
+<TT>#end</TT>
+</BLOCKQUOTE>
+Defines a macro called <EM>macroname</EM> that takes <EM>n</EM> parameters.<BR>
+<BR>
+
+<H4 CLASS="subsubsection"><A NAME="htoc38">3.5.7</A>&nbsp;&nbsp;Macro Invocation</H4>
+<BLOCKQUOTE CLASS="quote">
+<TT>#</TT><EM>macroname</EM> (<EM>param1</EM>, <EM>param2</EM>, ... <EM>paramn</EM>)
+</BLOCKQUOTE>
+Invokes the macro called <EM>macroname</EM>. If a macro is called with fewer parameters than
+were defined in the macro, the remaining parameters are set to null.<BR>
+<BR>
+
+<H4 CLASS="subsubsection"><A NAME="htoc39">3.5.8</A>&nbsp;&nbsp;open</H4>
+<BLOCKQUOTE CLASS="quote">
+<TT>#open</TT> (<EM>expression</EM>)
+</BLOCKQUOTE>
+Interprets the string value of <EM>expression</EM> as the name of a template, and adds it to
+the list of templates in which macros will be searched for when invoked in the currently
+running template.<BR>
+<BR>
+<A NAME="toc23"></A>
+<H3 CLASS="subsection"><A NAME="htoc40">3.6</A>&nbsp;&nbsp;Expressions</H3>
+<A NAME="sec-expressions"></A>
+
+<H4 CLASS="subsubsection"><A NAME="htoc41">3.6.1</A>&nbsp;&nbsp;Data Types</H4>
+<UL CLASS="itemize"><LI CLASS="li-itemize">
+Scalar:
+<DL CLASS="description" COMPACT=compact><DT CLASS="dt-description">
+<B>String</B><DD CLASS="dd-description"> A string literal is enclosed in double quotes: <TT>"</TT><EM>string</EM><TT>"</TT>).
+ A double quote in a string literal must be escaped by preceding it with a backslash.
+ The escapes <TT>\t</TT> (tab), <TT>\r</TT> (carriage return) and <TT>\n</TT> (newline) can also be used; <TT>\\</TT> produces a
+ backslash.
+<DT CLASS="dt-description"><B>Integer</B><DD CLASS="dd-description"> An integer literal is a sequence of one or more digits, optionally preceded
+ by a minus sign. For convenience and readability, underscore characters (_) are
+ accepted (and ignored) within integer literals.
+<DT CLASS="dt-description"><B>Float</B><DD CLASS="dd-description"> A floating-point literal consists of an integer part, a decimal part and an
+ exponent part. The integer part is a sequence of one or more digits, optionally preceded
+ by a minus sign. The decimal part is a decimal point followed by zero, one or more
+ digits. The exponent part is the character e or E followed by an optional + or - sign,
+ followed by one or more digits. The decimal part or the exponent part can be omitted,
+ but not both (to avoid ambiguity with integer literals). For convenience and readability,
+ underscore characters (_) are accepted (and ignored) within floating-point literals.
+<DT CLASS="dt-description"><B>Boolean</B><DD CLASS="dd-description"> The boolean literals are <TT>true</TT> and <TT>false</TT>.
+</DL>
+<LI CLASS="li-itemize">Hash. Keys are identifiers, values are any template data type.
+<LI CLASS="li-itemize">List. Values are any template data type.
+<LI CLASS="li-itemize">Null. A nonexistent value of any type is represented as null. The null literal is
+ <TT>null</TT>.
+</UL>
+
+<H4 CLASS="subsubsection"><A NAME="htoc42">3.6.2</A>&nbsp;&nbsp;Conversions</H4>
+Scalar types are converted to other scalar types automatically. When an operator has one
+integer operand and one float operand, the integer is promoted to a float. Otherwise, the
+interpreter attempts to convert the right-hand side of an expression to the type of the
+left-hand side, and raises <TT>Template_error</TT> if this not possible.<BR>
+<BR>
+Any value can be compared with a boolean or null value. All scalar values are equal to
+<TT>true</TT> except integer 0 and the empty string; a null value is equal to <TT>false</TT>.
+All list and hash values are equal to <TT>true</TT> except the empty list. The string and
+integer values of <TT>true</TT> are <TT>"true"</TT> and 1, respectively; the string and integer
+values of <TT>false</TT> are <TT>""</TT> (the empty string) and 0.<BR>
+<BR>
+
+<H4 CLASS="subsubsection"><A NAME="htoc43">3.6.3</A>&nbsp;&nbsp;Identifiers</H4>
+<A NAME="sec-identifiers"></A>
+The characters allowed in identifiers are upper-case and lower-case ASCII letters, digits,
+the underscore and the apostrophe. The first character of an identifier must be an ASCII
+letter.<BR>
+<BR>
+
+<H4 CLASS="subsubsection"><A NAME="htoc44">3.6.4</A>&nbsp;&nbsp;Operators</H4>
+Table&nbsp;<A HREF="#table-operators">1</A> lists the operators supported in expressions. Standard
+operator precedence applies, and can be overridden using parentheses.
+<BLOCKQUOTE CLASS="table"><DIV CLASS="center"><DIV CLASS="center"><HR WIDTH="80%" SIZE=2></DIV>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=1>
+<TR><TD VALIGN=top ALIGN=left NOWRAP><EM>Operator</EM></TD>
+<TD VALIGN=top ALIGN=left NOWRAP><EM>Meaning</EM></TD>
+<TD VALIGN=top ALIGN=left><EM>Compatible Types</EM></TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>!</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>unary not</TD>
+<TD VALIGN=top ALIGN=left>boolean values</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>-</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>subtraction, unary negation</TD>
+<TD VALIGN=top ALIGN=left>integers, floats</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>+</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>addition, string concatenation</TD>
+<TD VALIGN=top ALIGN=left>integers, floats, strings</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>*</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>multiplication</TD>
+<TD VALIGN=top ALIGN=left>integers, floats</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>/</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>division</TD>
+<TD VALIGN=top ALIGN=left>integers, floats</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>%</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>modulo</TD>
+<TD VALIGN=top ALIGN=left>integers, floats</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>==</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>equality</TD>
+<TD VALIGN=top ALIGN=left>scalars</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>!=</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>inequality</TD>
+<TD VALIGN=top ALIGN=left>scalars</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>&lt;</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>less than</TD>
+<TD VALIGN=top ALIGN=left>integers, floats, strings</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>&gt;</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>greater than</TD>
+<TD VALIGN=top ALIGN=left>integers, floats, strings</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>&lt;=</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>less than or equal to</TD>
+<TD VALIGN=top ALIGN=left>integers, floats, strings</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>&gt;=</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>greater than or equal to</TD>
+<TD VALIGN=top ALIGN=left>integers, floats, strings</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>&amp;&amp;</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>and</TD>
+<TD VALIGN=top ALIGN=left>boolean values</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>||</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>or</TD>
+<TD VALIGN=top ALIGN=left>boolean values</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>.</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>hash lookup with identifier as key</TD>
+<TD VALIGN=top ALIGN=left>hash on left, identifier on right</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>[]</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>hash lookup with string as key</TD>
+<TD VALIGN=top ALIGN=left>hash on left, string on right</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>()</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>function call</TD>
+<TD VALIGN=top ALIGN=left>function on left, comma-separated expressions in parentheses</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>=</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>assignment</TD>
+<TD VALIGN=top ALIGN=left>identifier on left, expression on right</TD>
+</TR></TABLE>
+<BR>
+<BR>
+<DIV CLASS="center">Table 1: Operators<A NAME="table-operators"></A></DIV><BR>
+<BR>
+
+<DIV CLASS="center"><HR WIDTH="80%" SIZE=2></DIV></DIV></BLOCKQUOTE>
+<HR>
+<A HREF="manual002.html"><IMG SRC ="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC ="contents_motif.gif" ALT="Up"></A>
+<A HREF="manual004.html"><IMG SRC ="next_motif.gif" ALT="Next"></A>
+</BODY>
+</HTML>

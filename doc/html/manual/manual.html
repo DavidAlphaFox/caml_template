@@ -1,0 +1,1116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+
+<HEAD>
+
+<TITLE>The CamlTemplate Manual 
+Version 1.0.1</TITLE>
+
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="GENERATOR" content="hevea 1.08">
+<STYLE type="text/css">
+.toc{list-style:none;}
+.title{margin:auto;text-align:center}
+.center{text-align:center;margin-left:auto;margin-right:auto;}
+.flushleft{text-align:left;margin-left:0ex;margin-right:auto;}
+.flushright{text-align:right;margin-left:auto;margin-right:0ex;}
+DIV TABLE{margin-left:inherit;margin-right:inherit;}
+PRE{text-align:left;margin-left:0ex;margin-right:auto;}
+BLOCKQUOTE{margin-left:4ex;margin-right:4ex;text-align:left;}
+.part{margin:auto;text-align:center}
+</STYLE>
+</HEAD>
+
+<BODY >
+<!--HEVEA command line is: hevea -fix -O -o manual.html manual.tex -->
+<!--HTMLHEAD-->
+<!--ENDHTML-->
+<!--PREFIX <ARG ></ARG>-->
+<!--CUT DEF section 1 -->
+
+
+<BR>
+<TABLE CLASS="title">
+<TR><TD>
+<H1 CLASS="titlemain">The CamlTemplate Manual<BR>
+Version 1.0.1</H1>
+<H3 CLASS="titlerest">Benjamin Geer</H3>
+<H3 CLASS="titlerest">7 July 2005</H3></TD>
+</TR></TABLE><BR>
+<!--TOC section Introduction-->
+
+<H2 CLASS="section"><A NAME="htoc1">1</A>&nbsp;&nbsp;Introduction</H2><!--SEC END -->
+
+This manual describes how to use CamlTemplate, a template processor for
+<A HREF="http://caml.inria.fr">Objective Caml</A> programs. It can be used to generate web pages,
+scripts, SQL queries, XML documents and other sorts of text.<BR>
+<BR>
+<!--TOC subsection About This Manual-->
+
+<H3 CLASS="subsection"><A NAME="htoc2">1.1</A>&nbsp;&nbsp;About This Manual</H3><!--SEC END -->
+
+This manual is provided in HTML and PDF formats in the CamlTemplate
+distribution.<BR>
+<BR>
+<!--TOC subsection Licence-->
+
+<H3 CLASS="subsection"><A NAME="htoc3">1.2</A>&nbsp;&nbsp;Licence</H3><!--SEC END -->
+
+CamlTemplate is <A HREF="http://www.gnu.org/philosophy/free-sw.html">free software</A>, released under the
+<A HREF="http://www.gnu.org/copyleft/gpl.html">GNU General Public License</A>. This manual is released under the same
+licence.<BR>
+<BR>
+In addition, as a special exception, Benjamin Geer gives permission to link the code of
+this program with the Apache HTTP Server (or with modified versions of Apache that use the
+same license as Apache), and distribute linked combinations including the two. You must
+obey the GNU General Public License in all respects for all of the code used other than
+Apache. If you modify this file, you may extend this exception to your version of the
+file, but you are not obligated to do so. If you do not wish to do so, delete this
+exception statement from your version.<BR>
+<BR>
+<!--TOC subsection Features-->
+
+<H3 CLASS="subsection"><A NAME="htoc4">1.3</A>&nbsp;&nbsp;Features</H3><!--SEC END -->
+
+<UL CLASS="itemize"><LI CLASS="li-itemize">
+A versatile, easy-to-learn template syntax that supports common scripting-language
+ constructs, while encouraging a separation between presentation logic and application
+ logic.
+<LI CLASS="li-itemize">The supported Caml data structures accomodate lists, tables and trees of items in a
+ straightforward manner.
+<LI CLASS="li-itemize">Works well with <A HREF="http://merjis.com/developers/mod_caml/">mod_caml</A> and
+<A HREF="http://www.fastcgi.com/">mod_fastcgi</A>.
+<LI CLASS="li-itemize">Supports any ASCII-compatible encoding, including UTF-8.
+<LI CLASS="li-itemize">Optional support for multithreading.
+</UL>
+CamlTemplate works by merging data with handwritten templates. This process is
+illustrated in Figure&nbsp;<A HREF="#fig-merge">1</A>.<BR>
+<BR>
+The template contains only the handwritten material; some other program provides the data.
+The template's author doesn't need to be involved in writing that program; he or she only
+needs to know what data the program provides, and can therefore change the template
+without involving the program's developers. Likewise, the program can be modified so that
+it obtains data in a different way, without affecting the template. Different templates
+can be used to display the same data in different ways (e.g. to generate normal and
+`printer-friendly' versions of a web page).
+<BLOCKQUOTE CLASS="figure"><DIV CLASS="center"><DIV CLASS="center"><HR WIDTH="80%" SIZE=2></DIV>
+<IMG SRC="manual001.gif">
+<BR>
+
+<BR>
+<BR>
+<DIV CLASS="center">Figure 1: Generating a document<A NAME="fig-merge"></A></DIV><BR>
+<BR>
+
+<DIV CLASS="center"><HR WIDTH="80%" SIZE=2></DIV></DIV></BLOCKQUOTE>
+<!--TOC subsection Getting CamlTemplate-->
+
+<H3 CLASS="subsection"><A NAME="htoc5">1.4</A>&nbsp;&nbsp;Getting CamlTemplate</H3><!--SEC END -->
+
+The CamlTemplate source code and documentation can be downloaded from the
+ <A HREF="http://saucecode.org/camltemplate">CamlTemplate web site</A>.<BR>
+<BR>
+<!--TOC subsection Installing CamlTemplate-->
+
+<H3 CLASS="subsection"><A NAME="htoc6">1.5</A>&nbsp;&nbsp;Installing CamlTemplate</H3><!--SEC END -->
+
+<!--TOC subsubsection Installing with GODI-->
+
+<H4 CLASS="subsubsection"><A NAME="htoc7">1.5.1</A>&nbsp;&nbsp;Installing with GODI</H4><!--SEC END -->
+
+If you use <A HREF="http://www.ocaml-programming.de/godi/">GODI</A>, you can install CamlTemplate from <TT>godi_console</TT>. Otherwise, you can install manually as described below.<BR>
+<BR>
+<!--TOC subsubsection Installing Manually-->
+
+<H4 CLASS="subsubsection"><A NAME="htoc8">1.5.2</A>&nbsp;&nbsp;Installing Manually</H4><!--SEC END -->
+
+<A NAME="sec-manual-installation"></A>
+Requirements:
+<UL CLASS="itemize"><LI CLASS="li-itemize">
+Objective Caml 3.08.3 or above.
+<LI CLASS="li-itemize"><A HREF="http://www.ocaml-programming.de/packages/">findlib</A>.
+<LI CLASS="li-itemize"><A HREF="http://www.oefai.at/~markus/home/ocaml_sources.html">PCRE-Ocaml</A>.
+<LI CLASS="li-itemize">GNU make.
+</UL>
+Unpack the archive:
+<PRE CLASS="verbatim">
+tar zxf camltemplate-x.y.z.tar.gz
+cd camltemplate-x.y.z
+</PRE>
+To see the configuration options, type:
+<PRE CLASS="verbatim">
+./configure --help
+</PRE>
+Type the following, adding any options you need:
+<PRE CLASS="verbatim">
+./configure
+</PRE>
+Then type:
+<PRE CLASS="verbatim">
+make
+make opt
+make test
+</PRE>
+If there are no errors, type <TT>make install</TT> as root. This installs bytecode and
+native-code versions of the library using <TT>ocamlfind</TT>. Documentation in HTML and PDF
+formats is installed in <TT>$PREFIX/doc/camltemplate</TT>. Several sample programs can be
+found in <TT>$PREFIX/share/camltemplate</TT>.<BR>
+<BR>
+To uninstall the library, type <TT>make uninstall</TT> as root.<BR>
+<BR>
+<!--TOC subsubsection Integration with mod_caml-->
+
+<H4 CLASS="subsubsection"><A NAME="htoc9">1.5.3</A>&nbsp;&nbsp;Integration with mod_caml</H4><!--SEC END -->
+
+Mod_caml is an Apache module that dynamically loads OCaml bytecode to handle HTTP
+requests.<BR>
+<BR>
+CamlTemplate has been tested with mod_caml 1.3.6 and Apache 1.3. (We haven't tested it
+with Apache 2.0, because a <A HREF="http://issues.apache.org/bugzilla/show_bug.cgi?id=27550">bug</A> in Apache 2.0 has prevented
+mod_caml from working at all; this looks as if it will be fixed in Apache 2.2. If you
+need to use Apache 2.0, try the instructions on the mod_caml web site, and let us know if
+it works.)<BR>
+<BR>
+1. Install mod_caml, and make sure it works on its own before proceeding (try the <TT>hello.ml</TT> example that comes with it).<BR>
+<BR>
+2. In your <TT>httpd.conf</TT>, after the configuration you added for mod_caml, add the
+following line:
+<PRE CLASS="verbatim">
+CamlLoad /path/to/camltemplate/camltemplate.cma
+</PRE>
+(If you don't know where it is, type <TT>ocamlfind query camltemplate</TT> at a shell
+prompt.)<BR>
+<BR>
+3. Restart Apache.<BR>
+<BR>
+4. Try compiling and installing the example in <TT>examples/mod_caml</TT> (see the <TT>README</TT> there).<BR>
+<BR>
+<!--TOC subsubsection Integration with mod_fastcgi-->
+
+<H4 CLASS="subsubsection"><A NAME="htoc10">1.5.4</A>&nbsp;&nbsp;Integration with mod_fastcgi</H4><!--SEC END -->
+
+Mod_fastcgi is an Apache module that allows the web server to hand off HTTP requests to
+a pool of long-running programs; these can be OCaml programs compiled to bytecode or
+native code.<BR>
+<BR>
+This has been tested using Christophe Troestler's <A HREF="http://sourceforge.net/projects/ocaml-cgi/">OCaml-CGI</A>
+package and mod_fastcgi 2.4.2, and works with Apache versions 1.3 and 2.0. For an
+example, see <TT>examples/fastcgi</TT>. You'll need to use CamlTemplate's optional thread
+support (see Section&nbsp;<A HREF="#sec-manual-threads">4.4</A> for instructions).<BR>
+<BR>
+<!--TOC subsection Mailing List and Support-->
+
+<H3 CLASS="subsection"><A NAME="htoc11">1.6</A>&nbsp;&nbsp;Mailing List and Support</H3><!--SEC END -->
+
+The <A HREF="http://lists.saucecode.org/wws/info/camltemplate">camltemplate</A> mailing list is used for questions,
+suggestions, bug reports and discussion about CamlTemplate.<BR>
+<BR>
+There is also a <A HREF="http://saucecode.org/camltemplate/faq.html">Frequently Asked Questions</A> page.<BR>
+<BR>
+<!--TOC subsection Author-->
+
+<H3 CLASS="subsection"><A NAME="htoc12">1.7</A>&nbsp;&nbsp;Author</H3><!--SEC END -->
+
+CamlTemplate is developed and maintained by Benjamin Geer (<TT>benjamin DOT geer AT gmail
+ DOT com</TT>).<BR>
+<BR>
+<!--TOC subsection History-->
+
+<H3 CLASS="subsection"><A NAME="htoc13">1.8</A>&nbsp;&nbsp;History</H3><!--SEC END -->
+
+In 1999, Benjamin Geer wrote a template processor in Java, called
+<A HREF="http://www.freemarker.org">FreeMarker</A>, based on the experience of using a similar tool
+with graphic designers in a web development shop. CamlTemplate borrows some aspects of
+FreeMarker (small library not tied to web development, JavaScript-like expressions,
+Perl-like data structures), as well as some ideas from the Apache Jakarta project's
+<A HREF="http://jakarta.apache.org/velocity/">Velocity</A> template processor (generated parser, more concise
+syntax), released in 2001. The first version of CamlTemplate was released in October
+2003.<BR>
+<BR>
+<!--TOC section Writing Templates-->
+
+<H2 CLASS="section"><A NAME="htoc14">2</A>&nbsp;&nbsp;Writing Templates</H2><!--SEC END -->
+
+<!--TOC subsection Inserting Values-->
+
+<H3 CLASS="subsection"><A NAME="htoc15">2.1</A>&nbsp;&nbsp;Inserting Values</H3><!--SEC END -->
+
+Here is a simple example of a template for generating an HTML page:
+<PRE CLASS="verbatim">
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;${title}&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;h1&gt;${title}&lt;/h1&gt;
+
+Today's date: ${date}
+&lt;/body&gt;
+&lt;/html&gt;
+</PRE>
+This template expects two pieces of data: a title and a date. A dollar sign followed by
+an expression in braces is called an <EM>expansion</EM>; it means, `insert the value of this
+expression here'. If the value of <TT>title</TT> was <TT>Important Page</TT>, and the value of
+<TT>date</TT> was <TT>29 September 2003</TT>, the resulting document would look like this:
+<PRE CLASS="verbatim">
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Important Page&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;h1&gt;Important Page&lt;/h1&gt;
+
+Today's date: 29 September 2003
+&lt;/body&gt;
+&lt;/html&gt;
+</PRE>
+A variable such as <TT>title</TT> or <TT>date</TT> is called a <EM>scalar variable</EM>, meaning
+that it contains only one value.<BR>
+<BR>
+If an expansion contains a value that has not been set, it produces no output. This makes
+it convenient to write HTML form elements that display the value previously entered, if
+any:
+<PRE CLASS="verbatim">
+&lt;input type="text" name="address" value="${address}"/&gt;
+</PRE>
+<!--TOC subsection Hashes-->
+
+<H3 CLASS="subsection"><A NAME="htoc16">2.2</A>&nbsp;&nbsp;Hashes</H3><!--SEC END -->
+
+<A NAME="sec-hashes"></A>
+It is often convenient to group several related values together, and give a name to the
+group. A <EM>hash</EM> is a collection of values, each of which has a name (called a `key').
+Continuing with the example from the previous section, we might want to break down the
+date into day, month and year components:
+<PRE CLASS="verbatim">
+Today's date: ${date.day}-${date.month}-${date.year}
+</PRE>
+Here, <TT>date</TT> is a hash, which contains three scalars: <TT>day</TT>, <TT>month</TT> and <TT>year</TT>. (An expression like <TT>date.day</TT> is called a <EM>hash lookup</EM>.) The result
+ might be:
+<PRE CLASS="verbatim">
+Today's date: 29-09-2003
+</PRE>
+Hashes can contain hashes, e.g.:
+<PRE CLASS="verbatim">
+Date of birth:
+  ${user.dob.day}-${user.dob.month}-${user.dob.year}
+</PRE>
+The string value of any variable (or other expression) can be used as a hash key by
+enclosing the expression in square brackets:
+<PRE CLASS="verbatim">
+Error in field "${fieldName}": ${errors[fieldName]}
+</PRE>
+If the value of <TT>fieldName</TT> was always <TT>"title"</TT>, the above would be the same as
+writing:
+<PRE CLASS="verbatim">
+Error in field "title": ${errors.title}
+</PRE>
+<!--TOC subsection Lists-->
+
+<H3 CLASS="subsection"><A NAME="htoc17">2.3</A>&nbsp;&nbsp;Lists</H3><!--SEC END -->
+
+Generated documents often contain lists of data. In a template, the <TT>#foreach</TT>
+statement processes all the elements in a list. Here's a simple example:
+<PRE CLASS="verbatim">
+&lt;p&gt;Signatories:&lt;/p&gt;
+
+&lt;ul&gt;
+  #foreach (signatory in signatories)
+  &lt;li&gt;${signatory}&lt;/li&gt;
+  #end
+&lt;/ul&gt;
+</PRE>
+The output might look like this:
+<PRE CLASS="verbatim">
+&lt;p&gt;Signatories:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Arthur Artichoke&lt;/li&gt;
+  &lt;li&gt;Bernard Banana&lt;/li&gt;
+  &lt;li&gt;Carol Carrot&lt;/li&gt;
+  &lt;li&gt;Dorothy Date&lt;/li&gt;
+&lt;/ul&gt;
+</PRE>
+For each element in the list, the <TT>#foreach</TT> statement stores the element's value
+temporarily in the name given before the <TT>in</TT>, then processes the template text
+between the <TT>#foreach</TT> and the <TT>#end</TT>.<BR>
+<BR>
+<A NAME="example-table"></A>Here's an example that generates an HTML table:
+<PRE CLASS="verbatim">
+&lt;table&gt;
+&lt;thead&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Name&lt;/th&gt;
+    &lt;th&gt;Date of Birth&lt;/th&gt;
+    &lt;th&gt;Favourite Colour&lt;/th&gt;
+  &lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+  #foreach (person in garden.people)
+  &lt;tr&gt;
+    &lt;td&gt;${person.name}&lt;/td&gt;
+    &lt;td&gt;${person.bdate}&lt;/td&gt;
+    &lt;td&gt;${person.colour}&lt;/td&gt;
+  &lt;/tr&gt;
+  #end
+&lt;/tbody&gt;
+&lt;/table&gt;
+</PRE>
+Here <TT>garden</TT> is a hash that contains a list called <TT>people</TT>. Each element of
+<TT>people</TT> is a hash containing three scalars (<TT>name</TT>, <TT>bdate</TT> and <TT>colour</TT>).<BR>
+<BR>
+<!--TOC subsection Conditionals-->
+
+<H3 CLASS="subsection"><A NAME="htoc18">2.4</A>&nbsp;&nbsp;Conditionals</H3><!--SEC END -->
+
+A template can contain optional text, which is used only if some condition is met. The
+<TT>#if</TT> statement tests a condition. For example:
+<PRE CLASS="verbatim">
+#if (approved)
+  This document has been approved for publication.
+#else
+  This document is awaiting approval.
+#end
+</PRE>
+We have seen scalars that contain strings (i.e. text); <TT>true</TT> and <TT>false</TT> are also
+possible values of a scalar (e.g. <TT>approved</TT> above). Any scalar is equal to <TT>true</TT>
+if it has a value other than 0 or the empty string. A list is equal to <TT>true</TT> if it
+exists and isn't empty. A hash is equal to <TT>true</TT> if it exists. This makes it
+convenient to check, for example, whether a list contains any values before processing its
+contents:
+<PRE CLASS="verbatim">
+#if (searchResults)
+  #foreach (result in searchResults)
+    ...
+  #end
+#end
+</PRE>
+If a scalar contains a string or a number, an expression can test the scalar's value,
+using comparison operators such as <TT>==</TT> (equals), <TT>!=</TT> (is unequal to), <TT>&lt;</TT>
+(is less than) and <TT>&gt;</TT> (is greater than). You can also use <TT>#elseif</TT> blocks to
+test several conditions. For example:
+<PRE CLASS="verbatim">
+#if (hour &gt; 17)
+  Good evening!
+#elseif (hour &gt; 12)
+  Good afternoon!
+#else
+  Good morning!
+#end
+
+#if (status == "approved")
+  This document has been approved for publication.
+#else
+  This document is awaiting approval.
+#end
+</PRE>
+See Section&nbsp;<A HREF="#sec-expressions">3.6</A> for the full details of expressions.<BR>
+<BR>
+<!--TOC subsection Setting values-->
+
+<H3 CLASS="subsection"><A NAME="htoc19">2.5</A>&nbsp;&nbsp;Setting values</H3><!--SEC END -->
+
+The <TT>#set</TT> statement assigns a value to a name. The value is not set in the data
+model that the program has provided; a template cannot use <TT>#set</TT> to change its data
+model. The value remains internal to the template, and only while the template is being
+merged; it is then forgotten. Returning to the earlier example of an HTML table, suppose
+we wanted the background colour of the rows to alternate between yellow and white. We
+could write:
+<PRE CLASS="verbatim">
+&lt;tbody&gt;
+  #set (background = "white")
+
+  #foreach (person in garden.people)
+    &lt;tr bgcolor="${background}"&gt;
+      &lt;td&gt;${person.name}&lt;/td&gt;
+      &lt;td&gt;${person.bdate}&lt;/td&gt;
+      &lt;td&gt;${person.colour}&lt;/td&gt;
+    &lt;/tr&gt;
+
+    #if (background == "white")
+      #set (background = "yellow")
+    #else
+      #set (background = "white")
+    #end
+  #end
+&lt;/tbody&gt;
+</PRE>
+<!--TOC subsection Including Templates in Templates-->
+
+<H3 CLASS="subsection"><A NAME="htoc20">2.6</A>&nbsp;&nbsp;Including Templates in Templates</H3><!--SEC END -->
+
+Rather than copy and paste the same text into several templates, you can put the common
+text in a separate template, and include that template in other templates using the <TT>#include</TT> statement. For example, you might include a standard header and footer on
+each page:
+<PRE CLASS="verbatim">
+#include ("header.tmpl")
+
+...
+
+#include ("footer.tmpl")
+</PRE>
+Included templates will not see any values that have been set in the including template,
+nor can the including template see any values that the included template sets. If you
+want to pass values into a reusable section of template code, use a macro, as described in
+the next section.<BR>
+<BR>
+<!--TOC subsection Macros-->
+
+<H3 CLASS="subsection"><A NAME="htoc21">2.7</A>&nbsp;&nbsp;Macros</H3><!--SEC END -->
+
+To create a reusable bit of template code that uses values you provide, you can write a <EM>macro</EM>. The <TT>#macro</TT> statement defines a macro, which can then be used as a
+ statement in its own right. For example, here is a macro that formats a date in a
+ particular way, given the year, month and day as numbers:
+<PRE CLASS="verbatim">
+#macro formatDate(year, month, day)
+  #var (monthPrefix)
+  #var (dayPrefix)
+
+  #if (month &lt; 10)
+    #set (monthPrefix = "0")
+  #end
+
+  #if (day &lt; 10)
+    #set (dayPrefix = "0")
+  #end
+
+  ${year}-${monthPrefix}${month}-${dayPrefix}${day}
+#end
+</PRE>
+(The <TT>#var</TT> statement will be explained in a moment.)<BR>
+<BR>
+Here is some template code that expects a hash called <TT>date</TT> like the one we saw in
+Section&nbsp;<A HREF="#sec-hashes">2.2</A>, and uses it to call the <TT>formatDate</TT> macro above:
+<PRE CLASS="verbatim">
+Today's date:
+  #formatDate(date.year, date.month, date.day)
+</PRE>
+A macro may be called with fewer arguments than it was defined with; the remaining
+arguments are set to null. It is an error to call a macro with too many arguments.<BR>
+<BR>
+<!--TOC subsubsection Defining Variables in Macros-->
+
+<H4 CLASS="subsubsection"><A NAME="htoc22">2.7.1</A>&nbsp;&nbsp;Defining Variables in Macros</H4><!--SEC END -->
+
+The <TT>#var</TT> statement in the macro above initialises a variable for use within the
+macro, setting it to a null value. We could have written:
+<PRE CLASS="verbatim">
+#set (monthPrefix = "")
+</PRE>
+But if there was already a variable called <TT>monthPrefix</TT> outside the macro, <TT>#set</TT> would change the value of the existing variable. (Sometimes this might be what you
+want.) By contrast, a variable initialised inside a macro with <TT>#var</TT> only exists
+within that macro, and doesn't affect any other variable that might have the same name
+outside the macro; its value is forgotten once the macro has completed. Once you have
+used <TT>#var</TT> to initialise a variable in a macro, you can use <TT>#set</TT> to change
+its value, as in the example above. To initialise a variable with a value other than
+null, you can write:
+<PRE CLASS="verbatim">
+#var (colour = "blue")
+</PRE>
+When used outside of a macro, <TT>#var</TT> has the same effect as <TT>#set</TT>.<BR>
+<BR>
+<!--TOC subsubsection Storing Macros in Separate Templates-->
+
+<H4 CLASS="subsubsection"><A NAME="htoc23">2.7.2</A>&nbsp;&nbsp;Storing Macros in Separate Templates</H4><!--SEC END -->
+
+If there are some macros that you want to use in more than one template, you can define
+them in a separate template, which we'll call a <EM>macro template</EM>. In each template
+where you want to use those macros, you then need to tell CamlTemplate where to look for
+them, using the <TT>#open</TT> statement. For example, if you've written a macro template
+called <TT>macros.tmpl</TT>, and you want to use them in a template called <TT>test.tmpl</TT>,
+you would put the following line in <TT>test.tmpl</TT>, before using any of the macros:
+<PRE CLASS="verbatim">
+#open ("macros.tmpl")
+</PRE>
+You can put several <TT>#open</TT> statements in a template. When you call a macro,
+CamlTemplate looks for it first in the template that's being merged, and then in any macro
+templates that have been opened in that template.<BR>
+<BR>
+<!--TOC subsection Functions-->
+
+<H3 CLASS="subsection"><A NAME="htoc24">2.8</A>&nbsp;&nbsp;Functions</H3><!--SEC END -->
+
+A function can be supplied to a template as part of its data. Since functions are written
+in Objective Caml, they can do things that would be cumbersome or impossible to do in
+macros. A function takes one or more expressions as arguments, and returns a value, which
+can be used in an expansion or in a statement.<BR>
+<BR>
+For example, CamlTemplate provides a function called <TT>escHtml</TT>, for escaping special
+characters in HTML documents. It can be used like this:
+<PRE CLASS="verbatim">
+Company name: ${escHtml(companyName)}
+</PRE>
+If the value of <TT>companyName</TT> was <TT>Artichoke &amp; Banana</TT>, the output would be:
+<PRE CLASS="verbatim">
+Company name: Artichoke &amp;amp; Banana
+</PRE>
+In addition to <TT>escHtml</TT>, CamlTemplate provides the following functions, which
+application developers can choose to make available to templates:
+<DL CLASS="description" COMPACT=compact><DT CLASS="dt-description">
+<B>urlEncode</B><DD CLASS="dd-description"> URL-encodes a string.
+<DT CLASS="dt-description"><B>escHtmlAttr</B><DD CLASS="dd-description"> Escapes special characters in text to be included in an HTML attribute.
+<DT CLASS="dt-description"><B>escHtmlTextarea</B><DD CLASS="dd-description"> Escapes special characters in text to be included in an HTML <TT>textarea</TT>.
+<DT CLASS="dt-description"><B>asList</B><DD CLASS="dd-description"> Converts any value to a list, if it isn't already a list. If the argument is
+a list, returns the argument. If the argument is null, returns an empty list. Otherwise,
+returns a single-element list containing the argument. This is useful for dealing with
+form input fields that can have multiple values.
+</DL>
+Each of these functions expects one argument.<BR>
+<BR>
+<!--TOC subsection Comments-->
+
+<H3 CLASS="subsection"><A NAME="htoc25">2.9</A>&nbsp;&nbsp;Comments</H3><!--SEC END -->
+
+You can write a comment in a template by surrounding it with <TT>#*</TT> and <TT>*#</TT>:
+<PRE CLASS="verbatim">
+#* This is a comment. *#
+</PRE>
+Comments do not appear in the output when a template is merged. Comments can contain
+comments.<BR>
+<BR>
+<!--TOC section Template Syntax Reference-->
+
+<H2 CLASS="section"><A NAME="htoc26">3</A>&nbsp;&nbsp;Template Syntax Reference</H2><!--SEC END -->
+
+<!--TOC subsection Whitespace-->
+
+<H3 CLASS="subsection"><A NAME="htoc27">3.1</A>&nbsp;&nbsp;Whitespace</H3><!--SEC END -->
+
+It often makes templates more readable to include extra whitespace around statements. In
+particular, the CamlTemplate syntax encourages a style in which each statement is on a
+line by itself, possibly indented. This means that there is extra whitespace around the
+statement: the indentation preceding it, and the newline after it. However, it is often
+not desirable to include that extra whitespace in the output. To support this,
+CamlTemplate ignores whitespace in certain contexts. The basic rules are as follows:
+<UL CLASS="itemize"><LI CLASS="li-itemize">
+When a line begins with whitepace followed by <TT>#</TT>, that whitespace is ignored.<BR>
+<BR>
+<LI CLASS="li-itemize">When a newline follows the closing parenthesis of a statement, or a keyword such as
+<TT>#else</TT>, the newline is ignored.
+</UL>
+Thus a statement or keyword on a line by itself 'disappears' from the output (except for
+any output produced by the statement itself). Consider the following template:
+<PRE CLASS="verbatim">
+#macro sayHello()
+Hello.
+#end
+#if (true)
+  #sayHello()
+#end
+</PRE>
+This will print a single line of text, consisting of <TT>Hello.</TT> followed by a newline.<BR>
+<BR>
+Another example:
+<PRE CLASS="verbatim">
+#macro sayHello()
+Hello.
+#end
+#if (true)
+The greeting is: #sayHello()
+#end
+</PRE>
+This will print:
+<PRE CLASS="verbatim">
+The greeting is: Hello.
+</PRE>
+Note that since the call to <TT>#sayHello()</TT> does not fall at the beginning of a line,
+the space after the colon is preserved.<BR>
+<BR>
+It is often convenient to put a comment at the end of a line, like this:
+<PRE CLASS="verbatim">
+#if (showGreeting)
+${greeting} #* Display the greeting *#
+#end
+</PRE>
+The rule for comments is therefore slightly different in one respect: whitespace preceding
+a comment is always ignored (even if it doesn't start at the beginning of a line), and a
+newline following a comment is ignored. The above example will print the value of <TT>greeting</TT>, with no additional whitespace or newlines.<BR>
+<BR>
+In other contexts where a newline makes the template more readable, but you don't want to
+include it in the output, you can precede it with a backslash; both the backslash and the
+newline will be ignored, e.g.:
+<PRE CLASS="verbatim">
+#if (true)
+yes\
+#end
+</PRE>
+This will print <TT>yes</TT> with no newline.<BR>
+<BR>
+<!--TOC subsection Comments-->
+
+<H3 CLASS="subsection"><A NAME="htoc28">3.2</A>&nbsp;&nbsp;Comments</H3><!--SEC END -->
+
+<BLOCKQUOTE CLASS="quote">
+<TT>#*</TT> <EM>comment</EM> <TT>*#</TT>
+</BLOCKQUOTE>
+Comments can be nested.<BR>
+<BR>
+<!--TOC subsection Escaping Characters-->
+
+<H3 CLASS="subsection"><A NAME="htoc29">3.3</A>&nbsp;&nbsp;Escaping Characters</H3><!--SEC END -->
+
+When used literally (rather than to indicate an expansion or a statement), <TT>${</TT> and
+<TT>#</TT> must be escaped with a backslash:
+<PRE CLASS="verbatim">
+\${
+\#
+</PRE>
+Additional backslashes preceding an escape sequence are simply included in the output, as
+are backslashes not followed by <TT>${</TT> or <TT>#</TT>.<BR>
+<BR>
+<!--TOC subsection Expansions-->
+
+<H3 CLASS="subsection"><A NAME="htoc30">3.4</A>&nbsp;&nbsp;Expansions</H3><!--SEC END -->
+
+<BLOCKQUOTE CLASS="quote">
+<TT>${</TT><EM>expression</EM><TT>}</TT>
+</BLOCKQUOTE>
+Adds the value of <EM>expression</EM> (which must evaluate to a scalar) to the output.<BR>
+<BR>
+<!--TOC subsection Statements-->
+
+<H3 CLASS="subsection"><A NAME="htoc31">3.5</A>&nbsp;&nbsp;Statements</H3><!--SEC END -->
+
+A statement begins with a <TT>#</TT> character followed by a keyword. When a statement has
+a body, it is terminated by <TT>#end</TT>. If you need <TT>#end</TT> to be followed by a
+letter, you can write <TT>#end#</TT>; similarly, you can write <TT>#else#</TT> instead of
+<TT>#else</TT>. This makes it possible to write a template without newlines, e.g.:
+<PRE CLASS="verbatim">
+There #if (n == 1)is 1 file#else#are ${n} files#end#.
+</PRE>
+<!--TOC subsubsection foreach-->
+
+<H4 CLASS="subsubsection"><A NAME="htoc32">3.5.1</A>&nbsp;&nbsp;foreach</H4><!--SEC END -->
+
+<BLOCKQUOTE CLASS="quote">
+<TT>#foreach</TT> (<EM>name</EM> in <EM>expression</EM>)
+<BLOCKQUOTE CLASS="quote"><EM>template text</EM></BLOCKQUOTE>
+<TT>#end</TT>
+</BLOCKQUOTE>
+Evaluates <EM>expression</EM> as a list; iterates over the list, assigning each element in
+turn to <EM>name</EM>. Any previous value of <EM>name</EM> is temporarily hidden.<BR>
+<BR>
+<!--TOC subsubsection if-->
+
+<H4 CLASS="subsubsection"><A NAME="htoc33">3.5.2</A>&nbsp;&nbsp;if</H4><!--SEC END -->
+
+<BLOCKQUOTE CLASS="quote">
+<TT>#if</TT> (<EM>expression</EM>)
+<BLOCKQUOTE CLASS="quote"><EM>template text</EM></BLOCKQUOTE>
+<TT>#elseif</TT> (<EM>expression</EM>)
+<BLOCKQUOTE CLASS="quote"><EM>template text</EM></BLOCKQUOTE>
+<TT>#else</TT>
+<BLOCKQUOTE CLASS="quote"><EM>template text</EM></BLOCKQUOTE>
+<TT>#end</TT>
+</BLOCKQUOTE>
+The <TT>#elseif</TT> and <TT>#else</TT> blocks are optional; any number of <TT>#elseif</TT>
+blocks may be used. You can write <TT>#else#</TT> instead of <TT>#else</TT>.<BR>
+<BR>
+<!--TOC subsubsection set-->
+
+<H4 CLASS="subsubsection"><A NAME="htoc34">3.5.3</A>&nbsp;&nbsp;set</H4><!--SEC END -->
+
+<BLOCKQUOTE CLASS="quote">
+<TT>#set</TT> (<EM>name</EM> <TT>=</TT> <EM>expression</EM>)
+</BLOCKQUOTE>
+Assigns the value of <EM>expression</EM> to the variable <EM>name</EM> in one of the following
+places, in order of preference:
+<OL CLASS="enumerate" type=1><LI CLASS="li-enumerate">
+In macro scope, if invoked in macro scope and the variable already has
+ a value there.
+<LI CLASS="li-enumerate">In template scope.
+</OL>
+<!--TOC subsubsection var-->
+
+<H4 CLASS="subsubsection"><A NAME="htoc35">3.5.4</A>&nbsp;&nbsp;var</H4><!--SEC END -->
+
+<BLOCKQUOTE CLASS="quotation">
+<TT>#var</TT> (<EM>name</EM>)<BR>
+<BR>
+<TT>#var</TT> (<EM>name</EM> <TT>=</TT> <EM>expression</EM>)
+</BLOCKQUOTE>
+Assigns the value of <EM>expression</EM> (or a null value if <EM>expression</EM> is not
+supplied), to the variable <EM>name</EM> in one of the following places, in order of
+preference:
+<OL CLASS="enumerate" type=1><LI CLASS="li-enumerate">
+In macro scope, if invoked in macro scope.
+<LI CLASS="li-enumerate">In template scope.
+</OL>
+<!--TOC subsubsection include-->
+
+<H4 CLASS="subsubsection"><A NAME="htoc36">3.5.5</A>&nbsp;&nbsp;include</H4><!--SEC END -->
+
+<BLOCKQUOTE CLASS="quote">
+<TT>#include</TT> (<EM>expression</EM>)
+</BLOCKQUOTE>
+Interprets the string value of <EM>expression</EM> as the name of a template, and includes
+the contents of that template in the one currently being processed.<BR>
+<BR>
+<!--TOC subsubsection Macro Definition-->
+
+<H4 CLASS="subsubsection"><A NAME="htoc37">3.5.6</A>&nbsp;&nbsp;Macro Definition</H4><!--SEC END -->
+
+<BLOCKQUOTE CLASS="quote">
+<TT>#macro</TT> <EM>macroname</EM> (<EM>paramname1</EM>, <EM>paramname2</EM>, ... <EM>paramnamen</EM>)
+<BLOCKQUOTE CLASS="quote"><EM>template text</EM></BLOCKQUOTE>
+<TT>#end</TT>
+</BLOCKQUOTE>
+Defines a macro called <EM>macroname</EM> that takes <EM>n</EM> parameters.<BR>
+<BR>
+<!--TOC subsubsection Macro Invocation-->
+
+<H4 CLASS="subsubsection"><A NAME="htoc38">3.5.7</A>&nbsp;&nbsp;Macro Invocation</H4><!--SEC END -->
+
+<BLOCKQUOTE CLASS="quote">
+<TT>#</TT><EM>macroname</EM> (<EM>param1</EM>, <EM>param2</EM>, ... <EM>paramn</EM>)
+</BLOCKQUOTE>
+Invokes the macro called <EM>macroname</EM>. If a macro is called with fewer parameters than
+were defined in the macro, the remaining parameters are set to null.<BR>
+<BR>
+<!--TOC subsubsection open-->
+
+<H4 CLASS="subsubsection"><A NAME="htoc39">3.5.8</A>&nbsp;&nbsp;open</H4><!--SEC END -->
+
+<BLOCKQUOTE CLASS="quote">
+<TT>#open</TT> (<EM>expression</EM>)
+</BLOCKQUOTE>
+Interprets the string value of <EM>expression</EM> as the name of a template, and adds it to
+the list of templates in which macros will be searched for when invoked in the currently
+running template.<BR>
+<BR>
+<!--TOC subsection Expressions-->
+
+<H3 CLASS="subsection"><A NAME="htoc40">3.6</A>&nbsp;&nbsp;Expressions</H3><!--SEC END -->
+
+<A NAME="sec-expressions"></A>
+<!--TOC subsubsection Data Types-->
+
+<H4 CLASS="subsubsection"><A NAME="htoc41">3.6.1</A>&nbsp;&nbsp;Data Types</H4><!--SEC END -->
+
+<UL CLASS="itemize"><LI CLASS="li-itemize">
+Scalar:
+<DL CLASS="description" COMPACT=compact><DT CLASS="dt-description">
+<B>String</B><DD CLASS="dd-description"> A string literal is enclosed in double quotes: <TT>"</TT><EM>string</EM><TT>"</TT>).
+ A double quote in a string literal must be escaped by preceding it with a backslash.
+ The escapes <TT>\t</TT> (tab), <TT>\r</TT> (carriage return) and <TT>\n</TT> (newline) can also be used; <TT>\\</TT> produces a
+ backslash.
+<DT CLASS="dt-description"><B>Integer</B><DD CLASS="dd-description"> An integer literal is a sequence of one or more digits, optionally preceded
+ by a minus sign. For convenience and readability, underscore characters (_) are
+ accepted (and ignored) within integer literals.
+<DT CLASS="dt-description"><B>Float</B><DD CLASS="dd-description"> A floating-point literal consists of an integer part, a decimal part and an
+ exponent part. The integer part is a sequence of one or more digits, optionally preceded
+ by a minus sign. The decimal part is a decimal point followed by zero, one or more
+ digits. The exponent part is the character e or E followed by an optional + or - sign,
+ followed by one or more digits. The decimal part or the exponent part can be omitted,
+ but not both (to avoid ambiguity with integer literals). For convenience and readability,
+ underscore characters (_) are accepted (and ignored) within floating-point literals.
+<DT CLASS="dt-description"><B>Boolean</B><DD CLASS="dd-description"> The boolean literals are <TT>true</TT> and <TT>false</TT>.
+</DL>
+<LI CLASS="li-itemize">Hash. Keys are identifiers, values are any template data type.
+<LI CLASS="li-itemize">List. Values are any template data type.
+<LI CLASS="li-itemize">Null. A nonexistent value of any type is represented as null. The null literal is
+ <TT>null</TT>.
+</UL>
+<!--TOC subsubsection Conversions-->
+
+<H4 CLASS="subsubsection"><A NAME="htoc42">3.6.2</A>&nbsp;&nbsp;Conversions</H4><!--SEC END -->
+
+Scalar types are converted to other scalar types automatically. When an operator has one
+integer operand and one float operand, the integer is promoted to a float. Otherwise, the
+interpreter attempts to convert the right-hand side of an expression to the type of the
+left-hand side, and raises <TT>Template_error</TT> if this not possible.<BR>
+<BR>
+Any value can be compared with a boolean or null value. All scalar values are equal to
+<TT>true</TT> except integer 0 and the empty string; a null value is equal to <TT>false</TT>.
+All list and hash values are equal to <TT>true</TT> except the empty list. The string and
+integer values of <TT>true</TT> are <TT>"true"</TT> and 1, respectively; the string and integer
+values of <TT>false</TT> are <TT>""</TT> (the empty string) and 0.<BR>
+<BR>
+<!--TOC subsubsection Identifiers-->
+
+<H4 CLASS="subsubsection"><A NAME="htoc43">3.6.3</A>&nbsp;&nbsp;Identifiers</H4><!--SEC END -->
+
+<A NAME="sec-identifiers"></A>
+The characters allowed in identifiers are upper-case and lower-case ASCII letters, digits,
+the underscore and the apostrophe. The first character of an identifier must be an ASCII
+letter.<BR>
+<BR>
+<!--TOC subsubsection Operators-->
+
+<H4 CLASS="subsubsection"><A NAME="htoc44">3.6.4</A>&nbsp;&nbsp;Operators</H4><!--SEC END -->
+
+Table&nbsp;<A HREF="#table-operators">1</A> lists the operators supported in expressions. Standard
+operator precedence applies, and can be overridden using parentheses.
+<BLOCKQUOTE CLASS="table"><DIV CLASS="center"><DIV CLASS="center"><HR WIDTH="80%" SIZE=2></DIV>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=1>
+<TR><TD VALIGN=top ALIGN=left NOWRAP><EM>Operator</EM></TD>
+<TD VALIGN=top ALIGN=left NOWRAP><EM>Meaning</EM></TD>
+<TD VALIGN=top ALIGN=left><EM>Compatible Types</EM></TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>!</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>unary not</TD>
+<TD VALIGN=top ALIGN=left>boolean values</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>-</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>subtraction, unary negation</TD>
+<TD VALIGN=top ALIGN=left>integers, floats</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>+</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>addition, string concatenation</TD>
+<TD VALIGN=top ALIGN=left>integers, floats, strings</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>*</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>multiplication</TD>
+<TD VALIGN=top ALIGN=left>integers, floats</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>/</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>division</TD>
+<TD VALIGN=top ALIGN=left>integers, floats</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>%</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>modulo</TD>
+<TD VALIGN=top ALIGN=left>integers, floats</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>==</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>equality</TD>
+<TD VALIGN=top ALIGN=left>scalars</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>!=</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>inequality</TD>
+<TD VALIGN=top ALIGN=left>scalars</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>&lt;</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>less than</TD>
+<TD VALIGN=top ALIGN=left>integers, floats, strings</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>&gt;</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>greater than</TD>
+<TD VALIGN=top ALIGN=left>integers, floats, strings</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>&lt;=</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>less than or equal to</TD>
+<TD VALIGN=top ALIGN=left>integers, floats, strings</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>&gt;=</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>greater than or equal to</TD>
+<TD VALIGN=top ALIGN=left>integers, floats, strings</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>&amp;&amp;</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>and</TD>
+<TD VALIGN=top ALIGN=left>boolean values</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>||</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>or</TD>
+<TD VALIGN=top ALIGN=left>boolean values</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>.</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>hash lookup with identifier as key</TD>
+<TD VALIGN=top ALIGN=left>hash on left, identifier on right</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>[]</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>hash lookup with string as key</TD>
+<TD VALIGN=top ALIGN=left>hash on left, string on right</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>()</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>function call</TD>
+<TD VALIGN=top ALIGN=left>function on left, comma-separated expressions in parentheses</TD>
+</TR>
+<TR><TD VALIGN=top ALIGN=left NOWRAP>=</TD>
+<TD VALIGN=top ALIGN=left NOWRAP>assignment</TD>
+<TD VALIGN=top ALIGN=left>identifier on left, expression on right</TD>
+</TR></TABLE>
+<BR>
+<BR>
+<DIV CLASS="center">Table 1: Operators<A NAME="table-operators"></A></DIV><BR>
+<BR>
+
+<DIV CLASS="center"><HR WIDTH="80%" SIZE=2></DIV></DIV></BLOCKQUOTE>
+<!--TOC section Programming with the CamlTemplate Library-->
+
+<H2 CLASS="section"><A NAME="htoc45">4</A>&nbsp;&nbsp;Programming with the CamlTemplate Library</H2><!--SEC END -->
+
+<A NAME="sec-library"></A>
+When reading this section, you will probably find it helpful to refer to the CamlTemplate
+API documentation, which is generated by ocamldoc and provided in the <TT>doc/api</TT>
+directory of the CamlTemplate distribution.<BR>
+<BR>
+<!--TOC subsection The General Procedure-->
+
+<H3 CLASS="subsection"><A NAME="htoc46">4.1</A>&nbsp;&nbsp;The General Procedure</H3><!--SEC END -->
+
+The general procedure is as follows:
+<OL CLASS="enumerate" type=1><LI CLASS="li-enumerate">
+Create a template cache using <TT>Cache.create</TT>.
+<LI CLASS="li-enumerate">Create a data model consisting of values of type <TT>Model.tvalue</TT>.
+<LI CLASS="li-enumerate">Load a template using <TT>Cache.get_template</TT>.
+<LI CLASS="li-enumerate">Pass the template to the <TT>merge</TT> function to generate output.
+</OL>
+Here is `Hello, world!' with a template. The template is as follows:
+<PRE CLASS="verbatim">
+Here is the message: ${message}
+</PRE>
+And here is a program that uses it:
+<PRE CLASS="verbatim">
+open Printf ;;
+open CamlTemplate.Model ;;
+
+let _ =
+  (* Make a template cache. *)
+  let cache = CamlTemplate.Cache.create () in
+    (* Create a model. *)
+  let model = Hashtbl.create 4 in
+    Hashtbl.add model "message"
+      (Tstr "Hello, world!");    
+    try
+      (* Get the template. *)
+      let tmpl =
+        CamlTemplate.Cache.get_template
+          cache "hello.tmpl"
+          (* Make a buffer for the output. *)
+      and buf = Buffer.create 256 in
+        (* Generate output. *)
+        CamlTemplate.merge tmpl model buf;
+        print_string (Buffer.contents buf)
+    with
+        CamlTemplate.Syntax_error msg -&gt;
+          eprintf "\n%s\n" msg
+      | CamlTemplate.Template_error msg -&gt;
+          eprintf "\n%s\n" msg ;;
+</PRE>
+There are other examples in the <TT>examples</TT> directory of the distribution.<BR>
+<BR>
+<!--TOC subsection Template Data Models-->
+
+<H3 CLASS="subsection"><A NAME="htoc47">4.2</A>&nbsp;&nbsp;Template Data Models</H3><!--SEC END -->
+
+A template data model is a tree of values; these values can be scalars (strings, integers,
+floats or booleans), lists, hashtables or functions. The root of the tree must be a
+hashtable. In a template, an identifier by itself is the name of an entry in that root
+hashtable.<BR>
+<BR>
+Tabular data can be represented as a list of hashes of scalars. Each element in the list
+represents a row in the table, and consists of a hash in which the names are column names
+and the values are cell values. Such a model can be handled as shown in
+Section&nbsp;<A HREF="#example-table">2.3</A>.<BR>
+<BR>
+<!--TOC subsection Loading and Caching Templates-->
+
+<H3 CLASS="subsection"><A NAME="htoc48">4.3</A>&nbsp;&nbsp;Loading and Caching Templates</H3><!--SEC END -->
+
+Once loaded and parsed, templates are cached; the <TT>Cache</TT> module provides functions
+for creating template caches, getting templates from them and configuring the behaviour of
+a cache (e.g. how often it is refreshed). By default, templates are loaded from files,
+but you can provide a class of type <TT>source_loader</TT> to load them from another
+source.<BR>
+<BR>
+The <TT>#include</TT> and <TT>#open</TT> statements fetch the included or opened template from
+the cache when the enclosing template is merged. Therefore, if an <TT>#include</TT> or <TT>#open</TT> refers to a template that doesn't exist, this won't be detected until the outer
+template is merged.<BR>
+<BR>
+Macros are stored in the templates in which they are defined. When a template containing
+a macro definition changes, the macro definition is updated as well.<BR>
+<BR>
+<!--TOC subsection Threads-->
+
+<H3 CLASS="subsection"><A NAME="htoc49">4.4</A>&nbsp;&nbsp;Threads</H3><!--SEC END -->
+
+<A NAME="sec-manual-threads"></A>
+CamlTemplate provides optional support for multithreaded programs. If you need thread
+ support, in addition to linking your program with the <TT>camlTemplate</TT> library, you
+ must also link in <TT>camlTemplate_mt.cmo</TT> (for bytecode programs) or <TT>camlTemplate_mt.cmx</TT> (for native-code programs). This ensures that the following are
+ true:
+<UL CLASS="itemize"><LI CLASS="li-itemize">
+Multiple threads can safely use the same template cache concurrently.<BR>
+<BR>
+<LI CLASS="li-itemize">Multiple threads can safely pass the same template (or different templates) to the
+ <TT>merge</TT> function.<BR>
+<BR>
+<LI CLASS="li-itemize">Multiple templates running in different threads can safely use the same model, as
+long as no template function changes the model. (Note that none of the template
+statements, including <TT>#set</TT> and <TT>#var</TT>, can change the model.) Values set
+using <TT>#set</TT> and <TT>#var</TT> are visible only to the thread that set them.
+</UL>
+<!--TOC subsection Error Handling-->
+
+<H3 CLASS="subsection"><A NAME="htoc50">4.5</A>&nbsp;&nbsp;Error Handling</H3><!--SEC END -->
+
+The <TT>get_template</TT> function raises <TT>Syntax_error</TT> if it cannot parse a template.
+It may also raise other exceptions if it fails to read template source code because of an
+I/O error.<BR>
+<BR>
+If a template cannot be merged because of a run-time error (e.g. a wrong data type), the
+<TT>merge</TT> function raises <TT>Template_error</TT>.<BR>
+<BR>
+If a Caml function called from a template is unable to complete successfully, it can raise
+<TT>Tfun_error</TT>; this causes <TT>merge</TT> to raise <TT>Template_error</TT>.<BR>
+<BR>
+<!--TOC section Design-->
+
+<H2 CLASS="section"><A NAME="htoc51">5</A>&nbsp;&nbsp;Design</H2><!--SEC END -->
+
+This section describes the implementation of CamlTemplate; you don't need to read it
+unless you are interested in developing CamlTemplate itself.<BR>
+<BR>
+CamlTemplate is a fairly straightforward implementation of the Interpreter<SUP><A NAME="text1" HREF="#note1">1</A></SUP> pattern. It uses <TT>ocamllex</TT> and <TT>ocamlyacc</TT> to parse
+template source code, generating an abstract syntax tree consisting of objects; these
+objects do the work of interpreting the template.<BR>
+<BR>
+<!--TOC subsection The Abstract Syntax Tree-->
+
+<H3 CLASS="subsection"><A NAME="htoc52">5.1</A>&nbsp;&nbsp;The Abstract Syntax Tree</H3><!--SEC END -->
+
+There are two kinds of objects in the abstract syntax tree, represented by the class type
+<TT>statement</TT> and the virtual class <TT>expression</TT>. Statements produce output;
+expressions have values. A template consists essentially of a list of statements (each of
+which may contain one or more lists of statements, e.g. to represent the body of a loop,
+or the branches of a conditional); when merged, the template iterates over its statements,
+calling each statement's <TT>interpret</TT> method in turn.<BR>
+<BR>
+<!--TOC subsection The Parser and Lexer-->
+
+<H3 CLASS="subsection"><A NAME="htoc53">5.2</A>&nbsp;&nbsp;The Parser and Lexer</H3><!--SEC END -->
+
+The parser is very straightforward, and probably needs no explanation if you are familiar
+with ocamlyacc. The lexer, on the other hand, is rather complicated, mainly because of
+the absence of delimiters around literal text in a template language; this requires us to
+assume that we are reading literal text until we get to something that looks like template
+language syntax.<BR>
+<BR>
+The CamlTemplate lexer therefore maintains some state to indicate which sort of
+environment is being tokenised. The variable <TT>cur_mode</TT> keeps track of whether the
+lexer is currently in literal text, an expansion or a statement. For the most part,
+instead of using specialised rules, the lexer uses a single rule containing all the
+patterns that are meaningful in tokens; once it has matched a pattern, it decides what to
+do depending on its current mode.<BR>
+<BR>
+<!--TOC subsection Scopes-->
+
+<H3 CLASS="subsection"><A NAME="htoc54">5.3</A>&nbsp;&nbsp;Scopes</H3><!--SEC END -->
+
+Scopes in CamlTemplate are roughly patterned after those in JavaScript. There are two
+writable scopes, template scope and macro scope; the template model is an additional
+read-only scope. Assignment and lookup of values in scopes are encapsulated in the <TT>scope</TT> class in <TT>ctScope.ml</TT>.<BR>
+<BR>
+<!--TOC subsection Thread Support-->
+
+<H3 CLASS="subsection"><A NAME="htoc55">5.4</A>&nbsp;&nbsp;Thread Support</H3><!--SEC END -->
+
+Since parser and lexer both maintain some global state, and since template caches are
+modifiable, they are all protected by a global mutex (in <TT>ctCache.ml</TT>) when
+thread support is linked in.<BR>
+<BR>
+<!--BEGIN NOTES document-->
+<HR WIDTH="50%" SIZE=1><DL CLASS="list"><DT CLASS="dt-list"><FONT SIZE=5><A NAME="note1" HREF="#text1">1</A></FONT><DD CLASS="dd-list">Erich
+Gamma et al., <EM>Design Patterns: Elements of Resuable Object-Oriented Software</EM>, Addison
+Wesley Longman, 1997.
+</DL>
+<!--END NOTES-->
+<!--HTMLFOOT-->
+<!--ENDHTML-->
+<!--FOOTER-->
+<HR SIZE=2><BLOCKQUOTE CLASS="quote"><EM>This document was translated from L<sup>A</sup>T<sub>E</sub>X by
+<A HREF="http://pauillac.inria.fr/~maranget/hevea/index.html">H<FONT SIZE=2><sup>E</sup></FONT>V<FONT SIZE=2><sup>E</sup></FONT>A</A>.</EM></BLOCKQUOTE></BODY>
+</HTML>

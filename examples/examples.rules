@@ -1,0 +1,3 @@
+ifeq ($(CAMLTEMPLATE_DIR),)
+CAMLTEMPLATE_DIR := $(shell ocamlfind query camltemplate)
+endif

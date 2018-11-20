@@ -1,0 +1,110 @@
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="Start" href="index.html">
+<link rel="next" href="CamlTemplate.Cache.html">
+<link rel="Up" href="CamlTemplate.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of class methods" rel=Appendix href="index_methods.html">
+<link title="Index of class types" rel=Appendix href="index_class_types.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="CamlTemplate" rel="Chapter" href="CamlTemplate.html"><title>CamlTemplate API Documentation : CamlTemplate.Model</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a href="CamlTemplate.html">Up</a>
+&nbsp;<a href="CamlTemplate.Cache.html">Next</a>
+</div>
+<center><h1>Module <a href="type_CamlTemplate.Model.html">CamlTemplate.Model</a></h1></center>
+<br>
+<pre><span class="keyword">module</span> Model: <code class="code">sig</code> <a href="CamlTemplate.Model.html">..</a> <code class="code">end</code></pre>Provides the types used in the data models that are merged with
+  templates.<br>
+<hr width="100%">
+<br><code><span class="keyword">type</span> <a name="TYPEtvalue"></a><code class="type"></code>tvalue = </code><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Tnull</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><code>A null value.</code></td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Tstr</span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><code>A string value.</code></td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Tint</span> <span class="keyword">of</span> <code class="type">int</code></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><code>An integer value.</code></td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Tfloat</span> <span class="keyword">of</span> <code class="type">float</code></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><code>A floating-point value.</code></td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Tbool</span> <span class="keyword">of</span> <code class="type">bool</code></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><code>A boolean value.</code></td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Tlist</span> <span class="keyword">of</span> <code class="type"><a href="CamlTemplate.Model.html#TYPEtlist">tlist</a></code></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><code>A list.</code></td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Thash</span> <span class="keyword">of</span> <code class="type"><a href="CamlTemplate.Model.html#TYPEthash">thash</a></code></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><code>A set of key-value pairs.</code></td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">Tfun</span> <span class="keyword">of</span> <code class="type"><a href="CamlTemplate.Model.html#TYPEtfun">tfun</a></code></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><code>An Objective Caml function that can be called by a template.</code></td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr></table>
+
+<div class="info">
+A value in a template data model.<br>
+</div>
+
+<pre><span class="keyword">type</span> <a name="TYPEtlist"></a><code class="type"></code>tlist = <code class="type"><a href="CamlTemplate.Model.html#TYPEtvalue">tvalue</a> list</code> </pre>
+<div class="info">
+The type contained in a <code class="code">Tlist</code>: a list of
+        <code class="code">tvalue</code>s.<br>
+</div>
+
+<pre><span class="keyword">type</span> <a name="TYPEthash"></a><code class="type"></code>thash = <code class="type">(string, <a href="CamlTemplate.Model.html#TYPEtvalue">tvalue</a>) Hashtbl.t</code> </pre>
+<div class="info">
+The type contained in a <code class="code">Thash</code>: a collection of
+        <code class="code">tvalue</code>s, each of which has a name.<br>
+</div>
+
+<pre><span class="keyword">type</span> <a name="TYPEtfun"></a><code class="type"></code>tfun = <code class="type">args:<a href="CamlTemplate.Model.html#TYPEtvalue">tvalue</a> list -> <a href="CamlTemplate.Model.html#TYPEtvalue">tvalue</a></code> </pre>
+<div class="info">
+The type contained in a <code class="code">Tfun</code>: a function that
+        takes <code class="code">tvalue</code>s as arguments, and returns a
+        <code class="code">tvalue</code>.<br>
+</div>
+
+<pre><span class="keyword">exception</span> <a name="EXCEPTIONTfun_error"></a>Tfun_error <span class="keyword">of</span> <code class="type">string</code></pre>
+<div class="info">
+An exception that <code class="code">tfun</code> functions can raise when
+    called by a template.<br>
+</div>
+</body></html>

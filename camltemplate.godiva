@@ -1,0 +1,15 @@
+(* Godiva spec file *)
+Package: godi-camltemplate
+Version: 1.0.1
+Revision: 0
+Depends: godi-ocaml (>= 3.08)
+Build-Depends: godi-findlib (>= 1.0.4)
+Sources: http://saucecode.org/camltemplate/releases/camltemplate-1.0.1.tar.gz
+Homepage: http://saucecode.org/camltemplate/
+Maintainer: Benjamin Geer <benjamin.geer@gmail.com>
+Options: configure, opt, htdoc
+Docfiles: README, INSTALL, COPYING
+Description: A library for generating text from templates.
+CamlTemplate can be used to generate web pages, scripts, SQL
+queries, XML documents and other sorts of text.
+.

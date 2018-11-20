@@ -1,0 +1,39 @@
+Quick Installation Instructions
+-------------------------------
+
+If you use GODI (http://www.ocaml-programming.de/godi/), you can
+install CamlTemplate from godi_console.  Otherwise, you can install
+manually as described below.
+
+
+Installing Manually
+-------------------
+
+Requirements:
+
+  * Objective Caml 3.08.3 or above.
+  * GNU make.
+
+To see the configuration options, type:
+
+./configure --help
+
+Type:
+
+./configure
+make
+make opt
+make test
+
+Then as root, type:
+
+make install
+
+This installs the library using ocamlfind.  Documentation is installed
+in $PREFIX/doc/camltemplate.  Examples are installed in
+$PREFIX/share/camltemplate/examples.
+
+To unstall the library, type 'make uninstall' as root.
+
+The manual contains instructions on integrating CamlTemplate with
+mod_caml and mod_fastcgi.

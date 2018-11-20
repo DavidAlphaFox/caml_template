@@ -1,0 +1,105 @@
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="Start" href="index.html">
+<link rel="previous" href="CamlTemplate.Model.html">
+<link rel="Up" href="CamlTemplate.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of class methods" rel=Appendix href="index_methods.html">
+<link title="Index of class types" rel=Appendix href="index_class_types.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="CamlTemplate" rel="Chapter" href="CamlTemplate.html"><link title="Customising How Source Code is Loaded" rel="Section" href="#1_CustomisingHowSourceCodeisLoaded">
+<link title="Using Template Caches" rel="Section" href="#1_UsingTemplateCaches">
+<title>CamlTemplate API Documentation : CamlTemplate.Cache</title>
+</head>
+<body>
+<div class="navbar"><a href="CamlTemplate.Model.html">Previous</a>
+&nbsp;<a href="CamlTemplate.html">Up</a>
+&nbsp;</div>
+<center><h1>Module <a href="type_CamlTemplate.Cache.html">CamlTemplate.Cache</a></h1></center>
+<br>
+<pre><span class="keyword">module</span> Cache: <code class="code">sig</code> <a href="CamlTemplate.Cache.html">..</a> <code class="code">end</code></pre>Caches templates.<br>
+<hr width="100%">
+<br>
+<a name="1_CustomisingHowSourceCodeisLoaded"></a>
+<h1>Customising How Source Code is Loaded</h1><br>
+<br><code><span class="keyword">type</span> <a name="TYPEsource_check_result"></a><code class="type"></code>source_check_result = </code><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">TemplateUnchanged</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><code>Indicates that the source code of the checked template has
+          not changed since it was loaded.</code></td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">TemplateChanged</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><code>Indicates that the source code of the checked template has
+          changed since it was loaded.</code></td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span class="constructor">TemplateDeleted</span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><code>Indicates that the source code of the checked template was
+          deleted since it was loaded.</code></td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr></table>
+
+<div class="info">
+The type returned by a template source loader when it checks
+    whether a template's source code has changed.<br>
+</div>
+
+<pre><span class="keyword">class type</span> <a name="TYPEsource_loader"></a><a href="CamlTemplate.Cache.source_loader.html">source_loader</a> = <code class="code">object</code> <a href="CamlTemplate.Cache.source_loader.html">..</a> <code class="code">end</code></pre><div class="info">
+An implementation of this class type can be used by a template
+    cache to load template source code.
+</div>
+<pre><span class="keyword">val</span> <a name="VALas_source_loader"></a>as_source_loader : <code class="type">#<a href="CamlTemplate.Cache.source_loader.html">source_loader</a> -> <a href="CamlTemplate.Cache.source_loader.html">source_loader</a></code></pre><div class="info">
+Upcasting function for <a href="CamlTemplate.Cache.source_loader.html"><code class="code">CamlTemplate.Cache.source_loader</code></a>.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALmake_file_loader"></a>make_file_loader : <code class="type">template_dir:string -> <a href="CamlTemplate.Cache.source_loader.html">source_loader</a></code></pre><div class="info">
+Returns a <a href="CamlTemplate.Cache.source_loader.html"><code class="code">CamlTemplate.Cache.source_loader</code></a> that loads template source code
+    from files in a directory.  The name of each template is used as the
+    filename.<br>
+</div>
+<br><div class="info"><code class="code">template_dir</code> : the directory in which the template source files
+    are located.</div>
+<br>
+<a name="1_UsingTemplateCaches"></a>
+<h1>Using Template Caches</h1><br>
+<pre><span class="keyword">type</span> <a name="TYPEt"></a><code class="type"></code>t </pre>
+<div class="info">
+The type of template caches.<br>
+</div>
+
+<pre><span class="keyword">val</span> <a name="VALcreate"></a>create : <code class="type">?loader:<a href="CamlTemplate.Cache.source_loader.html">source_loader</a> -><br>       ?check_interval:float -> unit -> <a href="CamlTemplate.Cache.html#TYPEt">t</a></code></pre><div class="info">
+Creates a template cache.<br>
+</div>
+<br><div class="info"><code class="code">loader</code> : the <code class="code">source_loader</code> that will be used to load
+    template source code for the cache.  If omitted, the cache uses a
+    <code class="code">source_loader</code> that loads template source code from the current
+    working directory.</div>
+<div class="info"><code class="code">check_interval</code> : the interval at which the template cache
+    should be refreshed.  The default is 5 minutes.  If the interval
+    is zero, the cache will be refreshed every time
+    <a href="CamlTemplate.Cache.html#VALget_template"><code class="code">CamlTemplate.Cache.get_template</code></a> is called.  If the interval is
+    negative, it will never be refreshed.</div>
+<pre><span class="keyword">val</span> <a name="VALget_template"></a>get_template : <code class="type">cache:<a href="CamlTemplate.Cache.html#TYPEt">t</a> -> template_name:string -> <a href="CamlTemplate.html#TYPEtemplate">CamlTemplate.template</a></code></pre><div class="info">
+Given a cache and the name of a template, returns the template from the
+    cache.  If the template is not in the cache, it is loaded
+    and cached.
+<p>
+
+    If the cache is due to be refreshed, this method refreshes the cache
+    (i.e. reloads any templates that have been modified since they were
+    last loaded, and removes any deleted templates from the cache)
+    before looking for the requested template.<br>
+<b>Raises</b> <code>CamlTemplate.Syntax_error</code> if a template cannot be parsed.<br>
+</div>
+</body></html>

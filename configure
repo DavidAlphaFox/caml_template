@@ -1,0 +1,39 @@
+#!/bin/sh
+
+show_help=
+prefix=/usr/local
+
+for option do
+  optarg=`expr "x$option" : 'x[^=]*=\(.*\)'`
+
+  case $option in
+
+      -h | --help)
+          show_help=true ;;
+      
+      --prefix=*)
+          prefix=$optarg ;;
+  esac
+done
+
+if test -n "$show_help"; then
+    cat <<EOF
+Usage: $0 [OPTION]...
+
+Options:
+  -h, --help              display this help and exit
+      --prefix=PREFIX     install this package under PREFIX
+EOF
+  exit 0
+fi
+
+echo Installation prefix: $prefix
+
+cat > Makefile.config <<EOF
+ifeq (\$(PREFIX),)
+PREFIX := $prefix
+endif
+EOF
+
+echo
+echo Now type \`make\'.

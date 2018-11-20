@@ -1,0 +1,168 @@
+2008-06-26
+    Version 1.0.2 released:
+
+      * Removed dependency from Pcre, standart library Str used instead
+        (thanks to Eric Merritt).
+
+      * Fixed handling of --prefix switch for configure script
+        (thanks to Dave Peticolas).
+      
+      * Moved to OCaml forge, new project page:
+        http://forge.ocamlcore.org/projects/camltemplate/
+
+2005-07-07
+    Version 1.0.1 released:
+      * Minor cleanups.
+
+2005-05-26
+    Version 1.0.0 released:
+
+      * Fixed bug: META always depended on 'threads' even if
+        threads weren't enabled.  Thread support is now compiled
+        into a separate file which can be linked in if needed, instead
+        of being enabled when CamlTemplate is compiled (thanks to
+        Janne Hellsten).
+
+      * Fixed incorrect interpretation of backslashes.
+
+      * Fixed reading of template files on Cygwin (thanks to Janne
+        Hellsten).
+
+      * Fixed incorrect handling of syntax errors in macro call
+        arguments.
+
+      * Added FastCGI example.
+
+2004-07-15
+    Version 0.9.2 released:
+    
+      * Fixed bug that caused compile error if thread support
+        was enabled.
+
+2004-05-11
+    Version 0.9.1 released:
+
+      * Changed the line-continuation character from '#' to the
+        more standard '\'.
+
+      * Now requires OCaml 3.07.
+
+      * Use GODI's OCamlMakefile when available.
+
+      * Some clarifications in the manual.
+
+2004-05-01
+    Version 0.9.0 released:
+
+      * API change: source_loader is now a class type rather than
+        a virtual class.
+
+      * Template syntax changes: whitespace preceding a statement
+        is now ignored only if the whitespace starts at the
+        beginning of a line.  Preceding a newline with '#' now
+        causes it to be ignored.
+
+      * Packaged for GODI.
+
+      * 'make' targets have changed: 'make' now just builds the
+        bytecode version; use 'make opt' to build the native-code
+        version.  'make install' now installs documentation and
+        examples.
+
+      * Fixed incorrect linking to Unix and Pcre libraries (thanks to
+        Olivier Andrieu).
+
+      * Fixed handling of empty templates.
+
+      * Reorganised and cleaned up source code.
+
+2004-03-13
+    Version 0.8.1 released:
+
+      * Fixed a bug that could have caused a template to be parsed
+        incorrectly if there was a syntax error in the most recently
+        parsed template.
+
+2004-02-24
+    Version 0.8.0 released:
+
+      * Added support for multiple template caches.
+
+      * Made some cosmetic changes in the API.
+
+      * Added a 'configure' script.
+
+2004-02-04
+    Version 0.7.2 released:
+
+      * Added 'null' literal.
+
+      * Fixed installation of native library (thanks to Kamil Shakirov).
+
+      * Fixed Makefile to do a better job of finding Pcre, and to
+        invoke dvips correctly on Mandrake Linux.
+
+      * Documentation fixes.
+
+2004-01-05
+    Version 0.7.1 released:
+
+      * Whitespace immediately preceding a statement, on the same
+        line, is now ignored.
+
+      * Fixed a bug in the handling of escape characters in
+        string literals.
+
+      * A few documentation fixes.
+
+2004-01-03
+    Version 0.7.0 released:
+
+      * Added support for floating-point values.
+
+      * Implemented nested scopes: macros have their own scope.
+        Setting values in a template no longer changes the model.
+
+      * Added a simple macro namespace system.  Each template
+        provides a namespace for its macros; to use macros
+        defined in another template, you now have to use the new
+        #open statement.
+
+      * Added a bracket operator for calculating a hash key at
+        run time.
+
+      * Added a virtual class to replace the two separate
+        functions for loading and checking template source code.
+
+      * Shortened template model type names.
+
+      * Added some design documentation.
+
+      * Added licence exception allowing CamlTemplate to be
+        linked with Apache.
+
+      * Several bug fixes.
+
+2003-10-09
+    Version 0.6.1 released:
+
+      * Replaced Str with Pcre, because Str isn't thread-safe.
+
+2003-10-08
+    Version 0.6.0 released:
+
+      * No longer requires a patch for mod_caml, because the
+        patch has been included in mod_caml.
+
+      * Added functions for escaping URLs and HTML text.
+
+      * Bug fix: when an error occurred in a macro template, the
+        name of the macro template was not reported in the
+        exception message, and in some cases the line number was
+        incorrect.
+
+      * Added 'make test'.
+
+2003-10-06
+    Version 0.5.1 released (minor build and documentation fixes).
+    Version 0.5.0 released.

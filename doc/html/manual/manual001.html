@@ -1,0 +1,187 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<HEAD>
+
+
+
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="GENERATOR" content="hevea 1.08">
+<LINK rel="stylesheet" type="text/css" href="manual.css">
+<TITLE>
+Introduction
+</TITLE>
+</HEAD>
+<BODY >
+<A HREF="index.html"><IMG SRC ="contents_motif.gif" ALT="Up"></A>
+<A HREF="manual002.html"><IMG SRC ="next_motif.gif" ALT="Next"></A>
+<HR>
+
+<H2 CLASS="section"><A NAME="htoc1">1</A>&nbsp;&nbsp;Introduction</H2>
+This manual describes how to use CamlTemplate, a template processor for
+<A HREF="http://caml.inria.fr">Objective Caml</A> programs. It can be used to generate web pages,
+scripts, SQL queries, XML documents and other sorts of text.<BR>
+<BR>
+<A NAME="toc1"></A>
+<H3 CLASS="subsection"><A NAME="htoc2">1.1</A>&nbsp;&nbsp;About This Manual</H3>
+This manual is provided in HTML and PDF formats in the CamlTemplate
+distribution.<BR>
+<BR>
+<A NAME="toc2"></A>
+<H3 CLASS="subsection"><A NAME="htoc3">1.2</A>&nbsp;&nbsp;Licence</H3>
+CamlTemplate is <A HREF="http://www.gnu.org/philosophy/free-sw.html">free software</A>, released under the
+<A HREF="http://www.gnu.org/copyleft/gpl.html">GNU General Public License</A>. This manual is released under the same
+licence.<BR>
+<BR>
+In addition, as a special exception, Benjamin Geer gives permission to link the code of
+this program with the Apache HTTP Server (or with modified versions of Apache that use the
+same license as Apache), and distribute linked combinations including the two. You must
+obey the GNU General Public License in all respects for all of the code used other than
+Apache. If you modify this file, you may extend this exception to your version of the
+file, but you are not obligated to do so. If you do not wish to do so, delete this
+exception statement from your version.<BR>
+<BR>
+<A NAME="toc3"></A>
+<H3 CLASS="subsection"><A NAME="htoc4">1.3</A>&nbsp;&nbsp;Features</H3>
+<UL CLASS="itemize"><LI CLASS="li-itemize">
+A versatile, easy-to-learn template syntax that supports common scripting-language
+ constructs, while encouraging a separation between presentation logic and application
+ logic.
+<LI CLASS="li-itemize">The supported Caml data structures accomodate lists, tables and trees of items in a
+ straightforward manner.
+<LI CLASS="li-itemize">Works well with <A HREF="http://merjis.com/developers/mod_caml/">mod_caml</A> and
+<A HREF="http://www.fastcgi.com/">mod_fastcgi</A>.
+<LI CLASS="li-itemize">Supports any ASCII-compatible encoding, including UTF-8.
+<LI CLASS="li-itemize">Optional support for multithreading.
+</UL>
+CamlTemplate works by merging data with handwritten templates. This process is
+illustrated in Figure&nbsp;<A HREF="#fig-merge">1</A>.<BR>
+<BR>
+The template contains only the handwritten material; some other program provides the data.
+The template's author doesn't need to be involved in writing that program; he or she only
+needs to know what data the program provides, and can therefore change the template
+without involving the program's developers. Likewise, the program can be modified so that
+it obtains data in a different way, without affecting the template. Different templates
+can be used to display the same data in different ways (e.g. to generate normal and
+`printer-friendly' versions of a web page).
+<BLOCKQUOTE CLASS="figure"><DIV CLASS="center"><DIV CLASS="center"><HR WIDTH="80%" SIZE=2></DIV>
+<IMG SRC="manual001.gif">
+<BR>
+
+<BR>
+<BR>
+<DIV CLASS="center">Figure 1: Generating a document<A NAME="fig-merge"></A></DIV><BR>
+<BR>
+
+<DIV CLASS="center"><HR WIDTH="80%" SIZE=2></DIV></DIV></BLOCKQUOTE>
+<A NAME="toc4"></A>
+<H3 CLASS="subsection"><A NAME="htoc5">1.4</A>&nbsp;&nbsp;Getting CamlTemplate</H3>
+The CamlTemplate source code and documentation can be downloaded from the
+ <A HREF="http://saucecode.org/camltemplate">CamlTemplate web site</A>.<BR>
+<BR>
+<A NAME="toc5"></A>
+<H3 CLASS="subsection"><A NAME="htoc6">1.5</A>&nbsp;&nbsp;Installing CamlTemplate</H3>
+
+<H4 CLASS="subsubsection"><A NAME="htoc7">1.5.1</A>&nbsp;&nbsp;Installing with GODI</H4>
+If you use <A HREF="http://www.ocaml-programming.de/godi/">GODI</A>, you can install CamlTemplate from <TT>godi_console</TT>. Otherwise, you can install manually as described below.<BR>
+<BR>
+
+<H4 CLASS="subsubsection"><A NAME="htoc8">1.5.2</A>&nbsp;&nbsp;Installing Manually</H4>
+<A NAME="sec-manual-installation"></A>
+Requirements:
+<UL CLASS="itemize"><LI CLASS="li-itemize">
+Objective Caml 3.08.3 or above.
+<LI CLASS="li-itemize"><A HREF="http://www.ocaml-programming.de/packages/">findlib</A>.
+<LI CLASS="li-itemize"><A HREF="http://www.oefai.at/~markus/home/ocaml_sources.html">PCRE-Ocaml</A>.
+<LI CLASS="li-itemize">GNU make.
+</UL>
+Unpack the archive:
+<PRE CLASS="verbatim">
+tar zxf camltemplate-x.y.z.tar.gz
+cd camltemplate-x.y.z
+</PRE>
+To see the configuration options, type:
+<PRE CLASS="verbatim">
+./configure --help
+</PRE>
+Type the following, adding any options you need:
+<PRE CLASS="verbatim">
+./configure
+</PRE>
+Then type:
+<PRE CLASS="verbatim">
+make
+make opt
+make test
+</PRE>
+If there are no errors, type <TT>make install</TT> as root. This installs bytecode and
+native-code versions of the library using <TT>ocamlfind</TT>. Documentation in HTML and PDF
+formats is installed in <TT>$PREFIX/doc/camltemplate</TT>. Several sample programs can be
+found in <TT>$PREFIX/share/camltemplate</TT>.<BR>
+<BR>
+To uninstall the library, type <TT>make uninstall</TT> as root.<BR>
+<BR>
+
+<H4 CLASS="subsubsection"><A NAME="htoc9">1.5.3</A>&nbsp;&nbsp;Integration with mod_caml</H4>
+Mod_caml is an Apache module that dynamically loads OCaml bytecode to handle HTTP
+requests.<BR>
+<BR>
+CamlTemplate has been tested with mod_caml 1.3.6 and Apache 1.3. (We haven't tested it
+with Apache 2.0, because a <A HREF="http://issues.apache.org/bugzilla/show_bug.cgi?id=27550">bug</A> in Apache 2.0 has prevented
+mod_caml from working at all; this looks as if it will be fixed in Apache 2.2. If you
+need to use Apache 2.0, try the instructions on the mod_caml web site, and let us know if
+it works.)<BR>
+<BR>
+1. Install mod_caml, and make sure it works on its own before proceeding (try the <TT>hello.ml</TT> example that comes with it).<BR>
+<BR>
+2. In your <TT>httpd.conf</TT>, after the configuration you added for mod_caml, add the
+following line:
+<PRE CLASS="verbatim">
+CamlLoad /path/to/camltemplate/camltemplate.cma
+</PRE>
+(If you don't know where it is, type <TT>ocamlfind query camltemplate</TT> at a shell
+prompt.)<BR>
+<BR>
+3. Restart Apache.<BR>
+<BR>
+4. Try compiling and installing the example in <TT>examples/mod_caml</TT> (see the <TT>README</TT> there).<BR>
+<BR>
+
+<H4 CLASS="subsubsection"><A NAME="htoc10">1.5.4</A>&nbsp;&nbsp;Integration with mod_fastcgi</H4>
+Mod_fastcgi is an Apache module that allows the web server to hand off HTTP requests to
+a pool of long-running programs; these can be OCaml programs compiled to bytecode or
+native code.<BR>
+<BR>
+This has been tested using Christophe Troestler's <A HREF="http://sourceforge.net/projects/ocaml-cgi/">OCaml-CGI</A>
+package and mod_fastcgi 2.4.2, and works with Apache versions 1.3 and 2.0. For an
+example, see <TT>examples/fastcgi</TT>. You'll need to use CamlTemplate's optional thread
+support (see Section&nbsp;<A HREF="manual004.html#sec-manual-threads">4.4</A> for instructions).<BR>
+<BR>
+<A NAME="toc6"></A>
+<H3 CLASS="subsection"><A NAME="htoc11">1.6</A>&nbsp;&nbsp;Mailing List and Support</H3>
+The <A HREF="http://lists.saucecode.org/wws/info/camltemplate">camltemplate</A> mailing list is used for questions,
+suggestions, bug reports and discussion about CamlTemplate.<BR>
+<BR>
+There is also a <A HREF="http://saucecode.org/camltemplate/faq.html">Frequently Asked Questions</A> page.<BR>
+<BR>
+<A NAME="toc7"></A>
+<H3 CLASS="subsection"><A NAME="htoc12">1.7</A>&nbsp;&nbsp;Author</H3>
+CamlTemplate is developed and maintained by Benjamin Geer (<TT>benjamin DOT geer AT gmail
+ DOT com</TT>).<BR>
+<BR>
+<A NAME="toc8"></A>
+<H3 CLASS="subsection"><A NAME="htoc13">1.8</A>&nbsp;&nbsp;History</H3>
+In 1999, Benjamin Geer wrote a template processor in Java, called
+<A HREF="http://www.freemarker.org">FreeMarker</A>, based on the experience of using a similar tool
+with graphic designers in a web development shop. CamlTemplate borrows some aspects of
+FreeMarker (small library not tied to web development, JavaScript-like expressions,
+Perl-like data structures), as well as some ideas from the Apache Jakarta project's
+<A HREF="http://jakarta.apache.org/velocity/">Velocity</A> template processor (generated parser, more concise
+syntax), released in 2001. The first version of CamlTemplate was released in October
+2003.<BR>
+<BR>
+<HR>
+<A HREF="index.html"><IMG SRC ="contents_motif.gif" ALT="Up"></A>
+<A HREF="manual002.html"><IMG SRC ="next_motif.gif" ALT="Next"></A>
+</BODY>
+</HTML>

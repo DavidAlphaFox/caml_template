@@ -1,0 +1,344 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+<HTML>
+<HEAD>
+
+
+
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<META name="GENERATOR" content="hevea 1.08">
+<LINK rel="stylesheet" type="text/css" href="manual.css">
+<TITLE>
+Writing Templates
+</TITLE>
+</HEAD>
+<BODY >
+<A HREF="manual001.html"><IMG SRC ="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC ="contents_motif.gif" ALT="Up"></A>
+<A HREF="manual003.html"><IMG SRC ="next_motif.gif" ALT="Next"></A>
+<HR>
+
+<H2 CLASS="section"><A NAME="htoc14">2</A>&nbsp;&nbsp;Writing Templates</H2>
+<A NAME="toc9"></A>
+<H3 CLASS="subsection"><A NAME="htoc15">2.1</A>&nbsp;&nbsp;Inserting Values</H3>
+Here is a simple example of a template for generating an HTML page:
+<PRE CLASS="verbatim">
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;${title}&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;h1&gt;${title}&lt;/h1&gt;
+
+Today's date: ${date}
+&lt;/body&gt;
+&lt;/html&gt;
+</PRE>
+This template expects two pieces of data: a title and a date. A dollar sign followed by
+an expression in braces is called an <EM>expansion</EM>; it means, `insert the value of this
+expression here'. If the value of <TT>title</TT> was <TT>Important Page</TT>, and the value of
+<TT>date</TT> was <TT>29 September 2003</TT>, the resulting document would look like this:
+<PRE CLASS="verbatim">
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Important Page&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;h1&gt;Important Page&lt;/h1&gt;
+
+Today's date: 29 September 2003
+&lt;/body&gt;
+&lt;/html&gt;
+</PRE>
+A variable such as <TT>title</TT> or <TT>date</TT> is called a <EM>scalar variable</EM>, meaning
+that it contains only one value.<BR>
+<BR>
+If an expansion contains a value that has not been set, it produces no output. This makes
+it convenient to write HTML form elements that display the value previously entered, if
+any:
+<PRE CLASS="verbatim">
+&lt;input type="text" name="address" value="${address}"/&gt;
+</PRE>
+<A NAME="toc10"></A>
+<H3 CLASS="subsection"><A NAME="htoc16">2.2</A>&nbsp;&nbsp;Hashes</H3>
+<A NAME="sec-hashes"></A>
+It is often convenient to group several related values together, and give a name to the
+group. A <EM>hash</EM> is a collection of values, each of which has a name (called a `key').
+Continuing with the example from the previous section, we might want to break down the
+date into day, month and year components:
+<PRE CLASS="verbatim">
+Today's date: ${date.day}-${date.month}-${date.year}
+</PRE>
+Here, <TT>date</TT> is a hash, which contains three scalars: <TT>day</TT>, <TT>month</TT> and <TT>year</TT>. (An expression like <TT>date.day</TT> is called a <EM>hash lookup</EM>.) The result
+ might be:
+<PRE CLASS="verbatim">
+Today's date: 29-09-2003
+</PRE>
+Hashes can contain hashes, e.g.:
+<PRE CLASS="verbatim">
+Date of birth:
+  ${user.dob.day}-${user.dob.month}-${user.dob.year}
+</PRE>
+The string value of any variable (or other expression) can be used as a hash key by
+enclosing the expression in square brackets:
+<PRE CLASS="verbatim">
+Error in field "${fieldName}": ${errors[fieldName]}
+</PRE>
+If the value of <TT>fieldName</TT> was always <TT>"title"</TT>, the above would be the same as
+writing:
+<PRE CLASS="verbatim">
+Error in field "title": ${errors.title}
+</PRE>
+<A NAME="toc11"></A>
+<H3 CLASS="subsection"><A NAME="htoc17">2.3</A>&nbsp;&nbsp;Lists</H3>
+Generated documents often contain lists of data. In a template, the <TT>#foreach</TT>
+statement processes all the elements in a list. Here's a simple example:
+<PRE CLASS="verbatim">
+&lt;p&gt;Signatories:&lt;/p&gt;
+
+&lt;ul&gt;
+  #foreach (signatory in signatories)
+  &lt;li&gt;${signatory}&lt;/li&gt;
+  #end
+&lt;/ul&gt;
+</PRE>
+The output might look like this:
+<PRE CLASS="verbatim">
+&lt;p&gt;Signatories:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Arthur Artichoke&lt;/li&gt;
+  &lt;li&gt;Bernard Banana&lt;/li&gt;
+  &lt;li&gt;Carol Carrot&lt;/li&gt;
+  &lt;li&gt;Dorothy Date&lt;/li&gt;
+&lt;/ul&gt;
+</PRE>
+For each element in the list, the <TT>#foreach</TT> statement stores the element's value
+temporarily in the name given before the <TT>in</TT>, then processes the template text
+between the <TT>#foreach</TT> and the <TT>#end</TT>.<BR>
+<BR>
+<A NAME="example-table"></A>Here's an example that generates an HTML table:
+<PRE CLASS="verbatim">
+&lt;table&gt;
+&lt;thead&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Name&lt;/th&gt;
+    &lt;th&gt;Date of Birth&lt;/th&gt;
+    &lt;th&gt;Favourite Colour&lt;/th&gt;
+  &lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+  #foreach (person in garden.people)
+  &lt;tr&gt;
+    &lt;td&gt;${person.name}&lt;/td&gt;
+    &lt;td&gt;${person.bdate}&lt;/td&gt;
+    &lt;td&gt;${person.colour}&lt;/td&gt;
+  &lt;/tr&gt;
+  #end
+&lt;/tbody&gt;
+&lt;/table&gt;
+</PRE>
+Here <TT>garden</TT> is a hash that contains a list called <TT>people</TT>. Each element of
+<TT>people</TT> is a hash containing three scalars (<TT>name</TT>, <TT>bdate</TT> and <TT>colour</TT>).<BR>
+<BR>
+<A NAME="toc12"></A>
+<H3 CLASS="subsection"><A NAME="htoc18">2.4</A>&nbsp;&nbsp;Conditionals</H3>
+A template can contain optional text, which is used only if some condition is met. The
+<TT>#if</TT> statement tests a condition. For example:
+<PRE CLASS="verbatim">
+#if (approved)
+  This document has been approved for publication.
+#else
+  This document is awaiting approval.
+#end
+</PRE>
+We have seen scalars that contain strings (i.e. text); <TT>true</TT> and <TT>false</TT> are also
+possible values of a scalar (e.g. <TT>approved</TT> above). Any scalar is equal to <TT>true</TT>
+if it has a value other than 0 or the empty string. A list is equal to <TT>true</TT> if it
+exists and isn't empty. A hash is equal to <TT>true</TT> if it exists. This makes it
+convenient to check, for example, whether a list contains any values before processing its
+contents:
+<PRE CLASS="verbatim">
+#if (searchResults)
+  #foreach (result in searchResults)
+    ...
+  #end
+#end
+</PRE>
+If a scalar contains a string or a number, an expression can test the scalar's value,
+using comparison operators such as <TT>==</TT> (equals), <TT>!=</TT> (is unequal to), <TT>&lt;</TT>
+(is less than) and <TT>&gt;</TT> (is greater than). You can also use <TT>#elseif</TT> blocks to
+test several conditions. For example:
+<PRE CLASS="verbatim">
+#if (hour &gt; 17)
+  Good evening!
+#elseif (hour &gt; 12)
+  Good afternoon!
+#else
+  Good morning!
+#end
+
+#if (status == "approved")
+  This document has been approved for publication.
+#else
+  This document is awaiting approval.
+#end
+</PRE>
+See Section&nbsp;<A HREF="manual003.html#sec-expressions">3.6</A> for the full details of expressions.<BR>
+<BR>
+<A NAME="toc13"></A>
+<H3 CLASS="subsection"><A NAME="htoc19">2.5</A>&nbsp;&nbsp;Setting values</H3>
+The <TT>#set</TT> statement assigns a value to a name. The value is not set in the data
+model that the program has provided; a template cannot use <TT>#set</TT> to change its data
+model. The value remains internal to the template, and only while the template is being
+merged; it is then forgotten. Returning to the earlier example of an HTML table, suppose
+we wanted the background colour of the rows to alternate between yellow and white. We
+could write:
+<PRE CLASS="verbatim">
+&lt;tbody&gt;
+  #set (background = "white")
+
+  #foreach (person in garden.people)
+    &lt;tr bgcolor="${background}"&gt;
+      &lt;td&gt;${person.name}&lt;/td&gt;
+      &lt;td&gt;${person.bdate}&lt;/td&gt;
+      &lt;td&gt;${person.colour}&lt;/td&gt;
+    &lt;/tr&gt;
+
+    #if (background == "white")
+      #set (background = "yellow")
+    #else
+      #set (background = "white")
+    #end
+  #end
+&lt;/tbody&gt;
+</PRE>
+<A NAME="toc14"></A>
+<H3 CLASS="subsection"><A NAME="htoc20">2.6</A>&nbsp;&nbsp;Including Templates in Templates</H3>
+Rather than copy and paste the same text into several templates, you can put the common
+text in a separate template, and include that template in other templates using the <TT>#include</TT> statement. For example, you might include a standard header and footer on
+each page:
+<PRE CLASS="verbatim">
+#include ("header.tmpl")
+
+...
+
+#include ("footer.tmpl")
+</PRE>
+Included templates will not see any values that have been set in the including template,
+nor can the including template see any values that the included template sets. If you
+want to pass values into a reusable section of template code, use a macro, as described in
+the next section.<BR>
+<BR>
+<A NAME="toc15"></A>
+<H3 CLASS="subsection"><A NAME="htoc21">2.7</A>&nbsp;&nbsp;Macros</H3>
+To create a reusable bit of template code that uses values you provide, you can write a <EM>macro</EM>. The <TT>#macro</TT> statement defines a macro, which can then be used as a
+ statement in its own right. For example, here is a macro that formats a date in a
+ particular way, given the year, month and day as numbers:
+<PRE CLASS="verbatim">
+#macro formatDate(year, month, day)
+  #var (monthPrefix)
+  #var (dayPrefix)
+
+  #if (month &lt; 10)
+    #set (monthPrefix = "0")
+  #end
+
+  #if (day &lt; 10)
+    #set (dayPrefix = "0")
+  #end
+
+  ${year}-${monthPrefix}${month}-${dayPrefix}${day}
+#end
+</PRE>
+(The <TT>#var</TT> statement will be explained in a moment.)<BR>
+<BR>
+Here is some template code that expects a hash called <TT>date</TT> like the one we saw in
+Section&nbsp;<A HREF="#sec-hashes">2.2</A>, and uses it to call the <TT>formatDate</TT> macro above:
+<PRE CLASS="verbatim">
+Today's date:
+  #formatDate(date.year, date.month, date.day)
+</PRE>
+A macro may be called with fewer arguments than it was defined with; the remaining
+arguments are set to null. It is an error to call a macro with too many arguments.<BR>
+<BR>
+
+<H4 CLASS="subsubsection"><A NAME="htoc22">2.7.1</A>&nbsp;&nbsp;Defining Variables in Macros</H4>
+The <TT>#var</TT> statement in the macro above initialises a variable for use within the
+macro, setting it to a null value. We could have written:
+<PRE CLASS="verbatim">
+#set (monthPrefix = "")
+</PRE>
+But if there was already a variable called <TT>monthPrefix</TT> outside the macro, <TT>#set</TT> would change the value of the existing variable. (Sometimes this might be what you
+want.) By contrast, a variable initialised inside a macro with <TT>#var</TT> only exists
+within that macro, and doesn't affect any other variable that might have the same name
+outside the macro; its value is forgotten once the macro has completed. Once you have
+used <TT>#var</TT> to initialise a variable in a macro, you can use <TT>#set</TT> to change
+its value, as in the example above. To initialise a variable with a value other than
+null, you can write:
+<PRE CLASS="verbatim">
+#var (colour = "blue")
+</PRE>
+When used outside of a macro, <TT>#var</TT> has the same effect as <TT>#set</TT>.<BR>
+<BR>
+
+<H4 CLASS="subsubsection"><A NAME="htoc23">2.7.2</A>&nbsp;&nbsp;Storing Macros in Separate Templates</H4>
+If there are some macros that you want to use in more than one template, you can define
+them in a separate template, which we'll call a <EM>macro template</EM>. In each template
+where you want to use those macros, you then need to tell CamlTemplate where to look for
+them, using the <TT>#open</TT> statement. For example, if you've written a macro template
+called <TT>macros.tmpl</TT>, and you want to use them in a template called <TT>test.tmpl</TT>,
+you would put the following line in <TT>test.tmpl</TT>, before using any of the macros:
+<PRE CLASS="verbatim">
+#open ("macros.tmpl")
+</PRE>
+You can put several <TT>#open</TT> statements in a template. When you call a macro,
+CamlTemplate looks for it first in the template that's being merged, and then in any macro
+templates that have been opened in that template.<BR>
+<BR>
+<A NAME="toc16"></A>
+<H3 CLASS="subsection"><A NAME="htoc24">2.8</A>&nbsp;&nbsp;Functions</H3>
+A function can be supplied to a template as part of its data. Since functions are written
+in Objective Caml, they can do things that would be cumbersome or impossible to do in
+macros. A function takes one or more expressions as arguments, and returns a value, which
+can be used in an expansion or in a statement.<BR>
+<BR>
+For example, CamlTemplate provides a function called <TT>escHtml</TT>, for escaping special
+characters in HTML documents. It can be used like this:
+<PRE CLASS="verbatim">
+Company name: ${escHtml(companyName)}
+</PRE>
+If the value of <TT>companyName</TT> was <TT>Artichoke &amp; Banana</TT>, the output would be:
+<PRE CLASS="verbatim">
+Company name: Artichoke &amp;amp; Banana
+</PRE>
+In addition to <TT>escHtml</TT>, CamlTemplate provides the following functions, which
+application developers can choose to make available to templates:
+<DL CLASS="description" COMPACT=compact><DT CLASS="dt-description">
+<B>urlEncode</B><DD CLASS="dd-description"> URL-encodes a string.
+<DT CLASS="dt-description"><B>escHtmlAttr</B><DD CLASS="dd-description"> Escapes special characters in text to be included in an HTML attribute.
+<DT CLASS="dt-description"><B>escHtmlTextarea</B><DD CLASS="dd-description"> Escapes special characters in text to be included in an HTML <TT>textarea</TT>.
+<DT CLASS="dt-description"><B>asList</B><DD CLASS="dd-description"> Converts any value to a list, if it isn't already a list. If the argument is
+a list, returns the argument. If the argument is null, returns an empty list. Otherwise,
+returns a single-element list containing the argument. This is useful for dealing with
+form input fields that can have multiple values.
+</DL>
+Each of these functions expects one argument.<BR>
+<BR>
+<A NAME="toc17"></A>
+<H3 CLASS="subsection"><A NAME="htoc25">2.9</A>&nbsp;&nbsp;Comments</H3>
+You can write a comment in a template by surrounding it with <TT>#*</TT> and <TT>*#</TT>:
+<PRE CLASS="verbatim">
+#* This is a comment. *#
+</PRE>
+Comments do not appear in the output when a template is merged. Comments can contain
+comments.<BR>
+<BR>
+<HR>
+<A HREF="manual001.html"><IMG SRC ="previous_motif.gif" ALT="Previous"></A>
+<A HREF="index.html"><IMG SRC ="contents_motif.gif" ALT="Up"></A>
+<A HREF="manual003.html"><IMG SRC ="next_motif.gif" ALT="Next"></A>
+</BODY>
+</HTML>

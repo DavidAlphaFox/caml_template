@@ -1,0 +1,10 @@
+This example isn't built by default, because it requires mod_caml.
+
+1. Follow the instructions on installing with mod_caml in the
+top-level INSTALL file.
+
+2. Change the paths in this example's Makefile, if necessary.
+
+3. make; make install
+
+4. Open http://localhost/caml-bin/cthello.cmo in a web browser.

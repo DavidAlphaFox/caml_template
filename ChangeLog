@@ -1,0 +1,804 @@
+2005-06-08  Benjamin Geer <benjamin.geer AT gmail.com>
+
+	* doc/manual/manual.tex, examples/fastcgi/fcgihello.ml, examples/filetest/filetest.ml, examples/hello/hello.ml, examples/mod_caml/cthello.ml.in, examples/thread/thread_test.ml, src/camlTemplate.ml, src/camlTemplate.mli, src/ctBinop.ml, src/ctCache.ml, src/ctCache.mli, src/ctContext.ml, src/ctExceptions.ml, src/ctExpression.ml, src/ctFunctionCall.ml, src/ctHashLookup.ml, src/ctIdent.ml, src/ctLiteral.ml, src/ctMacro.ml, src/ctParser.mly, src/ctParserAux.ml, src/ctScope.ml, src/ctSourcePos.ml, src/ctStatement.ml, src/ctTemplate.ml, src/ctTemplateModel.ml, src/ctTemplateTypes.ml, src/ctUnop.ml, src/ctUtil.ml, src/ctWeb.ml:
+	Updated postal address of Free Software Foundation.
+
+2005-05-29  Benjamin Geer <benjamin.geer AT gmail.com>
+
+	* doc/manual/manual.tex, examples/fastcgi/fcgihello.ml, examples/filetest/filetest.ml, examples/hello/hello.ml, examples/mod_caml/cthello.ml.in, examples/thread/thread_test.ml, src/camlTemplate.ml, src/camlTemplate.mli, src/ctBinop.ml, src/ctCache.ml, src/ctCache.mli, src/ctContext.ml, src/ctExceptions.ml, src/ctExpression.ml, src/ctFunctionCall.ml, src/ctHashLookup.ml, src/ctIdent.ml, src/ctLexer.mll, src/ctLiteral.ml, src/ctMacro.ml, src/ctParser.mly, src/ctParserAux.ml, src/ctScope.ml, src/ctSourcePos.ml, src/ctStatement.ml, src/ctTemplate.ml, src/ctTemplateModel.ml, src/ctTemplateTypes.ml, src/ctUnop.ml, src/ctUtil.ml, src/ctWeb.ml:
+	Amended copyright dates.
+
+	* doc/manual/manual.tex: Small documentation correction.
+
+	* examples/fastcgi/Makefile, examples/thread/Makefile:
+	Fixed 'make clean' in example Makefiles.
+
+2005-05-26  Benjamin Geer <benjamin.geer AT gmail.com>
+
+	* INSTALL, doc/manual/manual.tex:
+	Restored 'make opt' in installation instructions.
+
+	* Makefile, camltemplate.godiva:
+	Make native-code compilation optional again.
+
+	* camltemplate.godiva, examples/filetest/Makefile, examples/hello/Makefile, examples/mod_caml/Makefile:
+	Fixed compilation of examples when installed by GODI.
+
+	* AUTHORS: Fixed email address.
+
+	* NEWS, TODO: Added NEWS item, removed TODO items.
+
+	* ChangeLog: Updated ChangeLog.
+
+	* examples/fastcgi/Makefile: Cleaner 'make clean'.
+
+	* Makefile: Makefile fix.
+
+	* ChangeLog, NEWS, doc/manual/manual.tex, src/META:
+	Getting ready for release.
+
+2005-05-26  Benjamin Geer <benjamin.geer AT gmail.com>
+
+	* examples/fastcgi/Makefile: Cleaner 'make clean'.
+
+	* Makefile: Makefile fix.
+
+	* ChangeLog, NEWS, doc/manual/manual.tex, src/META:
+	Getting ready for release.
+
+2005-05-25  Benjamin Geer <benjamin.geer AT gmail.com>
+
+	* camltemplate.godiva, doc/manual/manual.tex, src/camlTemplate_mt.ml, src/ctUtil.ml:
+	Updated docs, removed debugging output.
+
+	* examples/thread/Makefile, src/camlTemplate_mt.ml, src/ctCache.ml, src/ctUtil.ml:
+	I think this threading issue is fixed now...
+
+	* src/camlTemplate_mt.ml: Added camlTemplate_mt.ml.
+
+	* Makefile.rules, examples/fastcgi/Makefile, examples/fastcgi/fcgihello.tmpl, examples/mod_caml/cthello.tmpl, examples/thread/Makefile, src/META, src/Makefile, src/ctCache.ml, src/ctUtil.ml:
+	Next attempt at fixing optional multithreading support.
+
+	* examples/filetest/Makefile: Removed unused variable.
+
+	* doc/manual/manual.tex: Dated manual.
+
+	* camltemplate.godiva, doc/manual/manual.tex, examples/fastcgi/Makefile, examples/thread/Makefile, src/Makefile, src/ctUtil.ml:
+	Apparently fixed the problem of threaded and non-threaded .cmi files
+	being incompatible.
+
+2005-05-24  Benjamin Geer <benjamin.geer AT gmail.com>
+
+	* examples/Makefile, src/Makefile: Fixed uninstallation.
+
+	* INSTALL, Makefile, doc/Makefile, doc/manual/manual.tex, examples/fastcgi/Makefile, examples/fastcgi/README, examples/fastcgi/fcgihello.ml, examples/fastcgi/fcgihello.tmpl, examples/mod_caml/Makefile, examples/mod_caml/cthello.ml.in, examples/thread/Makefile, src/Makefile:
+	Fixed incompatibility between MT library and non-MT .cmi file.  Added
+	FastCGI example.
+
+2005-05-23  Benjamin Geer <benjamin.geer AT gmail.com>
+
+	* examples/thread/Makefile: Changed threads example to native code.
+
+	* src/Makefile: Really clean in src.
+
+	* src/Makefile: Another Makefile tweak.
+
+	* src/Makefile: Small Makefile fix.
+
+	* INSTALL, Makefile, Makefile.rules, camltemplate.godiva, configure, doc/manual/manual.tex, examples/Makefile, examples/examples.rules, examples/filetest/Makefile, examples/hello/Makefile, examples/mod_caml/Makefile, examples/mod_caml/cthello.ml.in, examples/thread/Makefile, examples/thread/README, src/META, src/Makefile, src/camlTemplateInit.ml:
+	Applied Janne Hellsten's patch to build two versions of the library, one
+	with thread support and one without.  A few other Makefile fixes.
+
+2004-10-20  Benjamin Geer <benjamin.geer AT gmail.com>
+
+	* src/ctParser.mly:
+	Fixed incorrect handling of a syntax error in macro call arguments.
+
+2004-10-17  Benjamin Geer <benjamin.geer AT gmail.com>
+
+	* src/ctUtil.ml:
+	Changed open_in to open_in_bin to fix Cygwin file-reading problem.
+
+2004-09-02  Benjamin Geer <benjamin.geer AT gmail.com>
+
+	* doc/manual/manual.tex: Updated Apache 2.0 bug information in manual.
+
+	* examples/filetest/coleridge.html.saved, src/ctLexer.mll:
+	Bug fix for escapes wasn't quite right; it had changed the syntax slightly.
+	Fixed that.
+
+	* TODO: Added TODO.
+
+	* examples/filetest/coleridge.html.saved, examples/filetest/coleridge.tmpl, src/ctLexer.mll:
+	Fixed incorrect handling of escapes, and added test cases.
+
+2004-07-15  Benjamin Geer <benjamin.geer AT gmail.com>
+
+	* camltemplate.godiva: Updated GODIVA spec file.
+
+	* doc/manual/manual.tex: Fixed date in manual.
+
+	* ChangeLog: Updated ChangeLog.
+
+	* NEWS, doc/manual/manual.tex, examples/thread/thread_test.ml, src/META, src/ctUtil.ml:
+	Fixed bug that caused compile error if thread support was enabled.
+
+2004-06-11  Benjamin Geer <ben AT socialtools.net>
+
+	* doc/manual/manual.tex: Another small correction.
+
+	* doc/manual/manual.tex: Corrected exception name.
+
+	* doc/manual/manual.tex: Clarified thread support.
+
+	* doc/manual/manual.tex: Minor correction in manual.
+
+2004-05-21  Benjamin Geer <ben AT socialtools.net>
+
+	* src/camlTemplate.mli: Cleaned up the ocamldoc documentation a bit.
+
+2004-05-14  Benjamin Geer <ben AT socialtools.net>
+
+	* OCamlMakefile: Updated OCamlMakefile to version 6.11.0.
+
+2004-05-11  Benjamin Geer <ben AT socialtools.net>
+
+	* doc/manual/manual.tex: Fixed incorrect backslash.
+
+	* ChangeLog, NEWS, camltemplate.godiva, doc/manual/manual.tex, src/META:
+	Releasing version 0.9.1.
+
+2004-05-03  Benjamin Geer <ben AT socialtools.net>
+
+	* doc/manual/manual.tex, examples/filetest/macro.tmpl, src/ctLexer.mll:
+	Change the line-continuation character from '#' to '\'.  Using # was a silly
+	idea; everything else uses '\'.
+
+	* src/ctUtil.ml: Fixed comment.
+
+	* src/camlTemplate.mli: Fixed incorrect comment.
+
+	* INSTALL, camltemplate.godiva, doc/manual/manual.tex, examples/filetest/macro.tmpl, src/camlTemplate.mli, src/ctLexer.mll, src/ctStatement.ml:
+	CamlTemplate now requires OCaml 3.07.  Improved discussion of whitespace
+	in manual.
+
+	* examples/filetest/Makefile, examples/hello/Makefile, examples/thread/Makefile, src/Makefile, examples/mod_caml/Makefile:
+	Makefile cleanup.
+
+	* doc/manual/manual.tex: Fixed typeface.
+
+	* configure: Removed unneeded variable.
+
+2004-05-03  Benjamin Geer  <ben AT socialtools.net>
+
+	* doc/manual/manual.tex, examples/filetest/macro.tmpl, src/ctLexer.mll:
+	Change the line-continuation character from '#' to '\'.  Using # was a silly
+	idea; everything else uses '\'.
+
+	* src/ctUtil.ml: Fixed comment.
+
+	* src/camlTemplate.mli: Fixed incorrect comment.
+
+	* INSTALL, camltemplate.godiva, doc/manual/manual.tex, examples/filetest/macro.tmpl, src/camlTemplate.mli, src/ctLexer.mll, src/ctStatement.ml:
+	CamlTemplate now requires OCaml 3.07.  Improved discussion of whitespace
+	in manual.
+
+	* examples/filetest/Makefile, examples/hello/Makefile, examples/thread/Makefile, src/Makefile, examples/mod_caml/Makefile:
+	Makefile cleanup.
+
+	* doc/manual/manual.tex: Fixed typeface.
+
+	* configure: Removed unneeded variable.
+
+2004-05-02  Benjamin Geer  <ben AT socialtools.net>
+
+	* tools/collect_files: Added credit to tools/collect_files.
+
+	* src/ctCache.ml, src/ctUtil.ml:
+	Replaced file-reading function with a simpler one by Markus Mottl.
+
+	* src/ctCache.ml, src/ctUtil.ml:
+	Replaced pa_ifdef.cmo with pa_macro.cmo when calling camlp4.
+
+	* src/ctCache.ml, src/ctUtil.ml:
+	Improved some function names and comments.
+
+2004-05-01  Benjamin Geer  <ben AT socialtools.net>
+
+	* camltemplate.godiva, examples/Makefile: More fixes for GODI.
+
+	* NEWS, doc/manual/manual.tex: Minor documentation fixes.
+
+	* NEWS, doc/manual/manual.tex, src/ctLexer.mll:
+	Changed lexer so that if a newline is preceded by '#', both the '#'
+	and the newline are ignored.
+
+	* NEWS: Updated NEWS.
+
+	* src/ctParser.mly: Fixed parser to handle empty templates.
+
+	* NEWS: Updated NEWS.
+
+	* doc/manual/manual.tex: Updated manual to reflect syntax change.
+
+	* examples/filetest/coleridge.tmpl, src/ctLexer.mll:
+	Changed lexer so that whitespace preceding a statement is eaten only
+	when it starts at the beginning of a line.
+
+	* src/ctCache.ml: Removed test code.
+
+2004-04-30  Benjamin Geer  <ben AT socialtools.net>
+
+	* Makefile, configure, doc/Makefile, examples/Makefile:
+	Fixed to use the PKGBASE variable now exported by GODIVA.
+
+	* Makefile:
+	Fixed Makefile so it won't work unless you run 'configure' first.
+
+	* Makefile: Fixed small Makefile bug.
+
+	* configure: Fixed so GODI can set the package name.
+
+	* ChangeLog, INSTALL, NEWS, TODO, camltemplate.godiva, configure, doc/Makefile, doc/manual/manual.tex, examples/Makefile:
+	Updated docs for release 0.9.0.  More GODI/GODIVA packaging fixes.
+
+	* camltemplate.godiva, doc/Makefile:
+	Fixing build problems for GODI package.
+
+	* INSTALL, README, doc/manual/manual.tex:
+	Updated installation instructions.
+
+	* Makefile, camltemplate.godiva, configure, doc/Makefile, src/META:
+	Makefile fixes.  Added Godiva spec file.
+
+	* examples/mod_caml/Makefile, examples/thread/Makefile, src/Makefile, tools/collect_files, Makefile, Makefile.rules, OCamlMakefile, configure, doc/Makefile, doc/manual/manual.tex, examples/Makefile, examples/examples.rules, examples/filetest/Makefile, examples/hello/Makefile:
+	Build changes in preparation for making a GODI package.
+
+
+2004-04-30  Benjamin Geer  <ben AT socialtools.net>
+
+	* camltemplate.godiva, doc/Makefile:
+	Fixing build problems for GODI package.
+
+	* INSTALL, README, doc/manual/manual.tex:
+	Updated installation instructions.
+
+	* Makefile, camltemplate.godiva, configure, doc/Makefile, src/META:
+	Makefile fixes.  Added Godiva spec file.
+
+	* examples/mod_caml/Makefile, examples/thread/Makefile, src/Makefile, tools/collect_files, Makefile, Makefile.rules, OCamlMakefile, configure, doc/Makefile, doc/manual/manual.tex, examples/Makefile, examples/examples.rules, examples/filetest/Makefile, examples/hello/Makefile:
+	Build changes in preparation for making a GODI package.
+
+2004-04-29  Benjamin Geer  <ben AT socialtools.net>
+
+	* src/Makefile: Removed extra commented line.
+
+	* examples/filetest/Makefile, examples/hello/Makefile, examples/mod_caml/Makefile, examples/thread/Makefile, src/Makefile:
+	Fixed LIBS in Makefiles so that the CamlTemplate library isn't linked
+	to unix.cma or pcre.cma, because this causes problems for programs
+	that use other libraries liked to those .cmas.  Instead, programs using
+	CamlTemplate have to link to unix and pcre.  Thanks to Olivier Andrieu
+	for pointing this out.
+
+2004-04-17  Benjamin Geer  <ben AT socialtools.net>
+
+	* doc/manual/manual.tex, src/ctCache.ml: Documentation fixes.
+
+2004-04-06  Benjamin Geer  <ben AT socialtools.net>
+
+	* src/Makefile, src/camlTemplate.mli, src/camlTemplateInit.ml, src/ctAst.ml, src/ctBinop.ml, src/ctCache.ml, src/ctCache.mli, src/ctExpression.ml, src/ctFunctionCall.ml, src/ctHashLookup.ml, src/ctIdent.ml, src/ctLiteral.ml, src/ctStatement.ml, src/ctUnop.ml:
+	More code cleanup.  Back to class types instead of pure virtual classes;
+	extra methods can be accommodated by upcasting.
+
+2004-04-04  Benjamin Geer  <ben AT socialtools.net>
+
+	* src/camlTemplate.mli, src/ctCache.ml, src/ctCache.mli:
+	Went back to a virtual class for source_loader, so that people can
+	have implementations containing methods that aren't in the type.
+
+	* src/ctContext.ml, src/ctTemplateTypes.ml: Added some comments.
+
+	* OCamlMakefile, src/Makefile, src/camlTemplate.ml, src/camlTemplate.mli, src/ctCache.ml, src/ctCache.mli, src/ctContext.ml, src/ctMacro.ml, src/ctParser.mly, src/ctParserAux.ml, src/ctStatement.ml, src/ctTemplate.ml, src/ctTemplateTypes.ml:
+	Code cleanup.  Replaced virtual classes with class types in the API.
+
+2004-03-22  Benjamin Geer  <ben AT socialtools.net>
+
+	* src/camlTemplate.ml, src/camlTemplate.mli:
+	Cleanup up code a bit and corrected a comment.
+
+2004-03-13  Benjamin Geer  <ben AT socialtools.net>
+
+	* ChangeLog, NEWS, doc/manual/manual.tex, src/META:
+	Releasing version 0.8.1.
+
+	* examples/filetest/coleridge.html.saved, examples/filetest/coleridge.tmpl, src/camlTemplate.ml, src/ctLexer.mll, src/ctParserAux.ml:
+	Fixed bug that could have caused a template to be parsed incorrectly
+	if a previous template had a syntax error.  Fixed test data to reflect
+	current template syntax.
+
+2004-03-13  Benjamin Geer  <ben AT socialtools.net>
+
+	* examples/filetest/coleridge.html.saved, examples/filetest/coleridge.tmpl, src/camlTemplate.ml, src/ctLexer.mll, src/ctParserAux.ml:
+	Fixed bug that could have caused a template to be parsed incorrectly
+	if a previous template had a syntax error.  Fixed test data to reflect
+	current template syntax.
+
+2004-02-24  Benjamin Geer  <ben AT socialtools.net>
+
+	* doc/manual/manual.tex, examples/hello/hello.ml:
+	Clarified the 'hello' example.
+
+	* doc/manual/manual.tex, examples/hello/hello.ml:
+	Fixed formatting in manual and example.
+
+	* doc/manual/manual.tex: Fixed some errors in the manual.
+
+	* Makefile: Fixed handling of Makefile.config in 'make dist'.
+
+	* ChangeLog: Updated ChangeLog.
+
+	* Makefile.config, NEWS, doc/manual/manual.tex, src/META, src/ctContext.ml:
+	Updated NEWS and version numbers for release, and removed deleted
+	files from CVS.
+
+	* src/ctTemplate.ml: Fixed comment.
+
+	* src/camlTemplate.ml, src/camlTemplate.mli, src/ctTemplate.ml:
+	Code and comment cleanup.
+
+	* Makefile.config, TODO, doc/manual/manual.tex, examples/filetest/filetest.ml, examples/hello/hello.ml, examples/mod_caml/cthello.ml.in, examples/thread/thread_test.ml, src/Makefile, src/camlTemplate.ml, src/camlTemplate.mli, src/camlTemplateInit.ml, src/ctMacro.ml, src/ctParser.mly, src/ctParserAux.ml, src/ctStatement.ml, src/ctTemplate.ml, src/ctUtil.ml:
+	Got rid of the functorised API.  A template cache is now a Cache.t
+	that you have to create an instance of.  Cleaned up the implementation
+	of macro caching; macros are now cached in template objects.
+
+	* src/Makefile, src/camlTemplate.ml, src/camlTemplate.mli, src/camlTemplateInit.ml, src/ctContext.ml, src/ctStatement.ml, src/ctTemplate.ml, src/ctWeb.ml, INSTALL, Makefile.config, TODO, configure, doc/manual/manual.tex, examples/filetest/filetest.ml, examples/hello/hello.ml, examples/mod_caml/cthello.ml.in, examples/thread/thread_test.ml:
+	Switched to a functorised API, so that different template source
+	loaders can use different template caches.  Added a 'configure'
+	script.  Got rid of the circular dependency between the CamlTemplate
+	and CtStatement modules, and the hack used to maintain it.  Minor
+	documentation corrections.
+
+2004-02-24  Benjamin Geer  <ben AT socialtools.net>
+
+	* Makefile.config, NEWS, doc/manual/manual.tex, src/META, src/ctContext.ml:
+	Updated NEWS and version numbers for release, and removed deleted
+	files from CVS.
+
+	* src/ctTemplate.ml: Fixed comment.
+
+	* src/camlTemplate.ml, src/camlTemplate.mli, src/ctTemplate.ml:
+	Code and comment cleanup.
+
+	* Makefile.config, TODO, doc/manual/manual.tex, examples/filetest/filetest.ml, examples/hello/hello.ml, examples/mod_caml/cthello.ml.in, examples/thread/thread_test.ml, src/Makefile, src/camlTemplate.ml, src/camlTemplate.mli, src/camlTemplateInit.ml, src/ctMacro.ml, src/ctParser.mly, src/ctParserAux.ml, src/ctStatement.ml, src/ctTemplate.ml, src/ctUtil.ml:
+	Got rid of the functorised API.  A template cache is now a Cache.t
+	that you have to create an instance of.  Cleaned up the implementation
+	of macro caching; macros are now cached in template objects.
+
+	* src/Makefile, src/camlTemplate.ml, src/camlTemplate.mli, src/camlTemplateInit.ml, src/ctContext.ml, src/ctStatement.ml, src/ctTemplate.ml, src/ctWeb.ml, INSTALL, Makefile.config, TODO, configure, doc/manual/manual.tex, examples/filetest/filetest.ml, examples/hello/hello.ml, examples/mod_caml/cthello.ml.in, examples/thread/thread_test.ml:
+	Switched to a functorised API, so that different template source
+	loaders can use different template caches.  Added a 'configure'
+	script.  Got rid of the circular dependency between the CamlTemplate
+	and CtStatement modules, and the hack used to maintain it.  Minor
+	documentation corrections.
+
+2004-02-04  Benjamin Geer  <ben AT socialtools.net>
+
+	* ChangeLog, NEWS: Fixed NEWS, updated ChangeLog.
+
+	* NEWS, doc/manual/manual.tex, src/META: Updated files for release.
+
+2004-02-03  Benjamin Geer  <ben AT socialtools.net>
+
+	* doc/Makefile, src/Makefile:
+	Fixed src/Makefile to find pcre using ocamlfind.  Fixed doc/Makefile to
+	pass an -o option to dvips.
+
+2004-01-14  Benjamin Geer  <ben AT socialtools.net>
+
+	* ChangeLog, doc/manual/manual.tex, src/ctLexer.mll, src/ctParser.mly:
+	Added 'null' literal.  Several documentation fixes.
+
+	* src/Makefile:
+	Applied patch from Kamil Shakirov to correct native code installation.
+
+2004-01-05  Benjamin Geer  <ben AT socialtools.net>
+
+	* ChangeLog: Updated ChangeLog.
+
+	* examples/filetest/coleridge.html.saved, examples/filetest/coleridge.tmpl, src/META, NEWS, doc/manual/manual.tex:
+	Updated test to check escapes in string literals, and updated version for
+	release 0.7.1.
+
+	* examples/filetest/Makefile: 'make clean' now removes test results.
+
+2004-01-05  Benjamin Geer  <ben AT socialtools.net>
+
+	* examples/filetest/coleridge.html.saved, examples/filetest/coleridge.tmpl, src/META, NEWS, doc/manual/manual.tex:
+	Updated test to check escapes in string literals, and updated version for
+	release 0.7.1.
+
+	* examples/filetest/Makefile: 'make clean' now removes test results.
+
+2004-01-04  Benjamin Geer  <ben AT socialtools.net>
+
+	* doc/manual/manual.tex, examples/filetest/coleridge.html.saved, examples/filetest/coleridge.tmpl, examples/filetest/macro.tmpl, src/camlTemplate.mli, src/ctExpression.ml, src/ctFunctionCall.ml, src/ctLexer.mll, src/ctMacro.ml, src/ctStatement.ml, src/ctUtil.ml, src/ctWeb.ml:
+	Modified lexer to ignore spaces and tabs before statements.
+
+2004-01-03  Benjamin Geer  <ben AT socialtools.net>
+
+	* doc/manual/manual.tex:
+	Fixed some minor errors and omissions in the manual.
+
+	* INSTALL, doc/manual/manual.tex: Updated INSTALL.
+
+	* ChangeLog, ReleaseChecklist: Updated ChangeLog and ReleaseChecklist.
+
+	* NEWS, doc/manual/manual.tex, examples/filetest/filetest.ml, examples/hello/hello.ml, examples/mod_caml/cthello.ml.in, examples/thread/thread_test.ml, src/camlTemplate.ml, src/camlTemplate.mli, src/camlTemplateInit.ml, src/ctAst.ml, src/ctBinop.ml, src/ctContext.ml, src/ctExceptions.ml, src/ctExpression.ml, src/ctFunctionCall.ml, src/ctHashLookup.ml, src/ctIdent.ml, src/ctLexer.mll, src/ctLiteral.ml, src/ctMacro.ml, src/ctParser.mly, src/ctParserAux.ml, src/ctScope.ml, src/ctSourcePos.ml, src/ctStatement.ml, src/ctTemplateModel.ml, src/ctUnop.ml, src/ctUtil.ml, src/ctWeb.ml:
+	Updated NEWS and copyright date.
+
+2003-12-28  Benjamin Geer  <ben AT socialtools.net>
+
+	* NEWS, TODO, doc/manual/manual.tex, examples/filetest/coleridge.html.saved, examples/filetest/coleridge.tmpl, examples/filetest/filetest.ml, examples/filetest/macro.tmpl, src/Makefile, src/camlTemplate.ml, src/camlTemplate.mli, src/camlTemplateInit.ml, src/ctBinop.ml, src/ctContext.ml, src/ctExpression.ml, src/ctFunctionCall.ml, src/ctHashLookup.ml, src/ctIdent.ml, src/ctLexer.mll, src/ctLiteral.ml, src/ctMacro.ml, src/ctParser.mly, src/ctParserAux.ml, src/ctScope.ml, src/ctStatement.ml, src/ctTemplateModel.ml, src/ctUnop.ml, src/ctUtil.ml, src/ctWeb.ml:
+	Implemented nested scopes and namespaces.
+
+2003-12-14  Benjamin Geer  <ben AT socialtools.net>
+
+	* doc/manual/manual.tex, examples/filetest/filetest.ml, examples/hello/hello.ml, examples/mod_caml/cthello.ml.in, examples/thread/thread_test.ml, src/camlTemplate.ml, src/camlTemplate.mli, src/ctBinop.ml, src/ctExceptions.ml, src/ctExpression.ml, src/ctFunctionCall.ml, src/ctHashLookup.ml, src/ctIdent.ml, src/ctLexer.mll, src/ctLiteral.ml, src/ctMacro.ml, src/ctParser.mly, src/ctStatement.ml, src/ctTemplateModel.ml, src/ctUnop.ml, src/ctWeb.ml:
+	Shortened the names of the template_value types, and made the names of
+	exception types follow Caml conventions.
+
+2003-12-13  Benjamin Geer  <ben AT socialtools.net>
+
+	* examples/filetest/filetest.ml, src/ctLexer.mll, src/ctParser.mly, test/test.sh, Makefile, doc/manual/manual.tex:
+	Extended literal syntax to be more like OCaml's.  Updated manual to mention
+	floats.
+
+	* TODO, examples/filetest/coleridge.html.saved, examples/filetest/coleridge.tmpl, src/ctBinop.ml, src/ctExpression.ml, src/ctLexer.mll, src/ctUnop.ml:
+	Finished implementing TemplateFloat.
+
+2003-12-12  Benjamin Geer  <ben AT socialtools.net>
+
+	* TODO: Reworked ideas about the module system.
+
+2003-12-04  Benjamin Geer  <ben AT socialtools.net>
+
+	* TODO: Updated TODO.
+
+	* TODO: Revised TODO.
+
+	* TODO, src/camlTemplate.mli, src/ctExpression.ml, src/ctLexer.mll, src/ctLiteral.ml, src/ctParser.mly, src/ctTemplateModel.ml:
+	Started adding TemplateFloat.
+
+2003-12-02  Benjamin Geer  <ben AT socialtools.net>
+
+	* TODO, doc/manual/manual.tex, src/ctIdent.ml, src/ctLiteral.ml, src/ctMacro.ml, src/ctParser.mly, src/ctStatement.ml:
+	Allowed calling a macro with fewer arguments than it was defined with.
+	Made error messages a bit more readable.
+
+2003-12-01  Benjamin Geer  <ben AT socialtools.net>
+
+	* examples/filetest/coleridge.html.saved, examples/filetest/coleridge.tmpl, src/ctLexer.mll:
+	Changed lexer to allow #else# and #end#, to facilitate writing a template
+	all on one line.
+
+	* TODO: Added TODO items.
+
+2003-11-30  Benjamin Geer  <ben AT socialtools.net>
+
+	* doc/manual/manual.tex, src/camlTemplate.mli, src/ctWeb.ml:
+	Added asList web function.
+
+	* doc/manual/manual.tex, src/Makefile: Doc and build fixes.
+
+	* src/ctParser.mly, src/ctParserAux.ml, src/ctSourcePos.ml, src/ctStatement.ml, src/ctTemplateModel.ml, src/ctUnop.ml, src/ctUtil.ml, src/ctWeb.ml, doc/manual/manual.tex, examples/filetest/filetest.ml, examples/hello/hello.ml, examples/mod_caml/Makefile, examples/mod_caml/cthello.ml, examples/mod_caml/cthello.ml.in, examples/thread/thread_test.ml, src/camlTemplate.ml, src/camlTemplate.mli, src/camlTemplateInit.ml, src/ctAst.ml, src/ctBinop.ml, src/ctExceptions.ml, src/ctExpression.ml, src/ctFunctionCall.ml, src/ctHashLookup.ml, src/ctIdent.ml, src/ctLexer.mll, src/ctLiteral.ml, src/ctMacro.ml:
+	Added licence exception to allow linking with Apache.
+
+2003-11-29  Benjamin Geer  <ben AT socialtools.net>
+
+	* src/camlTemplate.mli: Removed needless 'open' in camlTemplate.mli.
+
+	* NEWS, TODO, doc/manual/manual.tex, examples/filetest/coleridge.html.saved, examples/filetest/coleridge.tmpl, examples/mod_caml/Makefile, src/META, src/ctHashLookup.ml, src/ctLexer.mll, src/ctParser.mly, test/test.sh:
+	Added a bracket operator for calculating a hash key at run time.
+
+2003-11-01  Benjamin Geer  <ben AT socialtools.net>
+
+	* Makefile:
+	Added 'webinstall' Makefile target to add distribution to SauceCode site.
+
+2003-10-20  Benjamin Geer  <ben AT socialtools.net>
+
+	* doc/manual/manual.tex:
+	Changed incorrect UTF-8 copyright character to Latin-1.
+
+2003-10-09  Benjamin Geer  <ben AT socialtools.net>
+
+	* Makefile, ReleaseChecklist:
+	Added release checklist and Makefile comments.
+
+	* doc/manual/manual.tex: Fixed typo in manual.
+
+	* ChangeLog, NEWS, doc/manual/manual.tex:
+	Updated NEWS and manual for release.
+
+	* src/Makefile, ChangeLog: Use +pcre in Makefile.
+
+	* ChangeLog, doc/manual/manual.tex, src/META, src/Makefile:
+	Not so spurious after all...
+
+2003-10-08  Benjamin Geer  <ben AT socialtools.net>
+
+	* src/Makefile: Removed spurious LIBDIR in Makefile.
+
+	* INSTALL, doc/manual/manual.tex, src/META, src/Makefile, src/ctWeb.ml:
+	Switched from Str to Pcre because Str isn't thread-safe.
+
+	* NEWS: Added missing item to NEWS.
+
+	* ChangeLog: Updated ChangeLog.
+
+	* NEWS, doc/manual/manual.tex, examples/filetest/coleridge.html.saved, examples/filetest/coleridge.tmpl, examples/filetest/filetest.ml, examples/filetest/footer.tmpl, src/META, src/camlTemplate.ml, src/ctHashLookup.ml, src/ctMacro.ml:
+	Bug fix: when an error occurred in a macro template, the name
+	of the macro template was not reported in the exception message.
+	Added GPL notice to manual.  Clarified hash-lookup exception mesages.
+	Fixed META to include native-code version of the library.
+
+	* INSTALL, Makefile, TODO, doc/manual/manual.tex, examples/Makefile, examples/filetest/filetest.ml, examples/hello/hello.ml, examples/mod_caml/cthello.ml, examples/thread/thread_test.ml, src/camlTemplate.ml, src/camlTemplate.mli, src/camlTemplateInit.ml, src/ctAst.ml, src/ctBinop.ml, src/ctExceptions.ml, src/ctExpression.ml, src/ctFunctionCall.ml, src/ctHashLookup.ml, src/ctIdent.ml, src/ctLexer.mll, src/ctLiteral.ml, src/ctMacro.ml, src/ctParser.mly, src/ctParserAux.ml, src/ctSourcePos.ml, src/ctStatement.ml, src/ctTemplateModel.ml, src/ctUnop.ml, src/ctUtil.ml, src/ctWeb.ml:
+	Changed (C) to a real copyright symbol in the source code headers.
+	Updated docs to reflect support in mod_caml 0.9.3.  Added a TODO.
+
+	* doc/manual/manual.tex: Added note about threads and Apache 2.0.
+
+	* INSTALL, TODO: Added TODO for multithreading in Apache 2.0.
+
+2003-10-07  Benjamin Geer  <ben AT socialtools.net>
+
+	* INSTALL, Makefile, TODO, doc/manual/manual.tex, examples/filetest/coleridge.html.saved, test/test.sh:
+	Added 'make test'.
+
+	* AUTHORS: Added AUTHORS.
+
+	* TODO: Added a TODO.
+
+	* NEWS: Added NEWS.
+
+	* INSTALL, doc/manual/manual.tex, mod_caml.patch, src/META, src/camlTemplate.mli, src/ctExpression.ml:
+	Deleted mod_caml.patch, since it has been incorprated into mod_caml, and
+	and updated the documentation accordingly.  Clarified type conversion in
+	the manual.  Fixed some code comments, and an exception string.
+
+	* src/camlTemplate.ml, src/ctUtil.ml: Changed bash-ism to sh-ism.
+
+	* examples/filetest/coleridge.tmpl, examples/filetest/filetest.ml, examples/filetest/footer.tmpl, examples/filetest/macro.tmpl:
+	Fixed macro to use new escHtml function.
+
+	* TODO, src/Makefile, src/camlTemplate.ml, src/camlTemplate.mli, src/ctWeb.ml:
+	Added functions for escaping URLs and HTML text.
+
+	* INSTALL, doc/manual/manual.tex, mod_caml.patch, src/Makefile, src/camlTemplate.ml, src/camlTemplate.mli, src/camlTemplateInit.ml:
+	Updated mod_caml patch and instructions for mod_caml 0.9.2, using Richard
+	Jones's suggestion of an initialisation module.
+
+2003-10-06  Benjamin Geer  <ben AT socialtools.net>
+
+	* src/ctAst.ml: Comment fix.
+
+	* src/camlTemplate.ml, src/ctStatement.ml: Fixed some comments.
+
+	* src/camlTemplate.ml:
+	Possibly better handling of I/O errors when reading template files.
+
+	* src/camlTemplate.ml, src/ctExceptions.ml, src/ctLexer.mll:
+	Renamed CtLexerError -> LexerError (which had got a Ct mistakenly
+	tacked on to it).
+
+	* doc/manual/manual.tex:
+	Changed OCaml link to point to caml.inria.fr, since it seems to get
+	updated more often.
+
+	* doc/manual/manual.tex: Grammar correction.
+
+	* TODO: Added TODO item.
+
+	* doc/manual/manual.tex: Formatting fixes.
+
+	* doc/manual/manual.tex: Corrected section about multithreading.
+
+	* Makefile, doc/manual/manual.tex, src/META:
+	Increased version number to 0.5.1.
+
+	* ChangeLog: Updated ChangeLog.
+
+	* doc/manual/manual.tex: Reordered material in the manual.
+
+	* Makefile.config:
+	Fixed instructions in Makefile.config so people don't unnecessarily
+	have to rebuild the docs.
+
+	* doc/manual/manual.tex:
+	Mentioned PDF and PostScript versions of the manual in the manual itself.
+
+	* ChangeLog: Updated ChangeLog.
+
+	* doc/Makefile:
+	Fixed bug in Makefile: missing documentation image in distribution archive.
+
+2003-10-05  Benjamin Geer  <ben AT socialtools.net>
+
+	* doc/manual/manual.tex: Fixed date in manual.
+
+	* ChangeLog: Updated ChangeLog.
+
+	* ChangeLog, INSTALL, doc/manual/manual.tex: Minor documentation fixes.
+
+	* ChangeLog, TODO, examples/thread/README: Updated TODO.
+
+	* INSTALL, Makefile, Makefile.config, doc/manual/manual.tex, examples/Makefile, examples/mod_caml/Makefile, examples/mod_caml/README, examples/mod_caml/cthello.ml, mod_caml.patch, src/Makefile, src/camlTemplate.ml, src/camlTemplate.mli, src/ctUtil.ml:
+	Finally got it to work with mod_caml!
+
+	* doc/manual/manual.tex:
+	It's important to mention UTF-8, but we can take ISO-8859-n for granted.
+
+	* doc/manual/manual.tex: Small correction in manual.
+
+	* TODO, doc/manual/manual.tex, examples/mod_caml/README:
+	Reorganised the introductory material in the manual.  Added a TODO
+	for mod_caml.
+
+2003-10-05  Benjamin Geer  <ben AT socialtools.net>
+
+	* ChangeLog, INSTALL, doc/manual/manual.tex: Minor documentation fixes.
+
+	* ChangeLog, TODO, examples/thread/README: Updated TODO.
+
+	* INSTALL, Makefile, Makefile.config, doc/manual/manual.tex, examples/Makefile, examples/mod_caml/Makefile, examples/mod_caml/README, examples/mod_caml/cthello.ml, mod_caml.patch, src/Makefile, src/camlTemplate.ml, src/camlTemplate.mli, src/ctUtil.ml:
+	Finally got it to work with mod_caml!
+
+	* doc/manual/manual.tex:
+	It's important to mention UTF-8, but we can take ISO-8859-n for granted.
+
+	* doc/manual/manual.tex: Small correction in manual.
+
+	* TODO, doc/manual/manual.tex, examples/mod_caml/README:
+	Reorganised the introductory material in the manual.  Added a TODO
+	for mod_caml.
+
+2003-10-04  Benjamin Geer  <ben AT socialtools.net>
+
+	* ChangeLog: Added ChangeLog.
+
+	* README, doc/Makefile, doc/manual/manual.tex, examples/thread/thread_test.ml, examples/thread/thread_test.tmpl:
+	Small improvements to examples and manual.
+
+	* doc/manual/manual.tex: Small additions to the documentation.
+
+	* examples/Makefile, examples/thread/Makefile, examples/thread/thread_test.ml, examples/thread/thread_test.tmpl:
+	Added multithreading example.
+
+	* INSTALL, Makefile, README, TODO, doc/Makefile, doc/manual/manual.tex, src/META, src/camlTemplate.mli:
+	Minor cleanups.
+
+	* examples/Makefile: Fixed Makefile.
+
+	* Makefile, doc/manual/manual.tex, examples/filetest/filetest.ml, src/Makefile, src/camlTemplate.mli, src/ctExpression.ml, src/ctFunctionCall.ml, src/ctMethodCall.ml, src/ctParser.mly, src/ctTemplateModel.ml:
+	Improved documentation.  Renamed TemplateMethod -> TemplateFunction.
+
+2003-10-03  Benjamin Geer  <ben AT socialtools.net>
+
+	* examples/mod_caml/Makefile:
+	Trying to get the mod_caml example to work...
+
+2003-10-02  Benjamin Geer  <ben AT socialtools.net>
+
+	* src/expression.ml, src/hashLookup.ml, src/ident.ml, src/lexer.mll, src/literal.ml, src/macro.ml, src/methodCall.ml, src/parser.mly, src/parserAux.ml, src/sourcePos.ml, src/statement.ml, src/templateModel.ml, src/unop.ml, src/util.ml, Makefile, doc/manual/manual.tex, examples/mod_caml/Makefile, src/Makefile, src/ast.ml, src/binop.ml, src/camlTemplate.ml, src/camlTemplate.mli, src/ctAst.ml, src/ctBinop.ml, src/ctExceptions.ml, src/ctExpression.ml, src/ctHashLookup.ml, src/ctIdent.ml, src/ctLexer.mll, src/ctLiteral.ml, src/ctMacro.ml, src/ctMethodCall.ml, src/ctParser.mly, src/ctParserAux.ml, src/ctSourcePos.ml, src/ctStatement.ml, src/ctTemplateModel.ml, src/ctUnop.ml, src/ctUtil.ml, src/exceptions.ml:
+	Prefixed all internal modules with 'Ct'.
+
+	* examples/mod_caml/Makefile, examples/mod_caml/README, examples/mod_caml/cthello.ml, examples/mod_caml/cthello.tmpl:
+	Added a (currently non-working) mod_caml example.
+
+	* INSTALL, Makefile, TODO, doc/manual/manual.tex, examples/filetest/Makefile, examples/hello/Makefile, src/META, src/Makefile:
+	Build/install changes.
+
+2003-09-30  Benjamin Geer  <ben AT socialtools.net>
+
+	* doc/manual/manual.tex: Fixed LaTeX syntax errors.
+
+	* doc/manual/manual.tex, examples/hello/hello.ml, src/exceptions.ml, src/lexer.mll, src/parser.mly, src/statement.ml:
+	Updated documentation.
+
+	* doc/Makefile: Trivial change.
+
+	* doc/Makefile, doc/manual/manual.tex, doc/manual/merge.dia, doc/manual/merge.eps, examples/hello/Makefile, examples/hello/hello.ml, examples/hello/hello.tmpl:
+	New documentation and example.
+
+	* Makefile, examples/Makefile, examples/filetest/Makefile, examples/filetest/coleridge.tmpl, examples/filetest/filetest.ml, src/Makefile, src/binop.ml, src/camlTemplate.ml, src/camlTemplate.mli, src/expression.ml, src/hashLookup.ml, src/ident.ml, src/literal.ml, src/macro.ml, src/methodCall.ml, src/parser.mly, src/statement.ml, src/unop.ml:
+	Lots of changes.
+
+2003-09-26  Benjamin Geer  <ben AT socialtools.net>
+
+	* TODO, src/Makefile, src/macro.ml, src/parser.mly, src/statement.ml:
+	Changed syntax to allow full expressions in #include directives.
+	Moved macro code into a separate module.
+
+	* TODO: Updated TODO.
+
+	* src/camlTemplate.ml: Reformatted.
+
+	* src/camlTemplate.ml: Fixed off-by-one error.
+
+	* examples/filetest/.cvsignore: Added .cvsignore.
+
+	* TODO, src/Makefile, src/camlTemplate.ml, src/camlTemplate.mli, src/util.ml:
+	Added a mutex to support multithreaded programs.
+
+	* examples/filetest/coleridge.tmpl, examples/filetest/filetest.ml, examples/filetest/footer.tmpl, src/camlTemplate.ml, src/camlTemplate.mli, src/exceptions.ml, src/lexer.mll:
+	Modified syntax so dollar signs can be used unescaped when not followed
+	by an open brace.  Added a safety net to catch unhandled Parse_error
+	exceptions.
+
+	* TODO: Updated TODO.
+
+	* examples/filetest/footer.tmpl, examples/filetest/macro.tmpl, src/camlTemplateModel.ml, src/templateModel.ml:
+	Aded missing files.
+
+	* examples/filetest/coleridge.tmpl, examples/filetest/filetest.ml, src/ast.ml, src/binop.ml, src/camlTemplate.ml, src/camlTemplate.mli, src/exceptions.ml, src/expression.ml, src/hashLookup.ml, src/ident.ml, src/lexer.mll, src/literal.ml, src/methodCall.ml, src/parser.mly, src/parserAux.ml, src/sourcePos.ml, src/statement.ml, src/unop.ml, src/util.ml:
+	Added CVS Id keywords.
+
+2003-09-25  Benjamin Geer  <ben AT socialtools.net>
+
+	* examples/filetest/Makefile, examples/filetest/filetest.ml, src/Makefile, src/binop.ml, src/camlTemplate.ml, src/camlTemplate.mli, src/exceptions.ml, src/expression.ml, src/hashLookup.ml, src/ident.ml, src/lexer.mll, src/literal.ml, src/methodCall.ml, src/parser.mly, src/statement.ml, src/unop.ml:
+	Reorganised the modules in the API, so they're nested now.
+
+	* src/lexer.mll: Simplified comment implementation.
+
+	* TODO, examples/filetest/coleridge.tmpl, src/camlTemplate.ml, src/lexer.mll:
+	Added support for comments in templates.
+
+2003-09-24  Benjamin Geer  <ben AT socialtools.net>
+
+	* TODO, examples/filetest/filetest.ml, src/camlTemplate.ml, src/camlTemplate.mli, src/statement.ml:
+	Reworked template cache.
+
+	* src/camlTemplate.ml: Modifications to cache.
+
+2003-09-23  Benjamin Geer  <ben AT socialtools.net>
+
+	* TODO: More notes.
+
+2003-09-22  Benjamin Geer  <ben AT socialtools.net>
+
+	* TODO: Cache implementation notes.
+
+2003-09-21  Benjamin Geer  <ben AT socialtools.net>
+
+	* TODO, examples/filetest/coleridge.tmpl, src/lexer.mll, src/parser.mly:
+	Fixed bugs in macro implementation.
+
+	* src/Makefile, src/camlTemplate.ml, src/exceptions.ml, src/parser.mly, src/parserAux.ml, src/statement.ml:
+	Added support for macros (not tested yet).
+
+	* TODO, examples/filetest/coleridge.tmpl, examples/filetest/filetest.ml, src/Makefile, src/binop.ml, src/camlTemplate.ml, src/camlTemplate.mli, src/camlTemplateModel.ml, src/exceptions.ml, src/expression.ml, src/hashLookup.ml, src/ident.ml, src/lexer.mll, src/literal.ml, src/methodCall.ml, src/parser.mly, src/statement.ml, src/unop.ml:
+	Added a directive for including templates in templates.  Added a template
+	cache.
+
+2003-09-20  Benjamin Geer  <ben AT socialtools.net>
+
+	* TODO: Idea.
+
+	* TODO: Added TODO items.
+
+	* examples/filetest/coleridge.tmpl, examples/filetest/filetest.ml, src/lexer.mll:
+	Fixed the eating of newlines after a directive.
+
+	* examples/filetest/coleridge.tmpl: Added UTF-8 test text.
+
+	* src/camlTemplate.ml: Doc fix.
+
+	* src/Makefile, src/camlTemplate.ml, src/camlTemplate.mli:
+	Cleaned up ocamldoc.
+
+	* Makefile: Makefile fixes.
+
+	* Makefile, README, src/Makefile: Small fixes.
+
+	* COPYING, Makefile, OCamlMakefile, TODO, examples/Makefile, examples/filetest/Makefile, examples/filetest/coleridge.tmpl, examples/filetest/filetest.ml, src/Makefile, src/ast.ml, src/binop.ml, src/camlTemplate.ml, src/camlTemplate.mli, src/camlTemplateModel.ml, src/exceptions.ml, src/expression.ml, src/hashLookup.ml, src/ident.ml, src/lexer.mll, src/literal.ml, src/methodCall.ml, src/parser.mly, src/sourcePos.ml, src/statement.ml, src/unop.ml, src/util.ml:
+	Imported sources

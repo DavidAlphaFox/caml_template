@@ -1,0 +1,17 @@
+#! /bin/sh
+#
+# $Id: collect_files,v 1.2 2004-05-02 15:52:19 ben Exp $
+# ----------------------------------------------------------------------
+#
+# usage: collect_files file ...
+#
+# Prints the names of the files passed as arguments which actually
+# exist and are regular files.
+#
+# Thanks to Gerd Stolpmann for this script.
+
+for x in "$@"; do
+    if [ -f "$x" ]; then
+	echo "$x"
+    fi
+done
